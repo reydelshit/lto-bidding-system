@@ -36,7 +36,12 @@ export default function Login() {
         if (res.data) {
           localStorage.setItem('lto_bidding_token', res.data[0].account_id);
           localStorage.setItem('lto_accountType', res.data[0].account_type);
-          window.location.href = '/admin';
+
+          if (res.data[0].account_type === 'admin') {
+            window.location.href = '/admin';
+          } else {
+            window.location.href = '/';
+          }
         }
       });
   };

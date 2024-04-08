@@ -20,6 +20,8 @@ const monthlyVisits = [
 const Dashboard = () => {
   return (
     <div className="mt-[2rem]">
+      <h1 className="my-4 text-2xl font-bold">Dashboard</h1>
+
       <div className="flex gap-4">
         <CardCompo
           title="TOTAL NUMBER OF PATIENTS"

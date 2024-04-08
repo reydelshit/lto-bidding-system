@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Admin from './admin/Admin';
-import Dashboard from './bidder/Dashboard';
+// import Dashboard from './bidder/Dashboard';
 import User from './bidder/User';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -14,7 +14,7 @@ function App() {
 
         <Route>
           <Route path="/" element={<User />} />
-          <Route path="/dashboad" element={<Dashboard />} />
+          {/* <Route path="/dashboad" element={<Dashboard />} /> */}
         </Route>
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/*" element={<Admin />} />
