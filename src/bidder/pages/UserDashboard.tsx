@@ -17,6 +17,8 @@ const Dashboard = () => {
 
   const [showQRDecider, setShowQRDecider] = useState(false);
   const [qrCodeID, setQRCodeID] = useState(0);
+  const [slotAvailable, setSlotAvailable] = useState('');
+  const [slotLimitDisabled, setSlotLimitDisabled] = useState(false);
 
   const account_id = localStorage.getItem('lto_bidding_token');
 
@@ -26,11 +28,12 @@ const Dashboard = () => {
     account_id: account_id,
   });
   const [bidAmount, setBidAmount] = useState(0);
+  const [limitMessage, setLimitMessage] = useState('' as string);
 
   const isVip = localStorage.getItem('lto_vip') === 'true';
 
   const filteredProducts = product.filter((prod) => {
-    return isVip ? true : prod.is_vip !== 1;
+    return isVip ? true : parseInt(prod.is_vip) !== 1;
   });
 
   const fetchProduct = async () => {
@@ -63,13 +66,31 @@ const Dashboard = () => {
   const handleShowPlaceBid = (
     product_id: number,
     account_id: string | null,
+    available_slot: string,
   ) => {
     setShowPlaceBid(true);
 
+    console.log(available_slot, 'slot');
     setProdAccID({
       product_id,
       account_id: account_id!,
     });
+    setSlotAvailable(available_slot);
+
+    axios
+      .get(`${import.meta.env.VITE_LTO_BIDDING_LOCAL_HOST}/count-bid.php`, {
+        params: {
+          product_id,
+        },
+      })
+      .then((res) => {
+        if (isNaN(parseInt(available_slot))) return;
+
+        if (res.data[0].count >= parseInt(available_slot)) {
+          setSlotLimitDisabled(true);
+          setLimitMessage('Slot limit reached');
+        }
+      });
   };
 
   const handlePlaceBid = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -103,7 +124,7 @@ const Dashboard = () => {
             className="flex w-[20rem] flex-col rounded-md border-2 p-2"
           >
             <div className="my-2 flex justify-between">
-              {item.is_vip === 1 ? (
+              {parseInt(item.is_vip) === 1 ? (
                 <img src={VIP} alt="vip" className="h-[2rem] w-[2rem]" />
               ) : (
                 <div></div>
@@ -144,7 +165,11 @@ const Dashboard = () => {
                   </Button>
                   <Button
                     onClick={() =>
-                      handleShowPlaceBid(item.product_id, account_id)
+                      handleShowPlaceBid(
+                        item.product_id,
+                        account_id,
+                        item.available_slot,
+                      )
                     }
                     className="rounded-md bg-green-500 p-2 text-white"
                   >
@@ -176,9 +201,21 @@ const Dashboard = () => {
       {showPlaceBid && (
         <div className="absolute right-0 top-0 flex h-full w-full justify-center bg-white bg-opacity-80">
           <div className="relative mt-[5rem] flex h-[15rem] w-[40rem] flex-col items-start justify-center gap-10 rounded-md border-2 bg-white p-4 text-start">
-            <h1 className="mb-[-1rem]  text-[2rem] font-bold">
-              Enter your bidding
-            </h1>
+            <div className="mb-[-1rem] flex w-full justify-between text-[2rem] ">
+              <h1 className="font-bold">Enter your bidding</h1>
+
+              {slotLimitDisabled ? (
+                <span className="block font-semibold text-red-500">
+                  {limitMessage}
+                </span>
+              ) : isNaN(parseInt(slotAvailable)) ? (
+                <span className="block font-semibold">No limit</span>
+              ) : (
+                <span className="block font-semibold">
+                  Available slots: {slotAvailable}
+                </span>
+              )}
+            </div>
             <div className="w-full ">
               <form onSubmit={handlePlaceBid}>
                 <Label className="my-4 block">Amount</Label>
@@ -187,12 +224,15 @@ const Dashboard = () => {
                   required
                   type="text"
                   placeholder="Enter amount"
+                  disabled={slotLimitDisabled}
                 />
 
                 <div className="mt-2 flex w-full justify-end gap-5">
                   <Button onClick={() => setShowPlaceBid(false)}>Cancel</Button>
 
-                  <Button type="submit">Place Bid</Button>
+                  <Button disabled={slotLimitDisabled} type="submit">
+                    Place Bid
+                  </Button>
                 </div>
               </form>
             </div>

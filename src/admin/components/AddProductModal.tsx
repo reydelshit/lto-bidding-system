@@ -25,6 +25,8 @@ export default function AddProductModal({
 }) {
   const [product, setProduct] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('' as string);
+  const [selectedSlot, setSelectedSlot] = useState('' as string);
+
   const [isVip, setIsVip] = useState(false);
 
   const [image, setImage] = useState<string | null>(null);
@@ -49,6 +51,7 @@ export default function AddProductModal({
         product_condition: selectedCategory,
         image_path: image,
         is_vip: isVip ? 1 : 0,
+        avaialable_slot: selectedSlot,
       })
       .then((res) => {
         console.log(res.data);
@@ -77,6 +80,12 @@ export default function AddProductModal({
   const handleConditionType = (event: string) => {
     const selectedValue = event;
     setSelectedCategory(selectedValue);
+    // console.log(selectedValue);
+  };
+
+  const handleSlot = (event: string) => {
+    const selectedValue = event;
+    setSelectedSlot(selectedValue);
     // console.log(selectedValue);
   };
 
@@ -188,14 +197,33 @@ export default function AddProductModal({
               </div>
             </div>
 
-            <div className="item-start flex w-full flex-col  p-4 ">
-              <Label className="mb-2 text-start">Bidding Until Date</Label>
-              <Input
-                type="datetime-local"
-                name="date_until"
-                className="mb-2"
-                onChange={handleChange}
-              />
+            <div className="flex w-full gap-2">
+              <div className="item-start flex w-[50%] flex-col  p-4 ">
+                <Label className="mb-2 text-start">Bidding Until Date</Label>
+                <Input
+                  type="datetime-local"
+                  name="date_until"
+                  className="mb-2 w-full"
+                  onChange={handleChange}
+                />
+              </div>
+              <div className=" w-[50%] p-4 text-start">
+                <Label className="mb-4 block">Slot Available</Label>
+
+                <Select value={selectedSlot} onValueChange={handleSlot}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Slotss.." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="10">10</SelectItem>
+                    <SelectItem value="30">30</SelectItem>
+                    <SelectItem value="50">50</SelectItem>
+                    <SelectItem value="70">50</SelectItem>
+                    <SelectItem value="100">100</SelectItem>
+                    <SelectItem value="-">No Limit</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
             <div className="item-start flex w-full flex-col  p-4 ">

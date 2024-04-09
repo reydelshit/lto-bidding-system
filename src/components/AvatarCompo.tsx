@@ -11,6 +11,7 @@ import BiddingNotificationItem from './NotificationItem';
 import { Button } from './ui/button';
 import LTO from '@/assets/lto.png';
 import VIP from '@/assets/crown.png';
+import { Link } from 'react-router-dom';
 
 interface VipType {
   account_id: string;
@@ -150,9 +151,16 @@ const AvatarCompo = () => {
             </div>
           </PopoverTrigger>
           <PopoverContent className="flex flex-col gap-2">
-            {/* {!profile.account_type.includes('admin') && (
-              <Button>SUBSCRIBE VIP</Button>
-            )} */}
+            {profile.account_type === 'admin' ? (
+              <Button>
+                <Link to="/admin/calendar">CALENDAR</Link>
+              </Button>
+            ) : (
+              <Button>
+                <Link to="/view-calendar">VIEW CALENDAR</Link>
+              </Button>
+            )}
+
             {vipStatus.length > 0 ? (
               <Button onClick={handleUnSubscribeVip}>UNSUBSCRIBE VIP</Button>
             ) : (

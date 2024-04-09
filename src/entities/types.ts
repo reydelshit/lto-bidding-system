@@ -10,9 +10,11 @@ export type ProductType = {
   image_path?: string;
   description: string;
   amt: number;
-  is_vip: number;
+  is_vip: string;
   createdOn?: string;
   amount_bid?: number;
+
+  available_slot: string;
 };
 
 export type BiddingsType = {
@@ -31,6 +33,7 @@ export type BiddingsType = {
   fname: string;
 
   is_vip: number;
+  available_slot: string;
 };
 
 export type BiddersType = {

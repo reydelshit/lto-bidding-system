@@ -8,6 +8,7 @@ import Payments from './pages/Payments';
 import AdminBidH from './pages/AdminBidH';
 import ViewAdminBidH from './pages/ViewAdminBidH';
 import AvatarCompo from '@/components/AvatarCompo';
+import Calendar from './pages/Calendar';
 
 const Admin = () => {
   return (
@@ -63,6 +64,7 @@ const Admin = () => {
           <Route path="/payments" element={<Payments />} />
           <Route path="/bid-history" element={<AdminBidH />} />
           <Route path="/bid-history/:id" element={<ViewAdminBidH />} />
+          <Route path="/calendar" element={<Calendar />} />
         </Routes>
       </div>
     </div>
