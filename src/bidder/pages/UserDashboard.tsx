@@ -148,7 +148,9 @@ const Dashboard = () => {
       {showQRDecider && (
         <div className="absolute bottom-0 top-0 flex h-screen w-dvw items-center justify-center  bg-white bg-opacity-85">
           <div className="flex h-[80%] w-[80%] flex-col items-center justify-center">
-            <Button onClick={() => setShowQRDecider(false)}>Close</Button>
+            <Button className="mb-4" onClick={() => setShowQRDecider(false)}>
+              Close
+            </Button>
             <QRCode
               size={256}
               style={{ height: 'auto', maxWidth: '50%', width: '50%' }}

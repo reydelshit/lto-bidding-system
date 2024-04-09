@@ -150,6 +150,7 @@ const MyBids = () => {
     <div className="relative h-full">
       <UserNavigation />
 
+      <h1 className="my-2 text-[2rem]">MY BIDS</h1>
       <div className="my-2 flex w-full items-center justify-between">
         <Input
           onChange={(e) => setSearchProduct(e.target.value)}
@@ -188,50 +189,49 @@ const MyBids = () => {
                   <TableCell>{bid.max_bid_for_product}</TableCell>
                   <TableCell>
                     {bid.status === 0 && (
-                      <span className="rounded-md bg-violet-500 p-1 text-white">
+                      <span className="block  w-[10rem] rounded-md bg-violet-500 p-1 text-center text-white">
                         Ongoing Bidding
                       </span>
                     )}
                     {bid.status === 1 && (
-                      <span className="rounded-md bg-green-500 p-1 text-white">
-                        Won
+                      <span className="block w-[10rem]  rounded-md bg-green-500 p-1 text-center text-white">
+                        Winner
                       </span>
                     )}
                     {bid.status === 2 && (
-                      <span className="rounded-md bg-red-500 p-1 text-white">
-                        Lost
+                      <span className="block w-[10rem]  rounded-md bg-red-500 p-1 text-center text-white">
+                        Lose
                       </span>
                     )}
                   </TableCell>
 
                   <TableCell>
-                    {bid.payment_status === 0 && (
-                      <span className="text-yellow-500">Not paid</span>
-                    )}
-                    {bid.payment_status === 1 && (
-                      <span className="text-green-500">Payment approved</span>
-                    )}
-                    {bid.payment_status === 2 && (
-                      <span className="text-red-500">Payment rejected</span>
-                    )}
+                    {bid.status === 1 &&
+                      (bid.payment_status === 0 ? (
+                        <span className="text-yellow-500">Not paid</span>
+                      ) : bid.payment_status === 1 ? (
+                        <span className="text-green-500">Payment approved</span>
+                      ) : (
+                        <span className="text-red-500">Payment rejected</span>
+                      ))}
                   </TableCell>
 
                   <TableCell>
                     <div className="flex gap-4">
-                      {bid.status === 1 && (
-                        <Button
-                          onClick={() =>
-                            handleShowPayment(
-                              bid.product_id,
-                              bid.max_bid_for_product,
-                            )
-                          }
-                          className="w-[6rem] rounded-md bg-green-500 p-1 text-white"
-                          disabled={bid.payment_status === 1}
-                        >
-                          Pay Now
-                        </Button>
-                      )}
+                      <Button
+                        onClick={() =>
+                          handleShowPayment(
+                            bid.product_id,
+                            bid.max_bid_for_product,
+                          )
+                        }
+                        className="w-[6rem] rounded-md bg-green-500 p-1 text-white"
+                        disabled={
+                          bid.payment_status === 1 || bid.payment_status === 2
+                        }
+                      >
+                        Pay Now
+                      </Button>
 
                       {bid.payment_status === 0 || bid.payment_status === 2 ? (
                         <Button disabled className="w-[6rem] text-green-500">
