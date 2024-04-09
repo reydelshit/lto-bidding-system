@@ -20,6 +20,7 @@ import { Label } from '@/components/ui/label';
 import { EventInput } from '@fullcalendar/core';
 
 import axios from 'axios';
+import UserNavigation from '../UserNavigation';
 
 export default function ViewCalendar() {
   const [state, setState] = useState({
@@ -192,6 +193,7 @@ export default function ViewCalendar() {
 
   return (
     <div className="relative mt-[2rem] w-full">
+      <UserNavigation />
       {/* {addCalendar && (
         <div className="absolute z-20 my-auto flex h-full w-full justify-center bg-white bg-opacity-90 p-2 ">
           <div className=" my-5 mt-[12rem] flex h-[15rem] w-[30rem] flex-col gap-2 rounded-md border-2 bg-white p-4">
@@ -221,7 +223,7 @@ export default function ViewCalendar() {
         </div>
       )} */}
 
-      <div className="flex h-full w-full  gap-4">
+      <div className="mt-[2rem] flex h-full  w-full gap-4">
         {renderSidebar()}
         <div className="h-[90%] w-[80%]">
           {calendar.length > 0 && (
