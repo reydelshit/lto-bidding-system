@@ -14,6 +14,15 @@ import { BiddersType } from '@/entities/types';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+type Reviews = {
+  description: string;
+  feedback_rating: number;
+  first_name: string;
+  last_name: string;
+  image_path: string;
+  product_name: string;
+};
+
 const Bidders = () => {
   const [bidders, setBidders] = useState<BiddersType[]>([]);
   const [showBiddingProfile, setShowBiddingProfile] = useState<number>(0);
@@ -21,6 +30,8 @@ const Bidders = () => {
   const [searchProduct, setSearchProduct] = useState('');
   const [showBiddingProfileDecider, setShowBiddingProfileDecider] =
     useState(false);
+  const [showReviews, setShowReviews] = useState(false);
+  const [reviews, setReviews] = useState<Reviews[]>([]);
 
   const fetchBidders = async () => {
     await axios
@@ -55,6 +66,22 @@ const Bidders = () => {
   useEffect(() => {
     fetchBidders();
   }, []);
+
+  const handleShowReviews = (account_id: number) => {
+    setShowReviews(true);
+
+    axios
+      .get(`${import.meta.env.VITE_LTO_BIDDING_LOCAL_HOST}/reviews.php`, {
+        params: {
+          account_id: account_id,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setReviews(res.data);
+      });
+  };
+
   return (
     <div className="relative mt-[1rem] w-full rounded-lg bg-white p-2">
       <h1 className="my-4 text-2xl font-bold">Bidders</h1>
@@ -65,13 +92,6 @@ const Bidders = () => {
           className="w-[20rem]"
           placeholder="search bidders.."
         />
-
-        <Button
-          onClick={() => setShowAddProduct(!showAddProduct)}
-          className="self-end bg-[#5d383a]"
-        >
-          {showAddProduct ? 'Close' : 'Add Product'}
-        </Button>
       </div>
 
       <Table>
@@ -82,8 +102,8 @@ const Bidders = () => {
             <TableHead className="w-[20rem] font-bold text-black">
               Status
             </TableHead>
-            <TableHead className="w-[5rem] font-bold text-black">
-              Details
+            <TableHead className="w-[20rem] font-bold text-black">
+              Actions
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -120,11 +140,15 @@ const Bidders = () => {
                     )}
                   </TableCell>
 
-                  <TableCell>
+                  <TableCell className="flex gap-2">
                     <Button
                       onClick={() => handleShowBiddingProfile(bid.account_id)}
                     >
                       Details
+                    </Button>
+
+                    <Button onClick={() => handleShowReviews(bid.account_id)}>
+                      User Reviews
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -133,9 +157,75 @@ const Bidders = () => {
         </TableBody>
       </Table>
 
+      {showReviews && (
+        <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-white bg-opacity-50">
+          <div className="relative mt-[5rem] flex min-h-fit w-[60rem] items-center justify-center gap-10 rounded-2xl bg-white p-2">
+            <Button
+              className="absolute right-5 top-5"
+              onClick={() => setShowReviews(false)}
+            >
+              Close
+            </Button>
+
+            <div className="flex h-fit min-h-[25rem] w-full flex-col items-center justify-center rounded-lg border-2">
+              {reviews.length > 0 ? (
+                reviews.map((review, index) => (
+                  <div
+                    key={index}
+                    className="flex h-fit w-full items-center justify-between gap-4 border-b-2 p-4 "
+                  >
+                    <div className="inline-block">
+                      <div className="flex gap-4">
+                        <h1 className="font-bold">
+                          {review.first_name + review.last_name}
+                        </h1>
+                        <div className="flex items-center">
+                          {Array.from({ length: 5 }, (_, i) => i).map(
+                            (number) => {
+                              const untilWhatNumber = review.feedback_rating;
+                              return (
+                                <svg
+                                  key={number}
+                                  className="mr-1 h-4 w-4 text-yellow-300"
+                                  aria-hidden="true"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill={
+                                    number == untilWhatNumber
+                                      ? 'gray'
+                                      : 'currentColor'
+                                  }
+                                  viewBox="0 0 22 20"
+                                >
+                                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                </svg>
+                              );
+                            },
+                          )}
+                        </div>
+                      </div>
+                      <p>{review.description}</p>
+                    </div>
+
+                    <div>
+                      <h1>{review.product_name}</h1>
+                      <img
+                        className="h-[10rem] w-[10rem] rounded-lg object-cover"
+                        src={review.image_path}
+                      />
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <h1 className="text-[2rem] font-bold">EMPTY REVIEWS 😭</h1>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {showBiddingProfileDecider && (
         <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-white bg-opacity-80">
-          <div className="relative mt-[5rem] flex h-full w-fit items-center justify-center gap-10 rounded-md border-2 bg-white p-2">
+          <div className="relative mt-[5rem] flex h-full w-[60rem] items-center justify-center gap-10 rounded-md border-2 bg-white p-2">
             <Button
               className="absolute right-2 top-2"
               onClick={() => setShowBiddingProfileDecider(false)}
@@ -159,108 +249,81 @@ const Bidders = () => {
               <div className="flex gap-4">
                 <div className="flex w-[100%] flex-col ">
                   <Label className="my-4 block">First Name</Label>
-                  <Input
-                    value={
+                  <span className="rounded-md border-2 p-1">
+                    {
                       bidders.find(
                         (bid) => bid.account_id === showBiddingProfile,
                       )?.first_name
                     }
-                    className="mb-2"
-                    placeholder="First Name"
-                    name="first_name"
-                    disabled
-                  />
+                  </span>
                 </div>
 
                 <div className="flex w-[100%] flex-col">
                   <Label className="my-4 block">Last Name</Label>
-                  <Input
-                    value={
+                  <span className="rounded-md border-2 p-1">
+                    {
                       bidders.find(
                         (bid) => bid.account_id === showBiddingProfile,
                       )?.last_name
                     }
-                    className="mb-2"
-                    placeholder="Last Name"
-                    name="last_name"
-                    disabled
-                  />
+                  </span>
                 </div>
 
                 <div className="flex w-[100%] flex-col">
                   <Label className="my-4 block">Middle Name</Label>
-                  <Input
-                    value={
+
+                  <span className="rounded-md border-2 p-1">
+                    {
                       bidders.find(
                         (bid) => bid.account_id === showBiddingProfile,
                       )?.middle_name
                     }
-                    className="mb-2"
-                    placeholder="Middle Name"
-                    name="middle_name"
-                    disabled
-                  />
+                  </span>
                 </div>
               </div>
 
               <div className="flex gap-4">
                 <div className="flex w-[100%] flex-col">
                   <Label className="my-4 block">Phone Number</Label>
-                  <Input
-                    value={
+                  <span className="rounded-md border-2 p-1">
+                    {
                       bidders.find(
                         (bid) => bid.account_id === showBiddingProfile,
                       )?.phone_number
                     }
-                    className="mb-2"
-                    placeholder="Phone Number"
-                    name="phone_number"
-                    disabled
-                  />
+                  </span>
                 </div>
 
                 <div className="flex w-[100%] flex-col">
                   <Label className="my-4 block">Email</Label>
-
-                  <Input
-                    value={
+                  <span className="rounded-md border-2 p-1">
+                    {
                       bidders.find(
                         (bid) => bid.account_id === showBiddingProfile,
                       )?.email_address
                     }
-                    className="mb-2"
-                    placeholder="Email"
-                    name="email_address"
-                    disabled
-                  />
+                  </span>
                 </div>
               </div>
 
               <Label className="my-4 block">Username</Label>
-              <Input
-                value={
+              <span className="rounded-md border-2 p-1">
+                {
                   bidders.find((bid) => bid.account_id === showBiddingProfile)
                     ?.username
                 }
-                className="mb-2"
-                placeholder="Username"
-                name="username"
-                disabled
-              />
+              </span>
 
               <Label className="my-4 block">Address</Label>
-              <Input
-                value={
+              <span className="rounded-md border-2 p-1">
+                {
                   bidders.find((bid) => bid.account_id === showBiddingProfile)
                     ?.address
                 }
-                className="mb-2"
-                placeholder="Address"
-                name="address"
-                disabled
-              />
+              </span>
 
               <Label className="my-4 block">Status</Label>
+
               <span>
                 {bidders.find((bid) => bid.account_id === showBiddingProfile)
                   ?.is_verified === 0 && (

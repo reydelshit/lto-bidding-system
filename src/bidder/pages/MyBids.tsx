@@ -106,16 +106,16 @@ const MyBids = () => {
 
   const handleFeedbackSubmition = () => {
     axios
-      .post(`${import.meta.env.VITE_ORDERING_LOCAL_HOST}/feedback.php`, {
+      .post(`${import.meta.env.VITE_LTO_BIDDING_LOCAL_HOST}/reviews.php`, {
         feedback_rating: rating,
         feedback_description: feedBackDescription,
-        user_id: localStorage.getItem('lto_bidding_token'),
+        account_id: localStorage.getItem('lto_bidding_token'),
         product_id: productIdReview,
       })
       .then((res) => {
         console.log(res.data, 'feedbacks');
-        setShowFeedbackForm(false);
-        window.location.reload();
+        // setShowFeedbackForm(false);
+        // window.location.reload();
       });
   };
 
@@ -131,6 +131,19 @@ const MyBids = () => {
     setFeedBackDescription(e.target.value);
 
     textareaRef.current?.focus();
+  };
+
+  const handleFetchReview = async (product_id: number) => {
+    await axios
+      .get(`${import.meta.env.VITE_LTO_BIDDING_LOCAL_HOST}/reviews.php`, {
+        params: {
+          account_id: localStorage.getItem('lto_bidding_token'),
+          product_id: product_id,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
   };
 
   return (
@@ -155,12 +168,13 @@ const MyBids = () => {
             <TableHead className="w-[20rem] font-bold text-black">
               Status
             </TableHead>
-            <TableHead className="font-bold text-black">Payment</TableHead>
             <TableHead className="font-bold text-black">
               Payment Status
             </TableHead>
 
-            <TableHead className="font-bold text-black">Action</TableHead>
+            <TableHead className="w-[20rem] font-bold text-black">
+              Action
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -191,22 +205,6 @@ const MyBids = () => {
                   </TableCell>
 
                   <TableCell>
-                    {bid.status === 1 && (
-                      <Button
-                        onClick={() =>
-                          handleShowPayment(
-                            bid.product_id,
-                            bid.max_bid_for_product,
-                          )
-                        }
-                        className="rounded-md bg-green-500 p-1 text-white"
-                        disabled={bid.payment_status === 1}
-                      >
-                        Pay Now
-                      </Button>
-                    )}
-                  </TableCell>
-                  <TableCell>
                     {bid.payment_status === 0 && (
                       <span className="text-yellow-500">Not paid</span>
                     )}
@@ -219,18 +217,35 @@ const MyBids = () => {
                   </TableCell>
 
                   <TableCell>
-                    {bid.payment_status === 0 || bid.payment_status === 2 ? (
-                      <Button disabled className="text-green-500">
-                        Add Review
-                      </Button>
-                    ) : (
-                      <Button
-                        onClick={() => handleShowFeedbackForm(bid.product_id)}
-                        className=" text-white"
-                      >
-                        Add Review
-                      </Button>
-                    )}
+                    <div className="flex gap-4">
+                      {bid.status === 1 && (
+                        <Button
+                          onClick={() =>
+                            handleShowPayment(
+                              bid.product_id,
+                              bid.max_bid_for_product,
+                            )
+                          }
+                          className="w-[6rem] rounded-md bg-green-500 p-1 text-white"
+                          disabled={bid.payment_status === 1}
+                        >
+                          Pay Now
+                        </Button>
+                      )}
+
+                      {bid.payment_status === 0 || bid.payment_status === 2 ? (
+                        <Button disabled className="w-[6rem] text-green-500">
+                          Add Review
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={() => handleShowFeedbackForm(bid.product_id)}
+                          className=" text-white"
+                        >
+                          Add Review
+                        </Button>
+                      )}
+                    </div>
                   </TableCell>
                 </TableRow>
               );
@@ -253,9 +268,9 @@ const MyBids = () => {
                       key={number}
                       className={`${
                         isSelected
-                          ? 'bg-[#5d383a] text-white'
+                          ? 'bg-green-500 text-white'
                           : 'bg-white text-black'
-                      } ' my-2 mr-2 hover:bg-[#5d383a] hover:text-white`}
+                      } ' my-2 mr-2 hover:bg-green-500 hover:text-white`}
                     >
                       {number + 1} ⭐
                     </Button>
@@ -281,7 +296,7 @@ const MyBids = () => {
               </Button>
 
               <Button
-                className="bg-[#5d383a]"
+                className="bg-green-500"
                 onClick={handleFeedbackSubmition}
               >
                 Submit
