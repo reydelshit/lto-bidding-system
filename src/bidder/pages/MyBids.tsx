@@ -1,4 +1,3 @@
-import React from 'react';
 import UserNavigation from '../UserNavigation';
 
 const MyBids = () => {

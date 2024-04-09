@@ -1,5 +1,6 @@
 import DefaultImage from '@/assets/defaultImage.jpg';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ProductType } from '@/entities/types';
 import axios from 'axios';
@@ -12,9 +13,18 @@ const Dashboard = () => {
     {} as ProductType,
   );
 
+  const account_id = localStorage.getItem('lto_bidding_token');
+
+  const [showPlaceBid, setShowPlaceBid] = useState(false);
+  const [prodAccID, setProdAccID] = useState({
+    product_id: 0,
+    account_id: account_id,
+  });
+  const [bidAmount, setBidAmount] = useState(0);
+
   const fetchProduct = async () => {
     await axios
-      .get(`${import.meta.env.VITE_LTO_BIDDING_LOCAL_HOST}/product.php`)
+      .get(`${import.meta.env.VITE_LTO_BIDDING_LOCAL_HOST}/clientproduct.php`)
       .then((res) => {
         console.log(res.data);
         setProduct(res.data);
@@ -39,6 +49,33 @@ const Dashboard = () => {
       });
   };
 
+  const handleShowPlaceBid = (
+    product_id: number,
+    account_id: string | null,
+  ) => {
+    setShowPlaceBid(true);
+
+    setProdAccID({
+      product_id,
+      account_id: account_id!,
+    });
+  };
+
+  const handlePlaceBid = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    await axios
+      .post(`${import.meta.env.VITE_LTO_BIDDING_LOCAL_HOST}/postbid.php`, {
+        ...prodAccID,
+        amount_bid: bidAmount,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setShowPlaceBid(false);
+        fetchProduct();
+      });
+  };
+
   return (
     <div>
       <h1>List of Motorcycle's</h1>
@@ -55,25 +92,67 @@ const Dashboard = () => {
             <div>
               <h1>Product Name: {item.product_name}</h1>
 
-              <h1>Starting Amount: {item.starting_price}</h1>
-              <h1>Highesh Bid: {item.date_until}</h1>
+              <h1>Starting Amount: ₱ {item.starting_price}</h1>
+              <h1>Highesh Bid: ₱ {item.amt}</h1>
               <h1>Until : {item.date_until}</h1>
             </div>
 
             <div className="mt-[2rem] flex w-full justify-around">
-              <Button
-                onClick={() => handleShowProductDetails(item.product_id)}
-                className="rounded-md bg-green-500 p-2 text-white"
-              >
-                View Details
-              </Button>
-              <Button className="rounded-md bg-green-500 p-2 text-white">
-                Bid Now
-              </Button>
+              {new Date().toISOString() > item.date_until ? (
+                <div>
+                  <Button className="rounded-md bg-red-500 p-2 text-white">
+                    Closed
+                  </Button>
+                </div>
+              ) : (
+                <div className="flex gap-2">
+                  <Button
+                    onClick={() => handleShowProductDetails(item.product_id)}
+                    className="rounded-md bg-green-500 p-2 text-white"
+                  >
+                    View Details
+                  </Button>
+                  <Button
+                    onClick={() =>
+                      handleShowPlaceBid(item.product_id, account_id)
+                    }
+                    className="rounded-md bg-green-500 p-2 text-white"
+                  >
+                    Bid Now
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         ))}
       </div>
+
+      {showPlaceBid && (
+        <div className="absolute right-0 top-0 flex h-full w-full justify-center bg-white bg-opacity-80">
+          <div className="relative mt-[5rem] flex h-[15rem] w-[40rem] flex-col items-start justify-center gap-10 rounded-md border-2 bg-white p-4 text-start">
+            <h1 className="mb-[-1rem]  text-[2rem] font-bold">
+              Enter your bidding
+            </h1>
+            <div className="w-full ">
+              <form onSubmit={handlePlaceBid}>
+                <Label className="my-4 block">Amount</Label>
+                <Input
+                  onChange={(e) => setBidAmount(parseFloat(e.target.value))}
+                  required
+                  type="text"
+                  placeholder="Enter amount"
+                />
+
+                <div className="mt-2 flex w-full justify-end gap-5">
+                  <Button onClick={() => setShowPlaceBid(false)}>Cancel</Button>
+
+                  <Button type="submit">Place Bid</Button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showProductDetails && (
         <div className="absolute right-0 top-0 flex h-full w-full justify-center bg-white bg-opacity-80">

@@ -9,6 +9,7 @@ export type ProductType = {
   date_until: string;
   image_path?: string;
   description: string;
+  amt: number;
 };
 
 export type BiddingsType = {
