@@ -5,6 +5,8 @@ import UpdateProducts from './components/UpdateProduct';
 import Bidders from './pages/Bidders';
 import Biddings from './pages/Bidding';
 import Payments from './pages/Payments';
+import AdminBidH from './pages/AdminBidH';
+import ViewAdminBidH from './pages/ViewAdminBidH';
 
 const Admin = () => {
   return (
@@ -61,7 +63,8 @@ const Admin = () => {
           <Route path="/bidders" element={<Bidders />} />
           <Route path="/biddings" element={<Biddings />} />
           <Route path="/payments" element={<Payments />} />
-          <Route path="/bid-history" element={<h1>bid-history</h1>} />
+          <Route path="/bid-history" element={<AdminBidH />} />
+          <Route path="/bid-history/:id" element={<ViewAdminBidH />} />
         </Routes>
       </div>
     </div>

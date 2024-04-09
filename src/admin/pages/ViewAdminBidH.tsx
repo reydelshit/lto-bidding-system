@@ -1,7 +1,4 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import UserNavigation from '../UserNavigation';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import {
   Table,
   TableBody,
@@ -10,6 +7,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 type ProductBidHistoryType = {
   product_id: number;
@@ -20,9 +19,11 @@ type ProductBidHistoryType = {
   image_path: string;
   account_id: number;
   username: string;
+  first_name: string;
+  last_name: string;
 };
 
-const BidLogs = () => {
+const ViewAdminBidH = () => {
   const [product, setProduct] = useState<ProductBidHistoryType[]>([]);
   const [productName, setProductName] = useState<string>('');
   const { id } = useParams<{ id: string }>();
@@ -53,14 +54,10 @@ const BidLogs = () => {
 
   return (
     <div>
-      <UserNavigation />
-
-      <h1 className="my-2 text-[2rem]">PRODUCT BID HISTORY</h1>
-
+      <h1 className="my-2 text-[2rem]"> ViewAdminBidH</h1>
       <h1 className="my-2 text-center text-[2rem]">
         Product: {productName.length > 0 ? productName : 'No Product'}
       </h1>
-
       <div className="flex w-full items-center justify-center">
         <div className="w-[50%]">
           <Table>
@@ -78,11 +75,9 @@ const BidLogs = () => {
                 return (
                   <TableRow className="border-b-2 text-start" key={index}>
                     <TableCell>
-                      {bid.account_id !== parseInt(account_id_local)
-                        ? bid.username.charAt(0) +
-                          bid.username.slice(1, -1).replace(/./g, '*') +
-                          bid.username.charAt(bid.username.length - 1)
-                        : 'You'}
+                      {bid.username
+                        ? bid.first_name + ' ' + bid.last_name
+                        : 'No Bidder'}
                     </TableCell>
                     <TableCell>₱ {bid.amount_bid}</TableCell>
                     <TableCell>{bid.createdOn}</TableCell>
@@ -97,4 +92,4 @@ const BidLogs = () => {
   );
 };
 
-export default BidLogs;
+export default ViewAdminBidH;
