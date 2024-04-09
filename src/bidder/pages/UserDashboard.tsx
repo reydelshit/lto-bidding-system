@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label';
 import { ProductType } from '@/entities/types';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import QRCode from 'react-qr-code';
 
 const Dashboard = () => {
   const [product, setProduct] = useState<ProductType[]>([]);
@@ -12,6 +13,9 @@ const Dashboard = () => {
   const [productDetails, setProductDetails] = useState<ProductType>(
     {} as ProductType,
   );
+
+  const [showQRDecider, setShowQRDecider] = useState(false);
+  const [qrCodeID, setQRCodeID] = useState(0);
 
   const account_id = localStorage.getItem('lto_bidding_token');
 
@@ -76,13 +80,27 @@ const Dashboard = () => {
       });
   };
 
+  const handleShowQR = (product_id: number) => {
+    setQRCodeID(product_id);
+    setShowQRDecider(true);
+  };
+
   return (
     <div>
       <h1>List of Motorcycle's</h1>
 
       <div className="grid grid-cols-5">
         {product.map((item, index) => (
-          <div key={index} className="w-[20rem] rounded-md border-2 p-2">
+          <div
+            key={index}
+            className="flex w-[20rem] flex-col rounded-md border-2 p-2"
+          >
+            <Button
+              onClick={() => handleShowQR(item.product_id)}
+              className="my-2 self-end"
+            >
+              SCAN QR
+            </Button>
             <img
               className="h-[15rem] w-full object-cover"
               src={item.image_path}
@@ -126,6 +144,20 @@ const Dashboard = () => {
           </div>
         ))}
       </div>
+
+      {showQRDecider && (
+        <div className="absolute bottom-0 top-0 flex h-screen w-dvw items-center justify-center  bg-white bg-opacity-85">
+          <div className="flex h-[80%] w-[80%] flex-col items-center justify-center">
+            <Button onClick={() => setShowQRDecider(false)}>Close</Button>
+            <QRCode
+              size={256}
+              style={{ height: 'auto', maxWidth: '50%', width: '50%' }}
+              value={`${import.meta.env.VITE_LTO_BIDDING_LOCAL_HOST}/view/${qrCodeID}`}
+              viewBox={`0 0 256 256`}
+            />
+          </div>
+        </div>
+      )}
 
       {showPlaceBid && (
         <div className="absolute right-0 top-0 flex h-full w-full justify-center bg-white bg-opacity-80">

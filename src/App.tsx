@@ -5,6 +5,7 @@ import User from './bidder/User';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import MyBids from './bidder/pages/MyBids';
+import ViewProduct from './bidder/pages/ViewProduct';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route>
           <Route path="/" element={<User />} />
           <Route path="/my-bids" element={<MyBids />} />
+          <Route path="/view/:id" element={<ViewProduct />} />
         </Route>
         <Route path="/admin/*" element={<Admin />} />
       </Routes>
