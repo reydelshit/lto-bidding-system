@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 import UserNavigation from '../UserNavigation';
@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/button';
 import Gcash from '@/assets/gcash.png';
 import PayMaya from '@/assets/paymaya.png';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 
 type BidsHistoryType = {
   max_bid_for_product: number;
@@ -34,6 +35,13 @@ const MyBids = () => {
   const [productID, setProductID] = useState(0);
   const [image, setImage] = useState<string | null>(null);
   const [amount, setAmount] = useState(0);
+  const [showFeedbackForm, setShowFeedbackForm] = useState(false);
+  const [productIdReview, setProductIdReview] = useState(0);
+
+  const [feedBackDescription, setFeedBackDescription] = useState('');
+  const [rating, setRating] = useState(0);
+  const [selectedRating, setSelectedRating] = useState(0);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const fetchBidsHistory = async () => {
     await axios
@@ -80,15 +88,49 @@ const MyBids = () => {
         product_id: productID,
         proof_image: image,
         account_id: localStorage.getItem('lto_bidding_token'),
+        amount: amount,
       })
       .then((res) => {
         console.log(res.data);
         if (res.data.status === 'success') {
-          // alert('Payment submitted successfully');
         }
 
         setShowPayment(false);
       });
+  };
+
+  const handleShowFeedbackForm = (product_id: number) => {
+    setShowFeedbackForm(true);
+    setProductIdReview(product_id);
+  };
+
+  const handleFeedbackSubmition = () => {
+    axios
+      .post(`${import.meta.env.VITE_ORDERING_LOCAL_HOST}/feedback.php`, {
+        feedback_rating: rating,
+        feedback_description: feedBackDescription,
+        user_id: localStorage.getItem('lto_bidding_token'),
+        product_id: productIdReview,
+      })
+      .then((res) => {
+        console.log(res.data, 'feedbacks');
+        setShowFeedbackForm(false);
+        window.location.reload();
+      });
+  };
+
+  const handleClick = (number: number) => {
+    console.log(number + 1);
+
+    setRating(number + 1);
+
+    setSelectedRating(number);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setFeedBackDescription(e.target.value);
+
+    textareaRef.current?.focus();
   };
 
   return (
@@ -117,6 +159,8 @@ const MyBids = () => {
             <TableHead className="font-bold text-black">
               Payment Status
             </TableHead>
+
+            <TableHead className="font-bold text-black">Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -173,11 +217,79 @@ const MyBids = () => {
                       <span className="text-red-500">Payment rejected</span>
                     )}
                   </TableCell>
+
+                  <TableCell>
+                    {bid.payment_status === 0 || bid.payment_status === 2 ? (
+                      <Button disabled className="text-green-500">
+                        Add Review
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={() => handleShowFeedbackForm(bid.product_id)}
+                        className=" text-white"
+                      >
+                        Add Review
+                      </Button>
+                    )}
+                  </TableCell>
                 </TableRow>
               );
             })}
         </TableBody>
       </Table>
+
+      {showFeedbackForm && (
+        <div className="fixed left-0 top-0 z-10 flex h-full w-full flex-col items-center justify-center bg-black bg-opacity-70">
+          <div className="w-[35rem] rounded-lg border-2 bg-white p-4">
+            <h1 className="mb-[5rem] text-2xl font-bold">Feedback Form</h1>
+            <div className="text-center">
+              <span>how would you rate our product?</span>
+              <div className="mb-[2rem] flex w-full justify-center">
+                {Array.from({ length: 5 }, (_, i) => i).map((number) => {
+                  const isSelected = selectedRating === number;
+                  return (
+                    <Button
+                      onClick={() => handleClick(number)}
+                      key={number}
+                      className={`${
+                        isSelected
+                          ? 'bg-[#5d383a] text-white'
+                          : 'bg-white text-black'
+                      } ' my-2 mr-2 hover:bg-[#5d383a] hover:text-white`}
+                    >
+                      {number + 1} ⭐
+                    </Button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <Textarea
+              id="feedback"
+              value={feedBackDescription}
+              onChange={handleChange}
+              placeholder="please write down your feedback here"
+              className="h-[10rem]"
+            ></Textarea>
+
+            <div className="mt-[3rem] flex justify-center gap-2">
+              <Button
+                onClick={() => setShowFeedbackForm(false)}
+                className="block bg-red-700"
+              >
+                cancel
+              </Button>
+
+              <Button
+                className="bg-[#5d383a]"
+                onClick={handleFeedbackSubmition}
+              >
+                Submit
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showPayment && (
         <div className="absolute top-0 flex h-full w-[100%] items-center justify-center overflow-x-hidden bg-white bg-opacity-85">
