@@ -34,7 +34,7 @@ export default function Register() {
     axios
       .post(`${import.meta.env.VITE_LTO_BIDDING_LOCAL_HOST}/login.php`, {
         ...credentials,
-        is_verified: 2,
+        is_verified: 0,
         id_image: image,
       })
       .then((res: any) => {

@@ -3,6 +3,7 @@ import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
 import UpdateProducts from './components/UpdateProduct';
 import Bidders from './pages/Bidders';
+import Biddings from './pages/Bidding';
 
 const Admin = () => {
   return (
@@ -33,7 +34,7 @@ const Admin = () => {
         </Link>
         <Link
           className="w-full rounded-md bg-green-500 p-2 text-center text-white hover:bg-green-300"
-          to="/admin/bidding"
+          to="/admin/biddings"
         >
           biddings
         </Link>
@@ -57,7 +58,7 @@ const Admin = () => {
           <Route path="/products" element={<Products />} />
           <Route path="/product/update/:id" element={<UpdateProducts />} />
           <Route path="/bidders" element={<Bidders />} />
-          <Route path="/biddings" element={<h1>bidders</h1>} />
+          <Route path="/biddings" element={<Biddings />} />
           <Route path="/winners" element={<h1>winners</h1>} />
           <Route path="/bid-history" element={<h1>bid-history</h1>} />
         </Routes>
