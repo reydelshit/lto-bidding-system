@@ -4,6 +4,7 @@ import Products from './pages/Products';
 import UpdateProducts from './components/UpdateProduct';
 import Bidders from './pages/Bidders';
 import Biddings from './pages/Bidding';
+import Payments from './pages/Payments';
 
 const Admin = () => {
   return (
@@ -40,9 +41,9 @@ const Admin = () => {
         </Link>
         <Link
           className="w-full rounded-md bg-green-500 p-2 text-center text-white hover:bg-green-300"
-          to="/admin/winners"
+          to="/admin/payments"
         >
-          winners
+          Payments
         </Link>
         <Link
           className="w-full rounded-md bg-green-500 p-2 text-center text-white hover:bg-green-300"
@@ -59,7 +60,7 @@ const Admin = () => {
           <Route path="/product/update/:id" element={<UpdateProducts />} />
           <Route path="/bidders" element={<Bidders />} />
           <Route path="/biddings" element={<Biddings />} />
-          <Route path="/winners" element={<h1>winners</h1>} />
+          <Route path="/payments" element={<Payments />} />
           <Route path="/bid-history" element={<h1>bid-history</h1>} />
         </Routes>
       </div>

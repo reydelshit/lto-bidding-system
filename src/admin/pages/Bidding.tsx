@@ -93,7 +93,7 @@ const Biddings = () => {
   }, []);
   return (
     <div className="relative mt-[1rem] w-full rounded-lg bg-white p-2">
-      <h1 className="my-4 text-2xl font-bold">Bidders</h1>
+      <h1 className="my-4 text-2xl font-bold">Biddings</h1>
 
       <div className="my-2 flex w-full items-center justify-between">
         <Input

@@ -1,11 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import defaultProfile from '@/assets/defaultImage.jpg';
-import axios from 'axios';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
@@ -13,6 +9,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import axios from 'axios';
+import { useState } from 'react';
 
 // import { URL } from 'url';
 
@@ -28,11 +27,6 @@ export default function AddProductModal({
   const [selectedCategory, setSelectedCategory] = useState('' as string);
 
   const [image, setImage] = useState<string | null>(null);
-  const [images, setImages] = useState<string[]>([]);
-
-  const { id } = useParams();
-
-  const navigate = useNavigate();
 
   const handleChange = (e: ChangeEvent) => {
     const value = e.target.value;
