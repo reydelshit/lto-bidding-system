@@ -226,9 +226,7 @@ const MyBids = () => {
                           )
                         }
                         className="w-[6rem] rounded-md bg-green-500 p-1 text-white"
-                        disabled={
-                          bid.payment_status === 1 || bid.payment_status === 2
-                        }
+                        disabled={bid.status === 2 || bid.payment_status === 1}
                       >
                         Pay Now
                       </Button>
@@ -239,6 +237,9 @@ const MyBids = () => {
                         </Button>
                       ) : (
                         <Button
+                          disabled={
+                            bid.payment_status === 1 || bid.status === 2
+                          }
                           onClick={() => handleShowFeedbackForm(bid.product_id)}
                           className=" text-white"
                         >

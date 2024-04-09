@@ -1,3 +1,4 @@
+import VIP from '@/assets/crown.png';
 import DefaultImage from '@/assets/images/default-image.jpg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -110,14 +111,14 @@ const Bidders = () => {
         <TableBody>
           {bidders
             .filter((bid) => bid.first_name.includes(searchProduct))
-            .map((bid) => {
+            .map((bid, index) => {
               return (
-                <TableRow
-                  className="border-b-2 text-start"
-                  key={bid.account_id}
-                >
-                  <TableCell>
+                <TableRow className="border-b-2 text-start" key={index}>
+                  <TableCell className="flex">
                     {bid.first_name} {bid.last_name}
+                    {bid.vip_id !== null && (
+                      <img className="h-6 w-6" src={VIP} alt="VIP" />
+                    )}
                   </TableCell>
 
                   <TableCell>{bid.username}</TableCell>

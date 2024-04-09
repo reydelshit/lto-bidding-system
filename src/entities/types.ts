@@ -10,7 +10,7 @@ export type ProductType = {
   image_path?: string;
   description: string;
   amt: number;
-
+  is_vip: number;
   createdOn?: string;
   amount_bid?: number;
 };
@@ -29,6 +29,8 @@ export type BiddingsType = {
   cnt: number;
   amt: number;
   fname: string;
+
+  is_vip: number;
 };
 
 export type BiddersType = {
@@ -43,6 +45,8 @@ export type BiddersType = {
   is_verified: number;
   image_path: string;
   id_image?: string;
+
+  vip_id: number;
 };
 
 export type LeaderBoardType = {

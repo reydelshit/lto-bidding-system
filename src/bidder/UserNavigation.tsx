@@ -1,12 +1,10 @@
+import AvatarCompo from '@/components/AvatarCompo';
 import { Link } from 'react-router-dom';
 
 const UserNavigation = () => {
   return (
     <>
-      <div className="flex h-[5rem] w-full items-center justify-between">
-        <h1>LTO POLOMOLOK BIDDING SYSTEM</h1>
-        <div>Profile</div>
-      </div>
+      <AvatarCompo />
 
       <div className="flex justify-around gap-4">
         <Link

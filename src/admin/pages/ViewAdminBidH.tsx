@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import {
   Table,
   TableBody,
@@ -7,8 +6,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 type ProductBidHistoryType = {
   product_id: number;
@@ -27,9 +27,7 @@ const ViewAdminBidH = () => {
   const [product, setProduct] = useState<ProductBidHistoryType[]>([]);
   const [productName, setProductName] = useState<string>('');
   const { id } = useParams<{ id: string }>();
-  const [username, setUsername] = useState<string>('');
 
-  const account_id_local = localStorage.getItem('lto_bidding_token') as string;
   const fetchProduct = async () => {
     await axios
       .get(

@@ -14,6 +14,7 @@ import {
 import { BiddersType, BiddingsType, LeaderBoardType } from '@/entities/types';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import VIP from '@/assets/crown.png';
 
 const Biddings = () => {
   const [biddings, setBiddings] = useState<BiddingsType[]>([]);
@@ -28,6 +29,7 @@ const Biddings = () => {
     address: '',
     is_verified: 0,
     image_path: '',
+    vip_id: 0,
   });
   const [leaderBoards, setLeaderBoards] = useState<LeaderBoardType[]>([]);
   const [showLeaderBoards, setShowLeaderBoards] = useState<boolean>(false);
@@ -68,6 +70,7 @@ const Biddings = () => {
           address: res.data[0].address,
           is_verified: res.data[0].is_verified,
           image_path: res.data[0].image_path,
+          vip_id: 0,
         });
       });
 
@@ -154,12 +157,19 @@ const Biddings = () => {
             .map((bid, index) => {
               return (
                 <TableRow className="border-b-2 text-start" key={index}>
-                  <TableCell>
+                  <TableCell className="flex items-center gap-4">
                     <img
-                      className="h-[10rem] w-[10em]"
-                      src={bid.image_path ? bid.image_path : DefaultImage}
+                      className="h-[6rem] w-[8rem] rounded-md object-cover"
+                      src={bid.image_path}
                       alt={bid.product_name}
                     />
+                    {bid.is_vip === 1 && (
+                      <img
+                        className="h-[5rem] w-[5rem] rounded-md object-cover"
+                        src={VIP}
+                        alt="vip"
+                      />
+                    )}
                   </TableCell>
                   <TableCell>
                     <div className="flex flex-col">

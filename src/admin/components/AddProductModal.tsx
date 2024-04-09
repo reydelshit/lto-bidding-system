@@ -25,6 +25,7 @@ export default function AddProductModal({
 }) {
   const [product, setProduct] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('' as string);
+  const [isVip, setIsVip] = useState(false);
 
   const [image, setImage] = useState<string | null>(null);
 
@@ -47,6 +48,7 @@ export default function AddProductModal({
         ...product,
         product_condition: selectedCategory,
         image_path: image,
+        is_vip: isVip ? 1 : 0,
       })
       .then((res) => {
         console.log(res.data);
@@ -76,6 +78,10 @@ export default function AddProductModal({
     const selectedValue = event;
     setSelectedCategory(selectedValue);
     // console.log(selectedValue);
+  };
+
+  const handleChangeBox = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsVip(event.target.checked);
   };
 
   return (
@@ -189,6 +195,18 @@ export default function AddProductModal({
                 name="date_until"
                 className="mb-2"
                 onChange={handleChange}
+              />
+            </div>
+
+            <div className="item-start flex w-full flex-col  p-4 ">
+              <Label className="mb-2 text-start">
+                Is for Vip? (leave uncheck if not)
+              </Label>
+              <Input
+                type="checkbox"
+                name="is_vip"
+                className="mb-2 w-[1rem]"
+                onChange={handleChangeBox}
               />
             </div>
 

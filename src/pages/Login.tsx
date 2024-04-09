@@ -23,6 +23,21 @@ export default function Login() {
     console.log(credentials);
   };
 
+  const fetchVipStatus = async (account_id: number) => {
+    await axios
+      .get(`${import.meta.env.VITE_LTO_BIDDING_LOCAL_HOST}/subscribe.php`, {
+        params: {
+          account_id: account_id,
+        },
+      })
+      .then((res) => {
+        console.log(res.data, 'vip status');
+        if (res.data.length > 0) {
+          localStorage.setItem('lto_vip', 'true');
+        }
+      });
+  };
+
   const handleLogin = () => {
     if (!username || !password)
       return setErrorInput('Please fill in all fields');
@@ -36,6 +51,8 @@ export default function Login() {
         if (res.data) {
           localStorage.setItem('lto_bidding_token', res.data[0].account_id);
           localStorage.setItem('lto_accountType', res.data[0].account_type);
+
+          fetchVipStatus(res.data[0].account_id);
 
           if (res.data[0].account_type === 'admin') {
             window.location.href = '/admin';

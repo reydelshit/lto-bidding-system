@@ -7,14 +7,12 @@ import Biddings from './pages/Bidding';
 import Payments from './pages/Payments';
 import AdminBidH from './pages/AdminBidH';
 import ViewAdminBidH from './pages/ViewAdminBidH';
+import AvatarCompo from '@/components/AvatarCompo';
 
 const Admin = () => {
   return (
     <div className="h-dvh w-full p-4">
-      <div className="flex h-[5rem] w-full items-center justify-between">
-        <h1>LTO POLOMOLOK BIDDING SYSTEM</h1>
-        <div>Profile</div>
-      </div>
+      <AvatarCompo />
 
       <div className="flex justify-around gap-4">
         <Link

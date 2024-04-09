@@ -6,6 +6,7 @@ import { ProductType } from '@/entities/types';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import QRCode from 'react-qr-code';
+import VIP from '@/assets/crown.png';
 
 const Dashboard = () => {
   const [product, setProduct] = useState<ProductType[]>([]);
@@ -25,6 +26,12 @@ const Dashboard = () => {
     account_id: account_id,
   });
   const [bidAmount, setBidAmount] = useState(0);
+
+  const isVip = localStorage.getItem('lto_vip') === 'true';
+
+  const filteredProducts = product.filter((prod) => {
+    return isVip ? true : prod.is_vip !== 1;
+  });
 
   const fetchProduct = async () => {
     await axios
@@ -87,20 +94,25 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h1>List of Motorcycle's</h1>
+      <h1 className="my-4 text-[2rem] font-bold">List of Motorcycle's</h1>
 
       <div className="grid grid-cols-5">
-        {product.map((item, index) => (
+        {filteredProducts.map((item, index) => (
           <div
             key={index}
             className="flex w-[20rem] flex-col rounded-md border-2 p-2"
           >
-            <Button
-              onClick={() => handleShowQR(item.product_id)}
-              className="my-2 self-end"
-            >
-              SCAN QR
-            </Button>
+            <div className="my-2 flex justify-between">
+              {item.is_vip === 1 ? (
+                <img src={VIP} alt="vip" className="h-[2rem] w-[2rem]" />
+              ) : (
+                <div></div>
+              )}
+
+              <Button onClick={() => handleShowQR(item.product_id)}>
+                SCAN QR
+              </Button>
+            </div>
             <img
               className="h-[15rem] w-full object-cover"
               src={item.image_path}

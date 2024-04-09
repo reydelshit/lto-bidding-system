@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import { FiEdit3 } from 'react-icons/fi';
 import { RiDeleteBin5Line } from 'react-icons/ri';
 import { Link, useNavigate } from 'react-router-dom';
+import VIP from '@/assets/crown.png';
 
 import {
   AlertDialog,
@@ -107,12 +108,19 @@ const Products = () => {
                       className="border-b-2 text-start"
                       key={prod.product_id}
                     >
-                      <TableCell>
+                      <TableCell className="flex items-center gap-4">
                         <img
                           className="h-[6rem] w-[8rem] rounded-md object-cover"
                           src={prod.image_path}
                           alt={prod.product_name}
                         />
+                        {prod.is_vip === 1 && (
+                          <img
+                            className="h-[5rem] w-[5rem] rounded-md object-cover"
+                            src={VIP}
+                            alt="vip"
+                          />
+                        )}
                       </TableCell>
                       <TableCell>
                         <div>
