@@ -31,9 +31,10 @@ const Biddings = () => {
   });
   const [leaderBoards, setLeaderBoards] = useState<LeaderBoardType[]>([]);
   const [showLeaderBoards, setShowLeaderBoards] = useState<boolean>(false);
+  const [productName, setProductName] = useState('');
 
   const [searchProduct, setSearchProduct] = useState('');
-  const [showBiddingProfileDecider, setShowBiddingProfileDecider] =
+  const [showBiddingProfileWinnerDecider, setShowBiddingProfileWinnerDecider] =
     useState(false);
 
   const fetchProduct = async () => {
@@ -45,9 +46,9 @@ const Biddings = () => {
       });
   };
 
-  const handleShowBiddingProfile = (id: number) => {
+  const handleShowBiddingProfile = (id: number, productName: string) => {
     console.log(id);
-
+    setProductName(productName);
     axios
       .get(`${import.meta.env.VITE_LTO_BIDDING_LOCAL_HOST}/viewwinner.php`, {
         params: {
@@ -70,7 +71,7 @@ const Biddings = () => {
         });
       });
 
-    setShowBiddingProfileDecider(true);
+    setShowBiddingProfileWinnerDecider(true);
   };
 
   const handleShowLeaderBoards = (id: number) => {
@@ -91,6 +92,31 @@ const Biddings = () => {
   useEffect(() => {
     fetchProduct();
   }, []);
+
+  const sendSMStoWinners = async (
+    winnerPhone: string,
+    winnerName: string,
+    productName: string,
+  ) => {
+    const apiKey =
+      'SigIVuuIwp98jJW4wVbDD9fmrVS544zMKBk0EXlVGdNrFWxTqGcB6E7RG2DPX-y7';
+    fetch('https://api.httpsms.com/v1/messages/send', {
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        content: `Hello, ${winnerName}! You have won the bidding for ${productName}. To proceed, please visit our payment portal in My Bids section. Thank you!`,
+        from: '+639097134971',
+        to: '+639658971546',
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  };
+
   return (
     <div className="relative mt-[1rem] w-full rounded-lg bg-white p-2">
       <h1 className="my-4 text-2xl font-bold">Biddings</h1>
@@ -176,7 +202,12 @@ const Biddings = () => {
                       </Button>
                     ) : (
                       <Button
-                        onClick={() => handleShowBiddingProfile(bid.account_id)}
+                        onClick={() =>
+                          handleShowBiddingProfile(
+                            bid.account_id,
+                            bid.product_name,
+                          )
+                        }
                       >
                         Winner Details
                       </Button>
@@ -188,12 +219,12 @@ const Biddings = () => {
         </TableBody>
       </Table>
 
-      {showBiddingProfileDecider && (
+      {showBiddingProfileWinnerDecider && (
         <div className="absolute right-0 top-0 flex h-full w-full justify-center bg-white bg-opacity-80">
           <div className="relative mt-[5rem] flex h-[30rem] w-[60rem] items-center justify-center gap-10 rounded-md border-2 bg-white p-2">
             <Button
               className="absolute right-2 top-2"
-              onClick={() => setShowBiddingProfileDecider(false)}
+              onClick={() => setShowBiddingProfileWinnerDecider(false)}
             >
               Close
             </Button>
@@ -257,6 +288,19 @@ const Biddings = () => {
               <span className="block rounded-md border-2 p-1">
                 {biddingWinner.address}
               </span>
+
+              <Button
+                className="my-4 bg-green-500 text-white"
+                onClick={() =>
+                  sendSMStoWinners(
+                    biddingWinner.phone_number,
+                    `${biddingWinner.first_name} ${biddingWinner.last_name}`,
+                    productName,
+                  )
+                }
+              >
+                Send SMS to Winner
+              </Button>
             </div>
           </div>
         </div>

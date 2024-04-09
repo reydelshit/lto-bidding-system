@@ -45,11 +45,18 @@ const ViewProduct = () => {
                   className="w-1/2"
                 />
               </div>
-              <p className="text-center text-lg">{prod.description}</p>
               <p className="text-center text-lg">
-                Starting Price: {prod.starting_price}
+                Brand name: {prod.brand_name}
               </p>
-              <p className="text-center text-lg">End Date: {prod.date_until}</p>
+              <p className="text-center text-lg">
+                Yeard Model: {prod.year_model}
+              </p>
+              <p className="text-center text-lg">
+                Product Condition: {prod.product_condition}
+              </p>
+              <p className="text-center text-lg">
+                Product Description: {prod.description}
+              </p>
             </div>
           ))}
         </div>
