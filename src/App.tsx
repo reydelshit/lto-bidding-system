@@ -6,6 +6,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import MyBids from './bidder/pages/MyBids';
 import ViewProduct from './bidder/pages/ViewProduct';
+import BidHistory from './bidder/pages/BidHistory';
+import BidLogs from './bidder/pages/BidLogs';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/" element={<User />} />
           <Route path="/my-bids" element={<MyBids />} />
           <Route path="/view/:id" element={<ViewProduct />} />
+          <Route path="/product-bid-history" element={<BidHistory />} />
+          <Route path="/bid-logs/:id" element={<BidLogs />} />
         </Route>
         <Route path="/admin/*" element={<Admin />} />
       </Routes>

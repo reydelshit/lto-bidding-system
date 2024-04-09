@@ -23,12 +23,12 @@ const UserNavigation = () => {
           My Bids
         </Link>
 
-        {/* <Link
+        <Link
           className="w-full rounded-md bg-green-500 p-2 text-center text-white hover:bg-green-300"
-          to="/bid-history"
+          to="/product-bid-history"
         >
-          bid-history
-        </Link> */}
+          Product Bid History
+        </Link>
       </div>
     </>
   );

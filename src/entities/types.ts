@@ -10,6 +10,9 @@ export type ProductType = {
   image_path?: string;
   description: string;
   amt: number;
+
+  createdOn?: string;
+  amount_bid?: number;
 };
 
 export type BiddingsType = {
