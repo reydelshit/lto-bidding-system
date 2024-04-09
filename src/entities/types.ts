@@ -1,3 +1,16 @@
+export type ProductType = {
+  product_id: number;
+  product_name: string;
+  brand_name: string;
+  year_model: string;
+  product_condition: string;
+  regular_price: number;
+  starting_price: number;
+  date_until: string;
+  image_path?: string;
+  description: string;
+};
+
 export type BiddingsType = {
   product_id: number;
   product_name: string;

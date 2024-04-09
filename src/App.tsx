@@ -1,9 +1,10 @@
-import { Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import Admin from './admin/Admin';
 // import Dashboard from './bidder/Dashboard';
 import User from './bidder/User';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import MyBids from './bidder/pages/MyBids';
 
 function App() {
   return (
@@ -14,9 +15,8 @@ function App() {
 
         <Route>
           <Route path="/" element={<User />} />
-          {/* <Route path="/dashboad" element={<Dashboard />} /> */}
+          <Route path="/my-bids" element={<MyBids />} />
         </Route>
-        <Route path="/admin" element={<Admin />} />
         <Route path="/admin/*" element={<Admin />} />
       </Routes>
     </div>

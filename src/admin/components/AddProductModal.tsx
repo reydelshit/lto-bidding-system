@@ -57,7 +57,7 @@ export default function AddProductModal({
       .then((res) => {
         console.log(res.data);
         if (res.data.status === 'success') {
-          //   window.location.reload();
+          window.location.reload();
           setShowAddProduct(false);
           // navigate('/');
         }
@@ -76,38 +76,6 @@ export default function AddProductModal({
         // console.log(base64.toString());
       }
     };
-  };
-
-  const handleMultipleImages = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    const newImages = [...images];
-
-    const promises = [];
-    for (let i = 0; i < files!.length; i++) {
-      const reader = new FileReader();
-      reader.readAsDataURL(files![i]);
-
-      promises.push(
-        new Promise((resolve, reject) => {
-          reader.onload = () => {
-            resolve(reader.result as string);
-          };
-
-          reader.onerror = (error) => {
-            reject(error);
-          };
-        }),
-      );
-    }
-
-    Promise.all(promises)
-      .then((results) => {
-        newImages.push(...(results as string[]));
-        setImages(newImages);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   const handleConditionType = (event: string) => {
@@ -178,7 +146,7 @@ export default function AddProductModal({
                   onValueChange={handleConditionType}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Categories" />
+                    <SelectValue placeholder="Condition" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="GOOD">GOOD</SelectItem>
@@ -202,6 +170,7 @@ export default function AddProductModal({
               <div className="item-start flex w-[50%] flex-col p-4">
                 <Label className="mb-2 text-start">Regular Price</Label>
                 <Input
+                  type="number"
                   name="regular_price"
                   className="mb-2"
                   onChange={handleChange}
@@ -228,28 +197,6 @@ export default function AddProductModal({
                 onChange={handleChange}
               />
             </div>
-
-            {/* <div className="my-5 flex w-full flex-col items-center justify-center">
-              <Label className="mb-2 text-start">Upload multiple images</Label>
-
-              <div className="mb-2 flex w-full gap-2 border-2 p-2">
-                {images.map((image, index) => (
-                  <img
-                    key={index}
-                    src={image}
-                    alt={`Image ${index}`}
-                    className="mb-4  h-[15rem] w-[20rem] rounded-lg object-cover"
-                  />
-                ))}
-              </div>
-              <Input
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleMultipleImages}
-                className="cursor-pointer"
-              />
-            </div> */}
 
             <div className="flex gap-4">
               <Button

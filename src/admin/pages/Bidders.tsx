@@ -22,7 +22,7 @@ const Bidders = () => {
   const [showBiddingProfileDecider, setShowBiddingProfileDecider] =
     useState(false);
 
-  const fetchProduct = async () => {
+  const fetchBidders = async () => {
     await axios
       .get(`${import.meta.env.VITE_LTO_BIDDING_LOCAL_HOST}/bidders.php`)
       .then((res) => {
@@ -45,7 +45,7 @@ const Bidders = () => {
       })
       .then((res) => {
         if (res.data) {
-          fetchProduct();
+          fetchBidders();
           console.log(res.data);
           // setShowBiddingProfileDecider(false);
         }
@@ -53,7 +53,7 @@ const Bidders = () => {
   };
 
   useEffect(() => {
-    fetchProduct();
+    fetchBidders();
   }, []);
   return (
     <div className="relative mt-[1rem] w-full rounded-lg bg-white p-2">

@@ -26,38 +26,14 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { ProductType } from '@/entities/types';
 import AddProductModal from '../components/AddProductModal';
 
-type ProductType = {
-  product_id: number;
-  product_name: string;
-  brand_name: string;
-  year_model: string;
-  condition: string;
-  regular_price: number;
-  starting_price: number;
-  until_date: string;
-  image_path?: string;
-};
-
 const Products = () => {
-  const [product, setProduct] = useState<ProductType[]>([
-    {
-      product_id: 1,
-      product_name: 'Toyota Vios',
-      brand_name: 'Toyota',
-      year_model: '2019',
-      condition: 'Used',
-      regular_price: 500000,
-      starting_price: 200000,
-      until_date: '2022-12-31',
-      image_path: 'https://via.placeholder.com/150',
-    },
-  ]);
+  const [product, setProduct] = useState<ProductType[]>([]);
 
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [searchProduct, setSearchProduct] = useState('');
-  const navigate = useNavigate();
 
   const handleDelete = (id: number) => {
     axios
@@ -143,7 +119,7 @@ const Products = () => {
                           <p className="font-bold">{prod.product_name}</p>
                           <p>{prod.brand_name}</p>
                           <p>{prod.year_model}</p>
-                          <p>{prod.condition}</p>
+                          <p>{prod.product_condition}</p>
                         </div>
                       </TableCell>
 
@@ -151,7 +127,7 @@ const Products = () => {
                         <div>
                           <p>Regular Price: {prod.regular_price}</p>
                           <p>Starting Price: {prod.starting_price}</p>
-                          <p>Until Date: {prod.until_date}</p>
+                          <p>Until Date: {prod.date_until}</p>
                         </div>
                       </TableCell>
                       <TableCell>

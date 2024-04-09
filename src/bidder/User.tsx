@@ -1,7 +1,11 @@
+import UserNavigation from './UserNavigation';
+import Dashboard from './pages/UserDashboard';
+
 const User = () => {
   return (
     <div>
-      <h1>Bidder Dashboard</h1>
+      <UserNavigation />
+      <Dashboard />
     </div>
   );
 };
