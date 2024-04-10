@@ -89,10 +89,6 @@ export default function Register() {
   return (
     <div className="flex h-dvh w-dvw items-center justify-center">
       <div className="flex w-[50%] flex-col rounded-md border-2  border-green-500 p-4">
-        <div className="my-[2rem] flex w-full items-start justify-start">
-          <Button>Go Back</Button>
-        </div>
-
         <div>
           <div className="flex gap-4">
             <div className="flex w-[100%] flex-col ">

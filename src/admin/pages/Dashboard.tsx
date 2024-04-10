@@ -119,7 +119,7 @@ const Dashboard = () => {
                 axisLine={false}
                 tickFormatter={(value: string) => `${value}`}
               />
-              <Bar dataKey="total" fill="#FACC15" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="total" fill="#22c55e" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -142,7 +142,7 @@ const Dashboard = () => {
                 axisLine={false}
                 tickFormatter={(value: string) => `${value}`}
               />
-              <Bar dataKey="total" fill="#FACC15" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="total" fill="#22c55e" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

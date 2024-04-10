@@ -78,7 +78,7 @@ const Products = () => {
 
             <Button
               onClick={() => setShowAddProduct(!showAddProduct)}
-              className="self-end bg-[#5d383a]"
+              className="self-end"
             >
               {showAddProduct ? 'Close' : 'Add Product'}
             </Button>
@@ -114,7 +114,7 @@ const Products = () => {
                           src={prod.image_path}
                           alt={prod.product_name}
                         />
-                        {prod.is_vip === 1 && (
+                        {parseInt(prod.is_vip) === 1 && (
                           <img
                             className="h-[5rem] w-[5rem] rounded-md object-cover"
                             src={VIP}

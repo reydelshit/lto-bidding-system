@@ -54,7 +54,7 @@ const Admin = () => {
         </Link>
       </div>
 
-      <div className="h-full border-2">
+      <div className="h-full">
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/products" element={<Products />} />
