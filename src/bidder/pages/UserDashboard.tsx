@@ -19,6 +19,7 @@ const Dashboard = () => {
   const [qrCodeID, setQRCodeID] = useState(0);
   const [slotAvailable, setSlotAvailable] = useState('');
   const [slotLimitDisabled, setSlotLimitDisabled] = useState(false);
+  const [currentCount, setCurrentCount] = useState(0);
 
   const account_id = localStorage.getItem('lto_bidding_token');
 
@@ -86,11 +87,18 @@ const Dashboard = () => {
       .then((res) => {
         if (isNaN(parseInt(available_slot))) return;
 
+        const currentCounts = parseInt(available_slot) - res.data[0].count;
+        console.log(currentCount, 'current count');
+
+        setCurrentCount(currentCounts);
+
         if (res.data[0].count >= parseInt(available_slot)) {
           setSlotLimitDisabled(true);
           setLimitMessage('Slot limit reached');
         }
       });
+
+    fetchProduct();
   };
 
   const handlePlaceBid = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -212,7 +220,7 @@ const Dashboard = () => {
                 <span className="block font-semibold">No limit</span>
               ) : (
                 <span className="block font-semibold">
-                  Available slots: {slotAvailable}
+                  Available slots: {currentCount}
                 </span>
               )}
             </div>
