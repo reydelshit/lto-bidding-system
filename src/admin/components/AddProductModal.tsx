@@ -51,7 +51,7 @@ export default function AddProductModal({
         product_condition: selectedCategory,
         image_path: image,
         is_vip: isVip ? 1 : 0,
-        avaialable_slot: selectedSlot,
+        available_slot: selectedSlot,
       })
       .then((res) => {
         console.log(res.data);
