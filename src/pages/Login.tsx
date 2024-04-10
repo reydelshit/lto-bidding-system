@@ -9,6 +9,7 @@ export default function Login() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errorInput, setErrorInput] = useState<string>('');
+  const [error, setError] = useState<string>('');
 
   const [credentials, setCredentials] = useState([]);
 
@@ -49,19 +50,20 @@ export default function Login() {
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          localStorage.setItem('lto_bidding_token', res.data[0].account_id);
-          localStorage.setItem('lto_accountType', res.data[0].account_type);
-
-          fetchVipStatus(res.data[0].account_id);
-
           if (res.data[0].account_type === 'admin') {
+            localStorage.setItem('lto_bidding_token', res.data[0].account_id);
+            localStorage.setItem('lto_accountType', res.data[0].account_type);
+
+            fetchVipStatus(res.data[0].account_id);
             window.location.href = '/admin';
           } else if (parseInt(res.data[0].is_verified) === 0) {
-            setErrorInput('Account not verified yet');
-          } else if (parseInt(res.data[0].is_verified) === 1) {
-            setErrorInput('Account is rejected');
+            setError('Account not verified yet');
+            return;
+          } else if (parseInt(res.data[0].is_verified) === 2) {
+            setError('Account is rejected');
+            return;
           } else {
-            window.location.href = '/';
+            // window.location.href = '/';
           }
         }
       });
@@ -102,6 +104,12 @@ export default function Login() {
         >
           Login
         </Button>
+
+        {error.length > 0 && (
+          <p className="my-2 rounded-md border-2 bg-white p-2 font-semibold text-primary-red">
+            {error}
+          </p>
+        )}
         {errorInput && (
           <p className="rounded-md border-2 bg-white p-2 font-semibold text-primary-red">
             {errorInput}
