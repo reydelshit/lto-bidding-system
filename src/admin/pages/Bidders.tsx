@@ -226,7 +226,7 @@ const Bidders = () => {
 
       {showBiddingProfileDecider && (
         <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-white bg-opacity-80">
-          <div className="relative mt-[5rem] flex h-full w-[60rem] items-center justify-center gap-10 rounded-md border-2 bg-white p-2">
+          <div className="relative mt-[5rem] flex h-full w-[60rem] items-center justify-around gap-10 rounded-md border-2 bg-white p-2">
             <Button
               className="absolute right-2 top-2"
               onClick={() => setShowBiddingProfileDecider(false)}
@@ -246,7 +246,7 @@ const Bidders = () => {
                 }
               />
             </div>
-            <div>
+            <div className="w-full">
               <div className="flex gap-4">
                 <div className="flex w-[100%] flex-col ">
                   <Label className="my-4 block">First Name</Label>

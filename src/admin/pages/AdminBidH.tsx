@@ -65,7 +65,7 @@ const AdminBidH = () => {
                   <TableCell>{bid.product_name}</TableCell>
                   <TableCell>{bid.num_bids}</TableCell>
                   <TableCell>
-                    <Button>
+                    <Button disabled={bid.num_bids === 0 ? true : false}>
                       <Link to={`/admin/bid-history/${bid.product_id}`}>
                         View Bidding History
                       </Link>
