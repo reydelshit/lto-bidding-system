@@ -10,6 +10,7 @@ import BidHistory from './bidder/pages/BidHistory';
 import BidLogs from './bidder/pages/BidLogs';
 import ViewCalendar from './bidder/pages/ViewCalendar';
 import Layout from './root/Layout';
+import LayoutUser from './root/LayoutUser';
 
 function App() {
   return (
@@ -19,7 +20,14 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         <Route>
-          <Route path="/" element={<User />} />
+          <Route
+            path="/"
+            element={
+              <LayoutUser>
+                <User />
+              </LayoutUser>
+            }
+          />
           <Route path="/my-bids" element={<MyBids />} />
           <Route path="/view/:id" element={<ViewProduct />} />
           <Route path="/product-bid-history" element={<BidHistory />} />
