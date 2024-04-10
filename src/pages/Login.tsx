@@ -56,11 +56,10 @@ export default function Login() {
 
           if (res.data[0].account_type === 'admin') {
             window.location.href = '/admin';
-          } else if (
-            res.data[0].is_verified === 0 &&
-            res.data[0].is_verified === 2
-          ) {
-            setErrorInput('Wait for the admin to verify your account');
+          } else if (parseInt(res.data[0].is_verified) === 0) {
+            setErrorInput('Account not verified yet');
+          } else if (parseInt(res.data[0].is_verified) === 1) {
+            setErrorInput('Account is rejected');
           } else {
             window.location.href = '/';
           }
