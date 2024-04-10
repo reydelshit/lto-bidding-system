@@ -57,8 +57,9 @@ const Bidders = () => {
       })
       .then((res) => {
         if (res.data) {
-          fetchBidders();
           console.log(res.data);
+          fetchBidders();
+
           // setShowBiddingProfileDecider(false);
         }
       });
@@ -226,7 +227,7 @@ const Bidders = () => {
 
       {showBiddingProfileDecider && (
         <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-white bg-opacity-80">
-          <div className="relative mt-[5rem] flex h-full w-[60rem] items-center justify-around gap-10 rounded-md border-2 bg-white p-2">
+          <div className="relative mt-[5rem] flex h-fit w-[60rem] items-center justify-around gap-10 rounded-md border-2 bg-white  p-8">
             <Button
               className="absolute right-2 top-2"
               onClick={() => setShowBiddingProfileDecider(false)}
@@ -346,7 +347,7 @@ const Bidders = () => {
                 )}
               </span>
 
-              <div className="absolute bottom-2 right-2 flex gap-4">
+              <div className="absolute bottom-8 right-8 flex gap-4">
                 <Button
                   onClick={() => handleVerification(1, showBiddingProfile)}
                   className="bg-green-500"
