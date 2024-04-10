@@ -9,6 +9,7 @@ import ViewProduct from './bidder/pages/ViewProduct';
 import BidHistory from './bidder/pages/BidHistory';
 import BidLogs from './bidder/pages/BidLogs';
 import ViewCalendar from './bidder/pages/ViewCalendar';
+import Layout from './root/Layout';
 
 function App() {
   return (
@@ -25,7 +26,14 @@ function App() {
           <Route path="/bid-logs/:id" element={<BidLogs />} />
           <Route path="/view-calendar" element={<ViewCalendar />} />
         </Route>
-        <Route path="/admin/*" element={<Admin />} />
+        <Route
+          path="/admin/*"
+          element={
+            <Layout>
+              <Admin />
+            </Layout>
+          }
+        />
       </Routes>
     </div>
   );

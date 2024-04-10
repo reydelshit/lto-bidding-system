@@ -88,7 +88,7 @@ export default function Register() {
 
   return (
     <div className="flex h-dvh w-dvw items-center justify-center">
-      <div className="flex w-[40%] flex-col rounded-md border-2 p-2">
+      <div className="flex w-[50%] flex-col rounded-md border-2  border-green-500 p-4">
         <div className="my-[2rem] flex w-full items-start justify-start">
           <Button>Go Back</Button>
         </div>
@@ -99,7 +99,7 @@ export default function Register() {
               <Label className="my-4 block">First Name</Label>
               <Input
                 onChange={handleChange}
-                className="mb-2"
+                className="mb-2 border-green-500"
                 placeholder="First Name"
                 name="first_name"
                 required
@@ -110,7 +110,7 @@ export default function Register() {
               <Label className="my-4 block">Last Name</Label>
               <Input
                 onChange={handleChange}
-                className="mb-2"
+                className="mb-2 border-green-500"
                 placeholder="Last Name"
                 name="last_name"
                 required
@@ -121,7 +121,7 @@ export default function Register() {
               <Label className="my-4 block">Middle Name</Label>
               <Input
                 onChange={handleChange}
-                className="mb-2"
+                className="mb-2 border-green-500"
                 placeholder="Middle Name"
                 name="middle_name"
                 required
@@ -134,7 +134,7 @@ export default function Register() {
               <Label className="my-4 block">Phone Number</Label>
               <Input
                 onChange={handleChange}
-                className="mb-2"
+                className="mb-2 border-green-500"
                 placeholder="Phone Number"
                 name="phone_number"
                 required
@@ -146,7 +146,7 @@ export default function Register() {
 
               <Input
                 onChange={handleChange}
-                className="mb-2"
+                className="mb-2 border-green-500"
                 placeholder="Email"
                 name="email_address"
                 required
@@ -157,7 +157,7 @@ export default function Register() {
           <Label className="my-4 block">Username</Label>
           <Input
             onChange={handleChange}
-            className="mb-2"
+            className="mb-2 border-green-500"
             placeholder="Username"
             name="username"
             required
@@ -168,7 +168,7 @@ export default function Register() {
               <Label className="my-4 block">Password</Label>
               <Input
                 onChange={handleChange}
-                className="mb-2"
+                className="mb-2 border-green-500"
                 placeholder="Password"
                 name="password"
                 type="password"
@@ -180,7 +180,7 @@ export default function Register() {
               <Label className="my-4 block">Confirm Password</Label>
               <Input
                 onChange={handleCheckPassword}
-                className="mb-2"
+                className="mb-2 border-green-500"
                 placeholder="Confirm Password"
                 name="confirm_password"
                 type="password"
@@ -192,7 +192,7 @@ export default function Register() {
           <Label className="my-4 block">Address</Label>
           <Input
             onChange={handleChange}
-            className="mb-2"
+            className="mb-2 border-green-500"
             placeholder="Address"
             name="address"
             required
@@ -204,7 +204,7 @@ export default function Register() {
             className="mb-4  h-[8rem] w-[8rem] rounded-lg object-cover"
             src={image! ? image! : DefaultImage}
           />
-          <div className="mb-2">
+          <div className="mb-2 border-green-500">
             <Label className="my-4 block">Image</Label>
             <Input
               required
@@ -217,7 +217,7 @@ export default function Register() {
         </div>
 
         {errorInput.length > 0 && (
-          <p className="my-4 rounded-md border-2 bg-white p-2 font-semibold text-primary-red">
+          <p className="my-4 rounded-md border-2 border-green-500 border-green-500 bg-white p-2 font-semibold text-primary-red">
             {errorInput}
           </p>
         )}
@@ -228,7 +228,7 @@ export default function Register() {
         </div>
 
         {successfulLogin && (
-          <div className="my-4 rounded-md bg-green-500 p-2 text-white">
+          <div className="my-4 rounded-md border-green-500 bg-green-500 p-2 text-white">
             Registed Successfully, navigating to login page in{' '}
             <span className="font-bold">{seconds}</span> seconds
           </div>

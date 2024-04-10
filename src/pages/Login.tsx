@@ -65,10 +65,10 @@ export default function Login() {
 
   return (
     <div className="flex h-dvh w-dvw items-center justify-center">
-      <div className="flex h-[25rem] w-[40%] flex-col items-center justify-center rounded-md bg-primary-red p-4 px-[5rem] text-primary-yellow shadow-slate-400">
+      <div className="flex h-[25rem] w-[40%] flex-col items-center justify-center rounded-md border-4 border-green-500 bg-white p-4 px-[5rem] text-black shadow-slate-400">
         <Input
           onChange={handleChange}
-          className="mb-8 w-full rounded-full border-4 border-primary-yellow p-8 text-2xl text-primary-yellow placeholder:text-2xl placeholder:font-semibold placeholder:text-primary-yellow focus:outline-none"
+          className="mb-8 w-full rounded-full border-4 border-green-500 p-8 text-2xl text-green-500 placeholder:text-2xl placeholder:font-semibold placeholder:text-green-500 focus:outline-none"
           placeholder="Username"
           name="username"
           required
@@ -76,7 +76,7 @@ export default function Login() {
 
         {/* <Label className="mb-1 self-start text-sm">Password</Label> */}
         <Input
-          className="mb-2 w-full rounded-full border-4 border-primary-yellow p-8 text-2xl text-primary-yellow placeholder:text-2xl placeholder:font-semibold placeholder:text-primary-yellow focus:outline-none"
+          className="mb-2 w-full rounded-full border-4 border-green-500 p-8 text-2xl text-green-500 placeholder:text-2xl placeholder:font-semibold placeholder:text-green-500 focus:outline-none"
           type="password"
           onChange={handleChange}
           name="password"
@@ -85,11 +85,19 @@ export default function Login() {
         />
 
         <div className="w-full px-2 text-end">
-          <a href="/register" className="text-[1.2rem] underline">
+          <a
+            href="/register"
+            className="text-[1.2rem] text-green-500 underline"
+          >
             Create an account
           </a>
         </div>
-        <Button onClick={handleLogin}>Login</Button>
+        <Button
+          className="mt-[2rem] w-[10rem] bg-green-500 p-2 text-white"
+          onClick={handleLogin}
+        >
+          Login
+        </Button>
         {errorInput && (
           <p className="rounded-md border-2 bg-white p-2 font-semibold text-primary-red">
             {errorInput}
