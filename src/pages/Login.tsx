@@ -63,7 +63,11 @@ export default function Login() {
             setError('Account is rejected');
             return;
           } else {
-            // window.location.href = '/';
+            localStorage.setItem('lto_bidding_token', res.data[0].account_id);
+            localStorage.setItem('lto_accountType', res.data[0].account_type);
+            fetchVipStatus(res.data[0].account_id);
+
+            window.location.href = '/';
           }
         }
       });

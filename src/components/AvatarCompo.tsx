@@ -119,22 +119,25 @@ const AvatarCompo = () => {
         </h1>
       </div>
       <div className="flex items-center gap-4">
-        {isVip && <img src={VIP} alt="vip" className="h-[4rem] w-[4rem]" />}
+        {isVip && profile.account_type !== 'admin' && (
+          <img src={VIP} alt="vip" className="h-[4rem] w-[4rem]" />
+        )}
 
-        <Popover>
-          <PopoverTrigger
-            className="rounded-md bg-green-500 p-2 text-white"
-            onClick={fetchNotifications}
-          >
-            Notification
-          </PopoverTrigger>
-          <PopoverContent className="min-h-[20rem] p-0">
-            {notifications.map((notification, index) => (
-              <BiddingNotificationItem key={index} row={notification} />
-            ))}
-          </PopoverContent>
-        </Popover>
-
+        {profile.account_type !== 'admin' && (
+          <Popover>
+            <PopoverTrigger
+              className="rounded-md bg-green-500 p-2 text-white"
+              onClick={fetchNotifications}
+            >
+              Notification
+            </PopoverTrigger>
+            <PopoverContent className="min-h-[20rem] p-0">
+              {notifications.map((notification, index) => (
+                <BiddingNotificationItem key={index} row={notification} />
+              ))}
+            </PopoverContent>
+          </Popover>
+        )}
         <Popover>
           <PopoverTrigger>
             <div className="flex items-center gap-4">
@@ -161,11 +164,14 @@ const AvatarCompo = () => {
               </Button>
             )}
 
-            {vipStatus.length > 0 ? (
+            {profile.account_type === 'admin' ? (
+              ''
+            ) : vipStatus.length > 0 ? (
               <Button onClick={handleUnSubscribeVip}>UNSUBSCRIBE VIP</Button>
             ) : (
               <Button onClick={handleSubscribeVip}>SUBSCRIBE VIP</Button>
             )}
+
             <Button onClick={handleLogout}>Logout</Button>
           </PopoverContent>
         </Popover>

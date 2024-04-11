@@ -326,7 +326,7 @@ const Biddings = () => {
               Close
             </Button>
 
-            <Table className="mt-[2rem] border-2">
+            <Table className="mt-[5rem] border-2">
               <TableHeader>
                 <TableRow>
                   <TableHead className="font-bold text-black">Image</TableHead>
@@ -348,7 +348,11 @@ const Biddings = () => {
                   return (
                     <TableRow className="border-b-2 text-start" key={index}>
                       <TableCell>
-                        <img src={lead.image_path} alt={lead.product_name} />
+                        <img
+                          className="h-[8em] w-[8em] rounded-md object-cover"
+                          src={lead.image_path}
+                          alt={lead.product_name}
+                        />
                       </TableCell>
 
                       <TableCell>{lead.product_name}</TableCell>

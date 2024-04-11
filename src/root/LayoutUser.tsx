@@ -12,5 +12,8 @@ export default function LayoutUser({
     return <Navigate to="/login" replace={true} />;
   }
 
+  if (lto_accountType === 'admin')
+    return <Navigate to="/admin" replace={true} />;
+
   return children as JSX.Element;
 }
