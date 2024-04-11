@@ -101,6 +101,8 @@ const Biddings = () => {
     winnerName: string,
     productName: string,
   ) => {
+    console.log(winnerPhone, winnerName, productName);
+
     const apiKey =
       'SigIVuuIwp98jJW4wVbDD9fmrVS544zMKBk0EXlVGdNrFWxTqGcB6E7RG2DPX-y7';
     fetch('https://api.httpsms.com/v1/messages/send', {

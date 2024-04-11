@@ -62,6 +62,9 @@ const MyBids = () => {
 
   const handleShowPayment = (product_id: number, totalAmount: number) => {
     setShowPayment(true);
+
+    console.log(product_id, totalAmount);
+
     setProductID(product_id);
     setAmount(parseInt(totalAmount.toString()));
   };
@@ -114,7 +117,11 @@ const MyBids = () => {
       })
       .then((res) => {
         console.log(res.data, 'feedbacks');
-        // setShowFeedbackForm(false);
+
+        fetchBidsHistory();
+
+        setShowFeedbackForm(false);
+
         // window.location.reload();
       });
   };
@@ -211,8 +218,10 @@ const MyBids = () => {
                         <span className="text-yellow-500">Not paid</span>
                       ) : bid.payment_status === 1 ? (
                         <span className="text-green-500">Payment approved</span>
-                      ) : (
+                      ) : bid.payment_status === 2 ? (
                         <span className="text-red-500">Payment rejected</span>
+                      ) : (
+                        <span className="text-yellow-500">N/A</span>
                       ))}
                   </TableCell>
 
@@ -226,7 +235,11 @@ const MyBids = () => {
                           )
                         }
                         className="w-[6rem] rounded-md bg-green-500 p-1 text-white"
-                        disabled={bid.status === 2 || bid.payment_status === 1}
+                        disabled={
+                          bid.status === 2 ||
+                          bid.payment_status === 1 ||
+                          bid.status === 0
+                        }
                       >
                         Pay Now
                       </Button>
@@ -237,9 +250,7 @@ const MyBids = () => {
                         </Button>
                       ) : (
                         <Button
-                          disabled={
-                            bid.payment_status === 1 || bid.status === 2
-                          }
+                          disabled={bid.status === 2 || bid.status === 0}
                           onClick={() => handleShowFeedbackForm(bid.product_id)}
                           className=" text-white"
                         >
