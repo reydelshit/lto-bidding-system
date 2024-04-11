@@ -199,7 +199,7 @@ const Dashboard = () => {
             <QRCode
               size={256}
               style={{ height: 'auto', maxWidth: '50%', width: '50%' }}
-              value={`${import.meta.env.VITE_LTO_BIDDING_LOCAL_HOST}/view/${qrCodeID}`}
+              value={`http://localhost:5173/view/${qrCodeID}`}
               viewBox={`0 0 256 256`}
             />
           </div>

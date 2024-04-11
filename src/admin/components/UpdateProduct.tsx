@@ -100,14 +100,7 @@ export default function UpdateProducts({}: {}) {
       })
       .then((res) => {
         console.log(res.data);
-        if (res.status === 200) {
-          // window.location.reload();
-          // navigate('/admin/manage-product');
-          //   toast({
-          //     title: 'Product: Updated Successfully',
-          //     description: moment().format('LLLL'),
-          //   });
-        }
+        window.location.reload();
       });
   };
 
