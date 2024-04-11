@@ -115,7 +115,7 @@ const Biddings = () => {
       body: JSON.stringify({
         content: `Hello, ${winnerName}! You have won the bidding for ${productName}. To proceed, please visit our payment portal in My Bids section. Thank you!`,
         from: '+639097134971',
-        to: '+639658971546',
+        to: winnerPhone,
       }),
     })
       .then((res) => res.json())
