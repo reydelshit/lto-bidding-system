@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-
+import { MdOutlineRateReview } from 'react-icons/md';
 import UserNavigation from '../UserNavigation';
+
+import { FaGooglePay } from 'react-icons/fa6';
+
 import {
   Table,
   TableBody,
@@ -154,249 +157,266 @@ const MyBids = () => {
   };
 
   return (
-    <div className="relative h-full">
+    <div className="relative h-full bg-gray-50">
       <UserNavigation />
 
-      <h1 className="my-2 text-[2rem]">MY BIDS</h1>
-      <div className="my-2 flex w-full items-center justify-between">
-        <Input
-          onChange={(e) => setSearchProduct(e.target.value)}
-          className="w-[20rem]"
-          placeholder="search bidders.."
-        />
-      </div>
+      <div className="relative mx-[2rem] h-full w-full bg-gray-50">
+        <h1 className="my-4 text-[1.5rem] font-semibold">
+          MY BIDS <span className="text-gray-500">{'>'} List of bids</span>
+        </h1>
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="font-bold text-black">Product Name</TableHead>
-            <TableHead className="font-bold text-black">
-              Max Bid Amount
-            </TableHead>
-            <TableHead className="w-[20rem] font-bold text-black">
-              Status
-            </TableHead>
-            <TableHead className="font-bold text-black">
-              Payment Status
-            </TableHead>
+        <div className="my-2 flex w-full items-center justify-between">
+          <Input
+            onChange={(e) => setSearchProduct(e.target.value)}
+            className="h-[3rem] w-[25rem] bg-white"
+            placeholder="search bidders.."
+          />
+        </div>
 
-            <TableHead className="w-[20rem] font-bold text-black">
-              Action
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {bidsHistory
-            .filter((bid) => bid.product_name.includes(searchProduct))
-            .map((bid, index) => {
-              return (
-                <TableRow className="border-b-2 text-start" key={index}>
-                  <TableCell>{bid.product_name}</TableCell>
+        <Table className="border-2 bg-white">
+          <TableHeader>
+            <TableRow>
+              <TableHead className="font-bold text-black">
+                Product Name
+              </TableHead>
+              <TableHead className="font-bold text-black">
+                Max Bid Amount
+              </TableHead>
+              <TableHead className="w-[20rem] font-bold text-black">
+                Status
+              </TableHead>
+              <TableHead className="font-bold text-black">
+                Payment Status
+              </TableHead>
 
-                  <TableCell>{bid.max_bid_for_product}</TableCell>
-                  <TableCell>
-                    {bid.status === 0 && (
-                      <span className="block  w-[10rem] rounded-md bg-violet-500 p-1 text-center text-white">
-                        Ongoing Bidding
-                      </span>
-                    )}
-                    {bid.status === 1 && (
-                      <span className="block w-[10rem]  rounded-md bg-green-500 p-1 text-center text-white">
-                        Winner
-                      </span>
-                    )}
-                    {bid.status === 2 && (
-                      <span className="block w-[10rem]  rounded-md bg-red-500 p-1 text-center text-white">
-                        Lose
-                      </span>
-                    )}
-                  </TableCell>
+              <TableHead className="w-[20rem] font-bold text-black">
+                Action
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {bidsHistory
+              .filter((bid) => bid.product_name.includes(searchProduct))
+              .map((bid, index) => {
+                return (
+                  <TableRow className="border-b-2 text-start" key={index}>
+                    <TableCell>{bid.product_name}</TableCell>
 
-                  <TableCell>
-                    {bid.status === 1 &&
-                      (bid.payment_status === 0 ? (
-                        <span className="text-yellow-500">Not paid</span>
-                      ) : bid.payment_status === 1 ? (
-                        <span className="text-green-500">Payment approved</span>
-                      ) : bid.payment_status === 2 ? (
-                        <span className="text-red-500">Payment rejected</span>
-                      ) : (
-                        <span className="text-yellow-500">N/A</span>
-                      ))}
-                  </TableCell>
-
-                  <TableCell>
-                    <div className="flex gap-4">
-                      <Button
-                        onClick={() =>
-                          handleShowPayment(
-                            bid.product_id,
-                            bid.max_bid_for_product,
-                          )
-                        }
-                        className="w-[6rem] rounded-md bg-green-500 p-1 text-white"
-                        disabled={
-                          bid.status === 2 ||
-                          bid.payment_status === 1 ||
-                          bid.status === 0
-                        }
-                      >
-                        Pay Now
-                      </Button>
-
-                      {bid.payment_status === 0 || bid.payment_status === 2 ? (
-                        <Button disabled className="w-[6rem] text-green-500">
-                          Add Review
-                        </Button>
-                      ) : (
-                        <Button
-                          disabled={bid.status === 2 || bid.status === 0}
-                          onClick={() => handleShowFeedbackForm(bid.product_id)}
-                          className=" text-white"
-                        >
-                          Add Review
-                        </Button>
+                    <TableCell>{bid.max_bid_for_product}</TableCell>
+                    <TableCell>
+                      {bid.status === 0 && (
+                        <span className="block  w-[10rem] rounded-md  bg-violet-500 p-1 p-2 text-center font-bold text-white">
+                          Ongoing Bidding
+                        </span>
                       )}
-                    </div>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-        </TableBody>
-      </Table>
+                      {bid.status === 1 && (
+                        <span className="block w-[10rem]  rounded-md bg-green-500  p-1 p-2 text-center font-bold text-white">
+                          Winner
+                        </span>
+                      )}
+                      {bid.status === 2 && (
+                        <span className="block  w-[10rem] rounded-md bg-red-500  p-1 p-2 text-center font-bold text-white">
+                          Lose
+                        </span>
+                      )}
+                    </TableCell>
 
-      {showFeedbackForm && (
-        <div className="fixed left-0 top-0 z-10 flex h-full w-full flex-col items-center justify-center bg-black bg-opacity-70">
-          <div className="w-[35rem] rounded-lg border-2 bg-white p-4">
-            <h1 className="mb-[5rem] text-2xl font-bold">Feedback Form</h1>
-            <div className="text-center">
-              <span>how would you rate our product?</span>
-              <div className="mb-[2rem] flex w-full justify-center">
-                {Array.from({ length: 5 }, (_, i) => i).map((number) => {
-                  const isSelected = selectedRating === number;
-                  return (
-                    <Button
-                      onClick={() => handleClick(number)}
-                      key={number}
-                      className={`${
-                        isSelected
-                          ? 'bg-green-500 text-white'
-                          : 'bg-white text-black'
-                      } ' my-2 mr-2 hover:bg-green-500 hover:text-white`}
-                    >
-                      {number + 1} ⭐
-                    </Button>
-                  );
-                })}
+                    <TableCell>
+                      {bid.status === 1 &&
+                        (bid.payment_status === 0 ? (
+                          <span className="text-yellow-500">Not paid</span>
+                        ) : bid.payment_status === 1 ? (
+                          <span className="text-green-500">
+                            Payment approved
+                          </span>
+                        ) : bid.payment_status === 2 ? (
+                          <span className="text-red-500">Payment rejected</span>
+                        ) : (
+                          <span className="text-yellow-500">N/A</span>
+                        ))}
+                    </TableCell>
+
+                    <TableCell>
+                      <div className="flex gap-4">
+                        <Button
+                          onClick={() =>
+                            handleShowPayment(
+                              bid.product_id,
+                              bid.max_bid_for_product,
+                            )
+                          }
+                          className="flex w-[6rem] items-center gap-2 rounded-md bg-green-500 p-1 text-white"
+                          disabled={
+                            bid.status === 2 ||
+                            bid.payment_status === 1 ||
+                            bid.status === 0
+                          }
+                        >
+                          <FaGooglePay className="text-xl" /> Pay Now
+                        </Button>
+
+                        {bid.payment_status === 0 ||
+                        bid.payment_status === 2 ? (
+                          <Button
+                            disabled
+                            className=" flex items-center gap-2 text-white"
+                          >
+                            <MdOutlineRateReview className="text-xl" /> Add
+                            Review
+                          </Button>
+                        ) : (
+                          <Button
+                            disabled={bid.status === 2 || bid.status === 0}
+                            onClick={() =>
+                              handleShowFeedbackForm(bid.product_id)
+                            }
+                            className=" flex items-center gap-2 text-white"
+                          >
+                            <MdOutlineRateReview className="text-xl" /> Add
+                            Review
+                          </Button>
+                        )}
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        </Table>
+
+        {showFeedbackForm && (
+          <div className="fixed left-0 top-0 z-10 flex h-full w-full flex-col items-center justify-center bg-white bg-opacity-70">
+            <div className="w-[35rem] rounded-lg border-2 bg-white p-4">
+              <h1 className="mb-[5rem] text-xl font-semibold">Feedback Form</h1>
+              <div className="text-center">
+                <span>How would you rate our product?</span>
+                <div className="mb-[2rem] flex w-full justify-center">
+                  {Array.from({ length: 5 }, (_, i) => i).map((number) => {
+                    const isSelected = selectedRating === number;
+                    return (
+                      <Button
+                        onClick={() => handleClick(number)}
+                        key={number}
+                        className={`${
+                          isSelected
+                            ? 'bg-green-500 text-white'
+                            : 'bg-white text-black'
+                        } ' my-2 mr-2 hover:bg-green-500 hover:text-white`}
+                      >
+                        {number + 1} ⭐
+                      </Button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <Textarea
+                id="feedback"
+                value={feedBackDescription}
+                onChange={handleChange}
+                placeholder="please write down your feedback here"
+                className="h-[10rem]"
+              ></Textarea>
+
+              <div className="mt-[3rem] flex justify-center gap-2">
+                <Button
+                  onClick={() => setShowFeedbackForm(false)}
+                  className="block bg-red-700"
+                >
+                  Cancel
+                </Button>
+
+                <Button
+                  className="bg-green-500"
+                  onClick={handleFeedbackSubmition}
+                >
+                  Submit
+                </Button>
               </div>
             </div>
+          </div>
+        )}
 
-            <Textarea
-              id="feedback"
-              value={feedBackDescription}
-              onChange={handleChange}
-              placeholder="please write down your feedback here"
-              className="h-[10rem]"
-            ></Textarea>
+        {showPayment && (
+          <div className="absolute top-0 flex h-full w-[100%] items-center justify-center overflow-x-hidden bg-white bg-opacity-85">
+            <div className="h-[42rem] w-[40rem] rounded-md border-2 bg-white p-2">
+              <h1 className="my-4 font-bold">PAY NOW!</h1>
+              <Tabs defaultValue="gcash" className="w-full">
+                <TabsList className="w-full">
+                  <TabsTrigger className="w-[50%]" value="gcash">
+                    Gcash
+                  </TabsTrigger>
+                  <TabsTrigger className="w-[50%]" value="paymaya">
+                    Paymaya
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent value="gcash">
+                  <img
+                    className="mb-2 h-[25rem] w-full object-contain"
+                    src={Gcash}
+                    alt="gcash"
+                  />
 
-            <div className="mt-[3rem] flex justify-center gap-2">
-              <Button
-                onClick={() => setShowFeedbackForm(false)}
-                className="block bg-red-700"
-              >
-                cancel
-              </Button>
+                  <form onSubmit={handleSubmitProof}>
+                    <Label className="text-md my-2 block text-start">
+                      Upload proof of payment
+                    </Label>
 
-              <Button
-                className="bg-green-500"
-                onClick={handleFeedbackSubmition}
-              >
-                Submit
-              </Button>
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleChangeImage}
+                      className="cursor-pointer"
+                      required
+                    />
+
+                    <div className="mt-2 flex justify-end gap-4">
+                      <Button onClick={() => setShowPayment(false)}>
+                        Cancel
+                      </Button>
+
+                      <Button className="bg-green-500" type="submit">
+                        Submit
+                      </Button>
+                    </div>
+                  </form>
+                </TabsContent>
+                <TabsContent value="paymaya">
+                  <img
+                    className="mb-2 h-[25rem] w-full object-contain"
+                    src={PayMaya}
+                    alt="paymaya"
+                  />
+
+                  <form onSubmit={handleSubmitProof}>
+                    <Label className="text-md my-2 block text-start">
+                      Upload proof of payment
+                    </Label>
+
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleChangeImage}
+                      className="cursor-pointer"
+                      required
+                    />
+
+                    <div className="mt-2 flex justify-end gap-4">
+                      <Button onClick={() => setShowPayment(false)}>
+                        Cancel
+                      </Button>
+
+                      <Button className="bg-green-500" type="submit">
+                        Submit
+                      </Button>
+                    </div>
+                  </form>
+                </TabsContent>
+              </Tabs>
             </div>
           </div>
-        </div>
-      )}
-
-      {showPayment && (
-        <div className="absolute top-0 flex h-full w-[100%] items-center justify-center overflow-x-hidden bg-white bg-opacity-85">
-          <div className="h-[42rem] w-[40rem] rounded-md border-2 bg-white p-2">
-            <h1 className="my-4 font-bold">PAY NOW!</h1>
-            <Tabs defaultValue="gcash" className="w-full">
-              <TabsList className="w-full">
-                <TabsTrigger className="w-[50%]" value="gcash">
-                  Gcash
-                </TabsTrigger>
-                <TabsTrigger className="w-[50%]" value="paymaya">
-                  Paymaya
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="gcash">
-                <img
-                  className="mb-2 h-[25rem] w-full object-contain"
-                  src={Gcash}
-                  alt="gcash"
-                />
-
-                <form onSubmit={handleSubmitProof}>
-                  <Label className="text-md my-2 block text-start">
-                    Upload proof of payment
-                  </Label>
-
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleChangeImage}
-                    className="cursor-pointer"
-                    required
-                  />
-
-                  <div className="mt-2 flex justify-end gap-4">
-                    <Button onClick={() => setShowPayment(false)}>
-                      Cancel
-                    </Button>
-
-                    <Button className="bg-green-500" type="submit">
-                      Submit
-                    </Button>
-                  </div>
-                </form>
-              </TabsContent>
-              <TabsContent value="paymaya">
-                <img
-                  className="mb-2 h-[25rem] w-full object-contain"
-                  src={PayMaya}
-                  alt="paymaya"
-                />
-
-                <form onSubmit={handleSubmitProof}>
-                  <Label className="text-md my-2 block text-start">
-                    Upload proof of payment
-                  </Label>
-
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleChangeImage}
-                    className="cursor-pointer"
-                    required
-                  />
-
-                  <div className="mt-2 flex justify-end gap-4">
-                    <Button onClick={() => setShowPayment(false)}>
-                      Cancel
-                    </Button>
-
-                    <Button className="bg-green-500" type="submit">
-                      Submit
-                    </Button>
-                  </div>
-                </form>
-              </TabsContent>
-            </Tabs>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

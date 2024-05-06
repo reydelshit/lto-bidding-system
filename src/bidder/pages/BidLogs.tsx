@@ -52,45 +52,51 @@ const BidLogs = () => {
   }, []);
 
   return (
-    <div>
+    <div className="h-full w-full bg-gray-50">
       <UserNavigation />
 
-      <h1 className="my-2 text-[2rem]">PRODUCT BID HISTORY</h1>
+      <div className=" mx-[2rem] h-full w-full bg-gray-50">
+        <h1 className="my-4 text-[1.5rem] font-semibold">
+          PRODUCT BID HISTORY{' '}
+          <span className="text-gray-500">{'>'} List of Bid History</span>
+        </h1>
+        <h1 className="my-2 mt-[2rem] text-center text-[2rem] uppercase">
+          {productName.length > 0 ? productName : 'No Product'}
+        </h1>
 
-      <h1 className="my-2 text-center text-[2rem]">
-        Product: {productName.length > 0 ? productName : 'No Product'}
-      </h1>
-
-      <div className="flex w-full items-center justify-center">
-        <div className="w-[50%]">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="font-bold text-black">Bidder</TableHead>
-                <TableHead className="w-[20rem] font-bold text-black">
-                  Bid Amount
-                </TableHead>
-                <TableHead className="font-bold text-black">Bid Time</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {product.map((bid, index) => {
-                return (
-                  <TableRow className="border-b-2 text-start" key={index}>
-                    <TableCell>
-                      {bid.account_id !== parseInt(account_id_local)
-                        ? bid.username.charAt(0) +
-                          bid.username.slice(1, -1).replace(/./g, '*') +
-                          bid.username.charAt(bid.username.length - 1)
-                        : 'You'}
-                    </TableCell>
-                    <TableCell>₱ {bid.amount_bid}</TableCell>
-                    <TableCell>{bid.createdOn}</TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+        <div className="flex w-full items-center justify-center">
+          <div className="w-[50%] border-2 bg-white">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="font-bold text-black">Bidder</TableHead>
+                  <TableHead className="w-[20rem] font-bold text-black">
+                    Bid Amount
+                  </TableHead>
+                  <TableHead className="font-bold text-black">
+                    Bid Time
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {product.map((bid, index) => {
+                  return (
+                    <TableRow className="border-b-2 text-start" key={index}>
+                      <TableCell className="font-bold">
+                        {bid.account_id !== parseInt(account_id_local)
+                          ? bid.username.charAt(0) +
+                            bid.username.slice(1, -1).replace(/./g, '*') +
+                            bid.username.charAt(bid.username.length - 1)
+                          : 'You'}
+                      </TableCell>
+                      <TableCell>₱ {bid.amount_bid}</TableCell>
+                      <TableCell>{bid.createdOn}</TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </div>
         </div>
       </div>
     </div>

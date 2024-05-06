@@ -51,13 +51,16 @@ const ViewAdminBidH = () => {
   }, []);
 
   return (
-    <div>
-      <h1 className="my-2 text-[2rem]"> ViewAdminBidH</h1>
-      <h1 className="my-2 text-center text-[2rem]">
-        Product: {productName.length > 0 ? productName : 'No Product'}
+    <div className="h-screen bg-gray-50">
+      <h1 className="my-4 text-[1.5rem] font-semibold">
+        BIDDING HISTORY{' '}
+        <span className="text-gray-500">{'>'} List of Bidding History</span>
+      </h1>
+      <h1 className="my-2 text-center text-[2rem] font-semibold uppercase">
+        {productName.length > 0 ? productName : 'No Product'}
       </h1>
       <div className="flex w-full items-center justify-center">
-        <div className="w-[50%]">
+        <div className="w-[50%] rounded-md border-2 bg-white">
           <Table>
             <TableHeader>
               <TableRow>
@@ -72,7 +75,7 @@ const ViewAdminBidH = () => {
               {product.map((bid, index) => {
                 return (
                   <TableRow className="border-b-2 text-start" key={index}>
-                    <TableCell>
+                    <TableCell className="font-bold">
                       {bid.username
                         ? bid.first_name + ' ' + bid.last_name
                         : 'No Bidder'}

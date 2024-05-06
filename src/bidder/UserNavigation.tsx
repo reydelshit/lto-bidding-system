@@ -1,34 +1,39 @@
 import AvatarCompo from '@/components/AvatarCompo';
 import { Link } from 'react-router-dom';
-
+import { FaHome } from 'react-icons/fa';
+import { GrMoney } from 'react-icons/gr';
+import { FaHistory } from 'react-icons/fa';
 const UserNavigation = () => {
   return (
-    <>
+    <div className="bg-white">
       <AvatarCompo />
 
-      <div className="flex justify-around gap-4">
+      <div className="flex justify-around gap-4 border-b-2 px-[2rem] py-2 shadow-sm">
         <Link
-          className="w-full rounded-md bg-green-500 p-2 text-center text-white hover:bg-green-300"
+          className="flex w-full items-center gap-2 p-2 text-start text-xl 
+        font-semibold uppercase"
           to="/"
         >
-          Home
+          <FaHome className="text-blue-500" /> Home
         </Link>
 
         <Link
-          className="w-full rounded-md bg-green-500 p-2 text-center text-white hover:bg-green-300"
+          className="flex w-full items-center gap-2 p-2 text-start text-xl 
+     font-semibold uppercase"
           to="/my-bids"
         >
-          My Bids
+          <GrMoney className="text-blue-500" /> My Bids
         </Link>
 
         <Link
-          className="w-full rounded-md bg-green-500 p-2 text-center text-white hover:bg-green-300"
+          className="flex w-full items-center gap-2 p-2 text-start text-xl 
+       font-semibold uppercase"
           to="/product-bid-history"
         >
-          Product Bid History
+          <FaHistory className="text-blue-500" /> Product Bid History
         </Link>
       </div>
-    </>
+    </div>
   );
 };
 

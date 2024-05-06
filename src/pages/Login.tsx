@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import axios from 'axios';
 import { useState } from 'react';
-
+import { CiUnlock } from 'react-icons/ci';
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
 
 export default function Login() {
@@ -12,6 +12,7 @@ export default function Login() {
   const [error, setError] = useState<string>('');
 
   const [credentials, setCredentials] = useState([]);
+  const [isVerified, setIsVerified] = useState<boolean>(false);
 
   const handleChange = (e: ChangeEvent) => {
     const { name, value } = e.target;
@@ -58,6 +59,8 @@ export default function Login() {
             window.location.href = '/admin';
           } else if (parseInt(res.data[0].is_verified) === 0) {
             setError('Account not verified yet');
+            setIsVerified(true);
+
             return;
           } else if (parseInt(res.data[0].is_verified) === 2) {
             setError('Account is rejected');
@@ -75,10 +78,41 @@ export default function Login() {
 
   return (
     <div className="flex h-dvh w-dvw items-center justify-center">
-      <div className="flex h-[25rem] w-[40%] flex-col items-center justify-center rounded-md border-4 border-green-500 bg-white p-4 px-[5rem] text-black shadow-slate-400">
+      {isVerified && (
+        <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
+          <div className="flex flex-col items-center justify-center rounded-md bg-white p-4 px-[5rem] text-black shadow-slate-400">
+            <p className="mb-4 text-lg text-blue-500">
+              Your account is not verified yet
+            </p>
+            <Button
+              className="mt-4 w-[10rem] p-2 text-white"
+              onClick={() => setIsVerified(false)}
+            >
+              Close
+            </Button>
+          </div>
+        </div>
+      )}
+      <div className="flex h-[30rem] w-[30%] flex-col items-center justify-center rounded-md border-2 bg-white p-4  text-black shadow-md shadow-slate-400">
+        <h1
+          className="text-4xl
+        font-bold"
+        >
+          Sign In
+        </h1>
+
+        <div className="my-[2rem] flex w-full items-center justify-center gap-2 px-2 text-center">
+          Don't have an account?{' '}
+          <a
+            href="/register"
+            className=" font-semibold text-blue-500 underline"
+          >
+            Sign up here
+          </a>
+        </div>
         <Input
           onChange={handleChange}
-          className="mb-8 w-full rounded-full border-4 border-green-500 p-8 text-2xl text-green-500 placeholder:text-2xl placeholder:font-semibold placeholder:text-green-500 focus:outline-none"
+          className="mb-8 w-full rounded-sm border-2 p-6 text-xl   focus:outline-none"
           placeholder="Username"
           name="username"
           required
@@ -86,7 +120,7 @@ export default function Login() {
 
         {/* <Label className="mb-1 self-start text-sm">Password</Label> */}
         <Input
-          className="mb-2 w-full rounded-full border-4 border-green-500 p-8 text-2xl text-green-500 placeholder:text-2xl placeholder:font-semibold placeholder:text-green-500 focus:outline-none"
+          className="mb-2 w-full rounded-sm border-2 p-6 text-xl  focus:outline-none"
           type="password"
           onChange={handleChange}
           name="password"
@@ -94,18 +128,11 @@ export default function Login() {
           required
         />
 
-        <div className="w-full px-2 text-end">
-          <a
-            href="/register"
-            className="text-[1.2rem] text-green-500 underline"
-          >
-            Create an account
-          </a>
-        </div>
         <Button
-          className="mt-[2rem] w-[10rem] bg-green-500 p-2 text-white"
           onClick={handleLogin}
+          className="mt-[2rem] flex w-full items-center gap-2 p-6 text-white"
         >
+          <CiUnlock className="text-2xl" />
           Login
         </Button>
 

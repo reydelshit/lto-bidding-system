@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { GrFormView } from 'react-icons/gr';
 
 const AdminBidH = () => {
   const [product, setProduct] = useState<any[]>([]);
@@ -43,10 +44,13 @@ const AdminBidH = () => {
   }, []);
 
   return (
-    <div>
-      <h1 className="my-4 text-[2rem]"> AdminBidH</h1>
-      <div className="w-full">
-        <Table>
+    <div className="mx-[2rem] h-screen bg-gray-50">
+      <div className="w-full bg-gray-50">
+        <h1 className="my-4 text-[1.5rem] font-semibold">
+          BIDDING HISTORY{' '}
+          <span className="text-gray-500">{'>'} List of Bidding History</span>
+        </h1>
+        <Table className="border-2 bg-white">
           <TableHeader>
             <TableRow>
               <TableHead className="font-bold text-black">Bidder</TableHead>
@@ -62,10 +66,18 @@ const AdminBidH = () => {
             {product.map((bid, index) => {
               return (
                 <TableRow className="border-b-2 text-start" key={index}>
-                  <TableCell>{bid.product_name}</TableCell>
-                  <TableCell>{bid.num_bids}</TableCell>
+                  <TableCell className="text-xl font-semibold">
+                    {bid.product_name}
+                  </TableCell>
+                  <TableCell className="font-bold text-blue-600">
+                    {bid.num_bids}
+                  </TableCell>
                   <TableCell>
-                    <Button disabled={bid.num_bids === 0 ? true : false}>
+                    <Button
+                      className="flex items-center gap-2"
+                      disabled={bid.num_bids === 0 ? true : false}
+                    >
+                      <GrFormView className="text-4xl" />
                       <Link to={`/admin/bid-history/${bid.product_id}`}>
                         View Bidding History
                       </Link>

@@ -12,6 +12,8 @@ import { Button } from './ui/button';
 import LTO from '@/assets/lto.png';
 import VIP from '@/assets/crown.png';
 import { Link } from 'react-router-dom';
+import { IoNotifications } from 'react-icons/io5';
+import { TbVip } from 'react-icons/tb';
 
 interface VipType {
   account_id: string;
@@ -111,25 +113,28 @@ const AvatarCompo = () => {
   };
 
   return (
-    <div className="flex h-[5rem] w-full items-center justify-between px-4">
+    <div className="flex h-[5rem] w-full items-center justify-between px-[2rem]">
       <div className="flex items-center gap-4">
         <img className="h-[4rem] w-[4rem]" src={LTO} alt="LTO" />
-        <h1 className="text-[1.5rem] font-bold">
+        <h1 className="text-[1.5rem] font-semibold">
           LTO POLOMOLOK BIDDING SYSTEM
         </h1>
       </div>
       <div className="flex items-center gap-4">
         {isVip && profile.account_type !== 'admin' && (
-          <img src={VIP} alt="vip" className="h-[4rem] w-[4rem]" />
+          <TbVip
+            className="
+          text-3xl text-yellow-500"
+          />
         )}
 
         {profile.account_type !== 'admin' && (
           <Popover>
             <PopoverTrigger
-              className="rounded-md bg-green-500 p-2 text-white"
+              className="p-2 text-3xl text-blue-500"
               onClick={fetchNotifications}
             >
-              Notification
+              <IoNotifications />
             </PopoverTrigger>
             <PopoverContent className="min-h-[20rem] p-0">
               {notifications.map((notification, index) => (
@@ -141,12 +146,12 @@ const AvatarCompo = () => {
         <Popover>
           <PopoverTrigger>
             <div className="flex items-center gap-4">
-              <Avatar className="h-[4rem] w-[4rem] cursor-pointer">
+              <Avatar className="h-[3rem] w-[3rem] cursor-pointer">
                 <AvatarImage src={Profile} />
                 <AvatarFallback>Profile</AvatarFallback>
               </Avatar>
 
-              <span className="cursor-pointer">
+              <span className="cursor-pointer font-semibold">
                 {profile.account_type.includes('admin')
                   ? 'Admin'
                   : profile.first_name}

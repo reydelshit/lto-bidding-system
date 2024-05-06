@@ -13,13 +13,13 @@ export default function CardCompo({
 }) {
   return (
     <>
-      <Card className="w-full bg-white text-start">
+      <Card className="w-[40%] bg-white text-start">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">{title}</CardTitle>
+          <CardTitle className="text-sm font-medium ">{title}</CardTitle>
           {icon}
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{value}</div>
+          <div className="text-2xl font-bold text-blue-500">{value}</div>
           <p className="text-xs text-muted-foreground">{description}</p>
         </CardContent>
       </Card>

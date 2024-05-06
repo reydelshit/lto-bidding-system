@@ -2,6 +2,7 @@ import DefaultImage from '@/assets/defaultImage.jpg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { VscGraph } from 'react-icons/vsc';
 import {
   Table,
   TableBody,
@@ -15,6 +16,11 @@ import { BiddersType, BiddingsType, LeaderBoardType } from '@/entities/types';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import VIP from '@/assets/crown.png';
+import { GrFormView } from 'react-icons/gr';
+import { FaCheckCircle } from 'react-icons/fa';
+import { GoIssueClosed } from 'react-icons/go';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { HiLockClosed } from 'react-icons/hi';
 
 const Biddings = () => {
   const [biddings, setBiddings] = useState<BiddingsType[]>([]);
@@ -123,253 +129,270 @@ const Biddings = () => {
   };
 
   return (
-    <div className="relative mt-[1rem] w-full rounded-lg bg-white p-2">
-      <h1 className="my-4 text-2xl font-bold">Biddings</h1>
+    <div className="relative mx-[2rem] mt-[1rem] h-screen w-full rounded-lg bg-gray-50 p-2">
+      <div className="relative h-full w-[95%] bg-gray-50">
+        <h1 className="my-4 text-[1.5rem] font-semibold">
+          BIDDINGS <span className="text-gray-500">{'>'} List of Biddings</span>
+        </h1>
 
-      <div className="my-2 flex w-full items-center justify-between">
-        <Input
-          onChange={(e) => setSearchProduct(e.target.value)}
-          className="w-[20rem]"
-          placeholder="search product.."
-        />
-      </div>
+        <div className="my-2 flex w-full items-center justify-between">
+          <Input
+            onChange={(e) => setSearchProduct(e.target.value)}
+            className="h-[3rem] w-[25rem]"
+            placeholder="search product.."
+          />
+        </div>
 
-      <Table>
-        <TableCaption>A list of product added.</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="font-bold text-black">Image</TableHead>
-            <TableHead className="font-bold text-black">
-              Product Details
-            </TableHead>
-            <TableHead className="font-bold text-black">
-              Bidding Details
-            </TableHead>
-            <TableHead className="w-[5rem] font-bold text-black">
-              Status
-            </TableHead>
-            <TableHead className=" w-[5rem]  font-bold text-black">
-              Action
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {biddings
-            .filter((bid) => bid.product_name.includes(searchProduct))
-            .map((bid, index) => {
-              return (
-                <TableRow className="border-b-2 text-start" key={index}>
-                  <TableCell className="flex items-center gap-4">
-                    <img
-                      className="h-[6rem] w-[8rem] rounded-md object-cover"
-                      src={bid.image_path}
-                      alt={bid.product_name}
-                    />
-                    {bid.is_vip === 1 && (
+        <Table
+          className="w-full rounded-sm border-2 bg-white
+        "
+        >
+          <TableCaption>A list of product added.</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="font-bold text-black">Image</TableHead>
+              <TableHead className="font-bold text-black">
+                Product Details
+              </TableHead>
+              <TableHead className="font-bold text-black">
+                Bidding Details
+              </TableHead>
+              <TableHead className="w-[8rem] font-bold text-black">
+                Status
+              </TableHead>
+              <TableHead className=" w-[5rem]  font-bold text-black">
+                Action
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {biddings
+              .filter((bid) => bid.product_name.includes(searchProduct))
+              .map((bid, index) => {
+                return (
+                  <TableRow className="border-b-2 text-start" key={index}>
+                    <TableCell className="flex items-center gap-4">
                       <img
-                        className="h-[5rem] w-[5rem] rounded-md object-cover"
-                        src={VIP}
-                        alt="vip"
+                        className="h-[6rem] w-[8rem] rounded-md object-cover"
+                        src={bid.image_path}
+                        alt={bid.product_name}
                       />
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex flex-col">
-                      <span>Product Name: {bid.product_name}</span>
-                      <span>Brand Name: {bid.brand_name}</span>
-                      <span>Year Model: {bid.year_model}</span>
-                      <span>Condition: {bid.product_condition}</span>
-                    </div>
-                  </TableCell>
-
-                  <TableCell>
-                    <div className="flex flex-col">
-                      <span>Regular Price : ₱ {bid.regular_price}</span>
-                      <span>Starting Price : ₱ {bid.starting_price}</span>
-                      <span> Total Bid : {bid.cnt}</span>
-                      <span>Highest Bid : ₱ {bid.amt}</span>
-                      <span> Highest Bidder : {bid.fname}</span>
-                      <span>Until : {bid.date_until}</span>
-                    </div>
-                  </TableCell>
-
-                  <TableCell>
-                    {bid.date_until > new Date().toISOString() ? (
-                      <span className="rounded-md bg-green-500 p-2 text-white">
-                        Active
-                      </span>
-                    ) : (
-                      <span className="rounded-md bg-red-500 p-2 text-white">
-                        Closed
-                      </span>
-                    )}
-                  </TableCell>
-
-                  <TableCell>
-                    {bid.date_until > new Date().toISOString() ? (
-                      <Button
-                        onClick={() => handleShowLeaderBoards(bid.product_id)}
-                      >
-                        Leaderboads
-                      </Button>
-                    ) : (
-                      <Button
-                        onClick={() =>
-                          handleShowBiddingProfile(
-                            bid.account_id,
-                            bid.product_name,
-                          )
-                        }
-                      >
-                        Winner Details
-                      </Button>
-                    )}
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-        </TableBody>
-      </Table>
-
-      {showBiddingProfileWinnerDecider && (
-        <div className="absolute right-0 top-0 flex h-full w-full justify-center bg-white bg-opacity-80">
-          <div className="relative mt-[5rem] flex h-[30rem] w-[60rem] items-center justify-center gap-10 rounded-md border-2 bg-white p-2">
-            <Button
-              className="absolute right-2 top-2"
-              onClick={() => setShowBiddingProfileWinnerDecider(false)}
-            >
-              Close
-            </Button>
-            <div className="flex justify-around">
-              <img
-                className="mb-4  h-[20rem] w-[20rem] rounded-lg object-cover"
-                src={
-                  biddingWinner.image_path!
-                    ? biddingWinner.image_path!
-                    : DefaultImage
-                }
-              />
-            </div>
-            <div className="w-[80%]">
-              <div className="flex gap-4">
-                <div className="flex w-[100%] flex-col ">
-                  <Label className="my-4 block">First Name</Label>
-                  <span className="block rounded-md border-2 p-1">
-                    {biddingWinner.first_name}
-                  </span>
-                </div>
-
-                <div className="flex w-[100%] flex-col">
-                  <Label className="my-4 block">Last Name</Label>
-                  <span className="block rounded-md border-2 p-1">
-                    {biddingWinner.last_name}
-                  </span>
-                </div>
-
-                <div className="flex w-[100%] flex-col">
-                  <Label className="my-4 block">Middle Name</Label>
-                  <span className="block rounded-md border-2 p-1">
-                    {biddingWinner.middle_name}
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <div className="flex w-[100%] flex-col">
-                  <Label className="my-4 block">Phone Number</Label>
-                  <span className="block rounded-md border-2 p-1">
-                    {biddingWinner.phone_number}
-                  </span>
-                </div>
-
-                <div className="flex w-[100%] flex-col">
-                  <Label className="my-4 block">Email</Label>
-
-                  <span className="block rounded-md border-2 p-1">
-                    {biddingWinner.email_address}
-                  </span>
-                </div>
-              </div>
-
-              <Label className="my-4 block">Username</Label>
-              <span className="block rounded-md border-2 p-1">
-                {biddingWinner.username}
-              </span>
-
-              <Label className="my-4 block">Address</Label>
-              <span className="block rounded-md border-2 p-1">
-                {biddingWinner.address}
-              </span>
-
-              <Button
-                className="my-4 bg-green-500 text-white"
-                onClick={() =>
-                  sendSMStoWinners(
-                    biddingWinner.phone_number,
-                    `${biddingWinner.first_name} ${biddingWinner.last_name}`,
-                    productName,
-                  )
-                }
-              >
-                Send SMS to Winner
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {showLeaderBoards && (
-        <div className="absolute right-0 top-0 flex h-full w-full justify-center bg-white bg-opacity-80">
-          <div className="relative mt-[5rem] flex h-[30rem] w-[60rem] gap-10 rounded-md border-2 bg-white p-2">
-            <Button
-              className="absolute right-2 top-2 z-10 cursor-pointer"
-              onClick={() => setShowLeaderBoards(false)}
-            >
-              Close
-            </Button>
-
-            <Table className="mt-[5rem] border-2">
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="font-bold text-black">Image</TableHead>
-
-                  <TableHead className="font-bold text-black">
-                    Product Name
-                  </TableHead>
-                  <TableHead className="font-bold text-black">Amount</TableHead>
-                  <TableHead className="font-bold text-black">
-                    Date Created
-                  </TableHead>
-                  <TableHead className="font-bold text-black">
-                    Full Name
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {leaderBoards.map((lead, index) => {
-                  return (
-                    <TableRow className="border-b-2 text-start" key={index}>
-                      <TableCell>
+                      {bid.is_vip === 1 && (
                         <img
-                          className="h-[8em] w-[8em] rounded-md object-cover"
-                          src={lead.image_path}
-                          alt={lead.product_name}
+                          className="h-[5rem] w-[5rem] rounded-md object-cover"
+                          src={VIP}
+                          alt="vip"
                         />
-                      </TableCell>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex flex-col">
+                        <span className="font-bold">
+                          Product Name: {bid.product_name}
+                        </span>
+                        <span>Brand Name: {bid.brand_name}</span>
+                        <span>Year Model: {bid.year_model}</span>
+                        <span>Condition: {bid.product_condition}</span>
+                      </div>
+                    </TableCell>
 
-                      <TableCell>{lead.product_name}</TableCell>
+                    <TableCell>
+                      <div className="flex flex-col">
+                        <span>Regular Price : ₱ {bid.regular_price}</span>
+                        <span>Starting Price : ₱ {bid.starting_price}</span>
+                        <span> Total Bid : {bid.cnt}</span>
+                        <span>Highest Bid : ₱ {bid.amt}</span>
+                        <span> Highest Bidder : {bid.fname}</span>
+                        <span>Until : {bid.date_until}</span>
+                      </div>
+                    </TableCell>
 
-                      <TableCell>₱ {lead.amt}</TableCell>
-                      <TableCell>{lead.date_created}</TableCell>
-                      <TableCell>{lead.fname}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
+                    <TableCell className="w-[5rem]">
+                      {bid.date_until > new Date().toISOString() ? (
+                        <span className=" flex h-[2.5rem] w-full items-center  justify-center gap-2 rounded-md bg-green-500 p-2 text-center text-white">
+                          <FaCheckCircle className="text-3xl" /> Active
+                        </span>
+                      ) : (
+                        <span className=" flex h-[2.5rem] w-full items-center justify-center gap-2 rounded-md bg-red-500 p-2 text-center text-white">
+                          <HiLockClosed className="text-3xl" /> Closed
+                        </span>
+                      )}
+                    </TableCell>
+
+                    <TableCell>
+                      {bid.date_until > new Date().toISOString() ? (
+                        <Button
+                          className="flex h-[2.5rem] w-full items-center gap-2 rounded-md p-2 text-center text-white"
+                          onClick={() => handleShowLeaderBoards(bid.product_id)}
+                        >
+                          <VscGraph className="text-3xl" /> Leaderboads
+                        </Button>
+                      ) : (
+                        <Button
+                          className="flex h-[2.5rem] w-full items-center gap-2 rounded-md p-2 text-center text-white "
+                          onClick={() =>
+                            handleShowBiddingProfile(
+                              bid.account_id,
+                              bid.product_name,
+                            )
+                          }
+                        >
+                          <GrFormView className="text-4xl" /> Winner Details
+                        </Button>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        </Table>
+
+        {showBiddingProfileWinnerDecider && (
+          <div className="absolute right-0 top-0 flex h-full w-full justify-center bg-white bg-opacity-80">
+            <div className="relative mt-[5rem] flex h-[30rem] w-[60rem] items-center justify-center gap-10 rounded-md border-2 bg-white p-2 pt-[2rem]">
+              <Button
+                className="absolute right-2 top-2 flex items-center"
+                onClick={() => setShowBiddingProfileWinnerDecider(false)}
+              >
+                <AiOutlineCloseCircle className="text-2xl" /> Close
+              </Button>
+              <div className="flex justify-around">
+                <img
+                  className="mb-4  h-[20rem] w-[20rem] rounded-lg object-cover"
+                  src={
+                    biddingWinner.image_path!
+                      ? biddingWinner.image_path!
+                      : DefaultImage
+                  }
+                />
+              </div>
+              <div className="w-[80%]">
+                <div className="flex gap-4">
+                  <div className="flex w-[100%] flex-col ">
+                    <Label className="my-4 block">First Name</Label>
+                    <span className="block min-h-[2.5rem] rounded-md border-2 p-1">
+                      {biddingWinner.first_name}
+                    </span>
+                  </div>
+
+                  <div className="flex w-[100%] flex-col">
+                    <Label className="my-4 block">Last Name</Label>
+                    <span className="block min-h-[2.5rem] rounded-md border-2 p-1">
+                      {biddingWinner.last_name}
+                    </span>
+                  </div>
+
+                  <div className="flex w-[100%] flex-col">
+                    <Label className="my-4 block">Middle Name</Label>
+                    <span className="block min-h-[2.5rem] rounded-md border-2 p-1">
+                      {biddingWinner.middle_name}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="flex w-[100%] flex-col">
+                    <Label className="my-4 block">Phone Number</Label>
+                    <span className="block min-h-[2.5rem] rounded-md border-2 p-1">
+                      {biddingWinner.phone_number}
+                    </span>
+                  </div>
+
+                  <div className="flex w-[100%] flex-col">
+                    <Label className="my-4 block">Email</Label>
+
+                    <span className="block min-h-[2.5rem] rounded-md border-2 p-1">
+                      {biddingWinner.email_address}
+                    </span>
+                  </div>
+                </div>
+
+                <Label className="my-4 block">Username</Label>
+                <span className="block min-h-[2.5rem] rounded-md border-2 p-1">
+                  {biddingWinner.username}
+                </span>
+
+                <Label className="my-4 block">Address</Label>
+                <span className="block min-h-[2.5rem] rounded-md border-2 p-1">
+                  {biddingWinner.address}
+                </span>
+
+                <Button
+                  className="my-4 bg-green-500 text-white"
+                  onClick={() =>
+                    sendSMStoWinners(
+                      biddingWinner.phone_number,
+                      `${biddingWinner.first_name} ${biddingWinner.last_name}`,
+                      productName,
+                    )
+                  }
+                >
+                  Send SMS to Winner
+                </Button>
+              </div>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+
+        {showLeaderBoards && (
+          <div className="absolute right-0 top-0 flex h-full w-full justify-center bg-white bg-opacity-80">
+            <div className="relative mt-[5rem] flex h-[30rem] w-[60rem] gap-10 rounded-md border-2 bg-white p-2 ">
+              <Button
+                className="absolute right-2 top-2 z-10 flex cursor-pointer items-center"
+                onClick={() => setShowLeaderBoards(false)}
+              >
+                <AiOutlineCloseCircle className="text-2xl" /> Close
+              </Button>
+
+              <Table className="mt-[5rem] border-2">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="font-bold text-black">
+                      Image
+                    </TableHead>
+
+                    <TableHead className="font-bold text-black">
+                      Product Name
+                    </TableHead>
+                    <TableHead className="font-bold text-black">
+                      Amount
+                    </TableHead>
+                    <TableHead className="font-bold text-black">
+                      Date Created
+                    </TableHead>
+                    <TableHead className="font-bold text-black">
+                      Full Name
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {leaderBoards.map((lead, index) => {
+                    return (
+                      <TableRow className="border-b-2 text-start" key={index}>
+                        <TableCell>
+                          <img
+                            className="h-[8em] w-[8em] rounded-md object-cover"
+                            src={lead.image_path}
+                            alt={lead.product_name}
+                          />
+                        </TableCell>
+
+                        <TableCell className="font-bold">
+                          {lead.product_name}
+                        </TableCell>
+
+                        <TableCell>₱ {lead.amt}</TableCell>
+                        <TableCell>{lead.date_created}</TableCell>
+                        <TableCell>{lead.fname}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

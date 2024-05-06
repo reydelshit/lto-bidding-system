@@ -3,7 +3,7 @@ import Dashboard from './pages/UserDashboard';
 
 const User = () => {
   return (
-    <div>
+    <div className="h-full w-full bg-gray-50">
       <UserNavigation />
       <Dashboard />
     </div>

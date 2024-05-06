@@ -76,10 +76,13 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="mt-[2rem]">
-      <h1 className="my-4 text-2xl font-bold">Dashboard</h1>
+    <div className="mx-[2rem] mt-[2rem] h-full w-full bg-gray-50">
+      <h1 className="my-4 text-[1.5rem] font-semibold">
+        DASHBOARD{' '}
+        <span className="text-gray-500">{'>'} Data Visualizations</span>
+      </h1>
 
-      <div className="flex gap-4">
+      <div className="flex w-[95%] justify-between gap-4">
         <CardCompo
           title="TOTAL NUMBER OF PRODUCTS"
           description="The total number of products added in the system."
@@ -100,7 +103,7 @@ const Dashboard = () => {
         />
       </div>
 
-      <div className="mt-[2rem] flex justify-between gap-2">
+      <div className="mt-[2rem] flex w-[95%] justify-between gap-2">
         <div className="w-[60%] rounded-lg border-2 bg-white md:p-5">
           <h1 className="mb-5 font-bold uppercase">Monthly Product</h1>
           <ResponsiveContainer width="100%" height={450}>
@@ -119,7 +122,7 @@ const Dashboard = () => {
                 axisLine={false}
                 tickFormatter={(value: string) => `${value}`}
               />
-              <Bar dataKey="total" fill="#22c55e" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="total" fill="#5AB2FF" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -142,7 +145,7 @@ const Dashboard = () => {
                 axisLine={false}
                 tickFormatter={(value: string) => `${value}`}
               />
-              <Bar dataKey="total" fill="#22c55e" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="total" fill="#5AB2FF" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

@@ -11,6 +11,7 @@ import BidLogs from './bidder/pages/BidLogs';
 import ViewCalendar from './bidder/pages/ViewCalendar';
 import Layout from './root/Layout';
 import LayoutUser from './root/LayoutUser';
+import RedirectedPage from './pages/RedirectedPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/redirect" element={<RedirectedPage />} />
 
         <Route>
           <Route

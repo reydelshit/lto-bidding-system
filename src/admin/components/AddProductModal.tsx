@@ -1,4 +1,4 @@
-import defaultProfile from '@/assets/defaultImage.jpg';
+import defaultProfile from '@/assets/product-456x456.jpg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -94,9 +94,9 @@ export default function AddProductModal({
   };
 
   return (
-    <div className="absolute top-0 flex h-fit w-full flex-col items-center justify-center p-4 text-center">
+    <div className="absolute top-0 flex h-fit w-full flex-col items-center justify-center bg-gray-50 p-4 text-center">
       <div className="w-[80%]">
-        <div className="mt-[5rem] flex w-full justify-between gap-[4rem]">
+        <div className="mt-[5rem] flex w-full justify-between gap-[4rem] border-2 bg-white px-4 py-6">
           <div className="mb-2 mt-[2rem] flex flex-col">
             <img
               className="mb-4  h-[25rem] w-[40rem] rounded-lg object-cover"
@@ -112,10 +112,7 @@ export default function AddProductModal({
             />
           </div>
 
-          <form
-            onSubmit={handleSubmit}
-            className="flex w-full flex-col text-[#5d383a]"
-          >
+          <form onSubmit={handleSubmit} className="flex w-full flex-col ">
             <div className="flex w-full gap-2">
               <div className="item-start flex w-[50%] flex-col p-4">
                 <Label className="mb-2 text-start">Product Name</Label>
@@ -239,16 +236,13 @@ export default function AddProductModal({
             </div>
 
             <div className="flex gap-4">
-              <Button
-                className="w-[40%] self-center bg-[#5d383a]"
-                type="submit"
-              >
+              <Button className="w-[40%] self-center" type="submit">
                 Add product
               </Button>
 
               <Button
                 onClick={() => setShowAddProduct(false)}
-                className="w-[40%] self-center bg-[#5d383a]"
+                className="w-[40%] self-center"
               >
                 Close
               </Button>

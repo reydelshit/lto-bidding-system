@@ -38,37 +38,46 @@ const BidHistory = () => {
   }, []);
 
   return (
-    <div>
+    <div className="h-full w-full bg-gray-50">
       <UserNavigation />
-      <h1 className="my-2 text-[2rem]">PRODUCT BID HISTORY</h1>
-      <div className="mt-[2rem]">
-        <div className="grid grid-cols-5">
-          {product.map((item, index) => (
-            <div
-              key={index}
-              className="flex w-[20rem] flex-col rounded-md border-2 p-2"
-            >
-              <img
-                className="h-[15rem] w-full object-cover"
-                src={item.image_path}
-                alt="product"
-              />
+      <div className="relative mx-[2rem] h-full w-full bg-gray-50">
+        <h1 className="my-4 text-[1.5rem] font-semibold">
+          PRODUCT BID HISTORY{' '}
+          <span className="text-gray-500">{'>'} List of Bid History</span>
+        </h1>
+        <div className="mt-[2rem]">
+          <div className="grid grid-cols-5">
+            {product.map((item, index) => (
+              <div
+                key={index}
+                className="flex w-[20rem] flex-col rounded-lg border-2 border-[#5AB2FF] bg-white p-2"
+              >
+                <img
+                  className="h-[15rem] w-full object-cover"
+                  src={item.image_path}
+                  alt="product"
+                />
 
-              <div>
-                <Link
-                  className="cursor-pointer"
-                  to={`/bid-logs/${item.product_id}`}
-                >
-                  <h1 className="font-bold">
-                    Product Name: {item.product_name}
-                  </h1>{' '}
-                </Link>
+                <div className="py-4">
+                  <Link
+                    className="mb-2 block cursor-pointer"
+                    to={`/bid-logs/${item.product_id}`}
+                  >
+                    <h1 className="text-2xl font-bold uppercase hover:text-blue-600">
+                      {item.product_name}
+                    </h1>{' '}
+                  </Link>
 
-                <h1>Your Latest Bid : ₱ {item.amount_bid}</h1>
-                <h1>Latest Bid Date : {item.createdOn}</h1>
+                  <h1 className="mb-2 text-gray-800">
+                    Your Latest Bid : ₱ {item.amount_bid}
+                  </h1>
+                  <h1 className="mb-2 text-gray-800">
+                    Latest Bid Date : {item.createdOn}
+                  </h1>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>

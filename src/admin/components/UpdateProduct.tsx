@@ -95,12 +95,14 @@ export default function UpdateProducts({}: {}) {
           'Content-Type': 'multipart/form-data',
         },
         ...storeProduct,
-        product_condition: selectedCategory,
+        product_condition:
+          selectedCategory.length > 0 ? selectedCategory : productCondition,
         image_path: image,
       })
       .then((res) => {
         console.log(res.data);
-        window.location.reload();
+        // window.location.reload();
+        navigate('/admin/products');
       });
   };
 
@@ -118,40 +120,6 @@ export default function UpdateProducts({}: {}) {
     };
   };
 
-  const handleMultipleImages = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    const newnewImages = [...newImages];
-
-    const promises = [];
-    for (let i = 0; i < files!.length; i++) {
-      const reader = new FileReader();
-      reader.readAsDataURL(files![i]);
-
-      promises.push(
-        new Promise((resolve, reject) => {
-          reader.onload = () => {
-            resolve(reader.result as string);
-          };
-
-          reader.onerror = (error) => {
-            reject(error);
-          };
-        }),
-      );
-    }
-
-    Promise.all(promises)
-      .then((results) => {
-        // console.log('Results:', results);
-        newnewImages.push(...(results as string[]));
-        // console.log('New Images:', newImages);
-        setNewImages(newnewImages);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
   const handleConditionType = (event: string) => {
     const selectedValue = event;
     setSelectedCategory(selectedValue);
@@ -159,8 +127,8 @@ export default function UpdateProducts({}: {}) {
 
   return (
     <div className="flex h-fit w-full flex-col items-center justify-center p-4 text-center">
-      <div className="w-[80%]">
-        <div className="mt-[5rem] flex w-full justify-between gap-[4rem]">
+      <div className="h-fit w-[80%] ">
+        <div className="mt-[5rem] flex w-full justify-between gap-[4rem] rounded-md border-2 bg-white px-4 py-6">
           <div className="mb-2 mt-[2rem] flex flex-col">
             <img
               className="mb-4  h-[25rem] w-[40rem] rounded-lg object-cover"
@@ -176,10 +144,7 @@ export default function UpdateProducts({}: {}) {
             />
           </div>
 
-          <form
-            onSubmit={handleSubmit}
-            className="flex w-full flex-col text-[#5d383a]"
-          >
+          <form onSubmit={handleSubmit} className="flex w-full flex-col">
             <div className="flex w-full gap-2">
               <div className="item-start flex w-[50%] flex-col p-4">
                 <Label className="mb-2 text-start">Product Name</Label>

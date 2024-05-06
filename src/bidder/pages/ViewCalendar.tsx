@@ -234,8 +234,8 @@ export default function ViewCalendar() {
                 center: 'title',
                 right: 'dayGridMonth,timeGridWeek,timeGridDay',
               }}
-              eventBackgroundColor="orange"
-              eventBorderColor="orange"
+              eventBackgroundColor="blue"
+              eventBorderColor="blue"
               initialView="dayGridMonth"
               editable={true}
               selectable={true}
