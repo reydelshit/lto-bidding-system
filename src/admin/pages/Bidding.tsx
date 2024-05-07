@@ -1,8 +1,8 @@
+import VIP from '@/assets/crown.png';
 import DefaultImage from '@/assets/defaultImage.jpg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { VscGraph } from 'react-icons/vsc';
 import {
   Table,
   TableBody,
@@ -15,12 +15,11 @@ import {
 import { BiddersType, BiddingsType, LeaderBoardType } from '@/entities/types';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import VIP from '@/assets/crown.png';
-import { GrFormView } from 'react-icons/gr';
 import { FaCheckCircle } from 'react-icons/fa';
-import { GoIssueClosed } from 'react-icons/go';
-import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { GrFormView } from 'react-icons/gr';
 import { HiLockClosed } from 'react-icons/hi';
+import { IoMdClose } from 'react-icons/io';
+import { VscGraph } from 'react-icons/vsc';
 
 const Biddings = () => {
   const [biddings, setBiddings] = useState<BiddingsType[]>([]);
@@ -250,12 +249,9 @@ const Biddings = () => {
         {showBiddingProfileWinnerDecider && (
           <div className="absolute right-0 top-0 flex h-full w-full justify-center bg-white bg-opacity-80">
             <div className="relative mt-[5rem] flex h-[30rem] w-[60rem] items-center justify-center gap-10 rounded-md border-2 bg-white p-2 pt-[2rem]">
-              <Button
-                className="absolute right-2 top-2 flex items-center"
-                onClick={() => setShowBiddingProfileWinnerDecider(false)}
-              >
-                <AiOutlineCloseCircle className="text-2xl" /> Close
-              </Button>
+             
+              <IoMdClose  className="absolute right-6 top-6 flex gap-2 text-2xl cursor-pointer"   onClick={() => setShowBiddingProfileWinnerDecider(false)}  /> 
+
               <div className="flex justify-around">
                 <img
                   className="mb-4  h-[20rem] w-[20rem] rounded-lg object-cover"
@@ -337,12 +333,9 @@ const Biddings = () => {
         {showLeaderBoards && (
           <div className="absolute right-0 top-0 flex h-full w-full justify-center bg-white bg-opacity-80">
             <div className="relative mt-[5rem] flex h-[30rem] w-[60rem] gap-10 rounded-md border-2 bg-white p-2 ">
-              <Button
-                className="absolute right-2 top-2 z-10 flex cursor-pointer items-center"
-                onClick={() => setShowLeaderBoards(false)}
-              >
-                <AiOutlineCloseCircle className="text-2xl" /> Close
-              </Button>
+            <IoMdClose  className="absolute right-6 top-6 flex gap-2 text-2xl cursor-pointer"   onClick={() => setShowLeaderBoards(false)}  /> 
+        
+
 
               <Table className="mt-[5rem] border-2">
                 <TableHeader>

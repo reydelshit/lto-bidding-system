@@ -1,9 +1,7 @@
-import VIP from '@/assets/crown.png';
 import DefaultImage from '@/assets/images/default-image.jpg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { GrFormViewHide } from 'react-icons/gr';
 import {
   Table,
   TableBody,
@@ -16,8 +14,9 @@ import { BiddersType } from '@/entities/types';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { GrFormView } from 'react-icons/gr';
+import { IoMdClose } from "react-icons/io";
 import { MdReviews } from 'react-icons/md';
-import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { TbVip } from 'react-icons/tb';
 
 type Reviews = {
   description: string;
@@ -122,10 +121,14 @@ const Bidders = () => {
               .map((bid, index) => {
                 return (
                   <TableRow className="border-b-2 text-start" key={index}>
-                    <TableCell className="flex">
-                      {bid.first_name} {bid.last_name}
+                    <TableCell className="flex gap-2 item-center">
+                   
+                        <span className='block'> {bid.first_name} {bid.last_name}</span>
                       {bid.vip_id !== null && (
-                        <img className="h-6 w-6" src={VIP} alt="VIP" />
+                      <TbVip
+                      className="
+                   text-3xl text-yellow-500"
+                    />
                       )}
                     </TableCell>
 
@@ -173,12 +176,8 @@ const Bidders = () => {
         {showReviews && (
           <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-white bg-opacity-50">
             <div className="relative mt-[-15rem] flex min-h-fit w-[60rem] items-center justify-center gap-10 rounded-2xl bg-white p-2">
-              <Button
-                className="absolute right-4 top-4 flex gap-2 bg-red-500"
-                onClick={() => setShowReviews(false)}
-              >
-                <AiOutlineCloseCircle className=" text-2xl" /> Close
-              </Button>
+            <IoMdClose  className="absolute right-6 top-6 flex gap-2 text-2xl cursor-pointer" onClick={() => setShowReviews(false)}  /> 
+
 
               <div className="flex h-fit min-h-[25rem] w-full flex-col items-center justify-center rounded-lg border-2">
                 {reviews.length > 0 ? (
@@ -241,12 +240,9 @@ const Bidders = () => {
         {showBiddingProfileDecider && (
           <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-white bg-opacity-80">
             <div className="pt-[4 rem] relative mt-[-15rem] flex h-fit w-[60rem] items-center justify-around gap-10 rounded-md border-2  bg-white  p-16">
-              <Button
-                className="absolute right-2 top-2 flex gap-2 bg-red-500"
-                onClick={() => setShowBiddingProfileDecider(false)}
-              >
-                <AiOutlineCloseCircle className=" text-2xl" /> Close
-              </Button>
+          
+
+              <IoMdClose  className="absolute right-6 top-6 flex gap-2 text-2xl cursor-pointer"   onClick={() => setShowBiddingProfileDecider(false)}  /> 
               <div className=" flex justify-around">
                 <img
                   className="mb-4  h-[20rem] w-[20rem] rounded-lg object-cover"
