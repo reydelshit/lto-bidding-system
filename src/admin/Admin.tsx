@@ -1,4 +1,4 @@
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link, useLocation } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
 import UpdateProducts from './components/UpdateProduct';
@@ -17,6 +17,8 @@ import { GrMoney } from 'react-icons/gr';
 import { FaHistory } from 'react-icons/fa';
 
 const Admin = () => {
+  const currentPath = useLocation().pathname
+
   return (
     <div className="bg-gray-50">
       <div className="w-full bg-white">
@@ -24,46 +26,82 @@ const Admin = () => {
 
         <div className="flex justify-around gap-4 px-[2rem] py-2 shadow-sm">
           <Link
-            className="flex w-full items-center gap-2 p-2 text-start text-xl 
-  font-semibold uppercase"
+            className={`flex w-full items-center gap-2 p-2 text-start text-xl 
+              font-semibold uppercase ${currentPath == '/admin/'
+              ? ' text-start bg-blue-500 text-white rounded-md'
+              : ''
+            }`}
             to="/admin/"
           >
-            <MdOutlineDashboard className="text-blue-500" /> Dashboard
+            <MdOutlineDashboard className={`{currentPath == '/admin/'
+              ? 'text-inherit'
+              : ''
+            } `} /> Dashboard
           </Link>
           <Link
-            className="flex w-full items-center gap-2 p-2 text-start text-xl 
-  font-semibold uppercase"
+            className={`flex w-full items-center gap-2 p-2 text-start text-xl 
+  font-semibold uppercase ${currentPath == '/admin/products'
+  ? ' text-start bg-blue-500 text-white rounded-md'
+  : ''
+}`}
             to="/admin/products"
           >
-            <MdProductionQuantityLimits className="text-blue-500" /> Products
+            <MdProductionQuantityLimits className={`{currentPath == '/admin/products'
+              ? 'text-inherit'
+              : ''
+            } `} /> Products
           </Link>
           <Link
-            className="flex w-full items-center gap-2 p-2 text-start text-xl 
-  font-semibold uppercase"
+            className={`flex w-full items-center gap-2 p-2 text-start text-xl 
+  font-semibold uppercase ${currentPath == '/admin/bidders'
+  ? ' text-start bg-blue-500 text-white rounded-md'
+  : ''
+}`}
             to="/admin/bidders"
           >
-            <FaUserTie className="text-blue-500" /> Bidders
+            <FaUserTie className={`{currentPath == '/admin/bidders'
+              ? 'text-inherit'
+              : ''
+            } `} /> Bidders
           </Link>
           <Link
-            className="flex w-full items-center gap-2 p-2 text-start text-xl 
-  font-semibold uppercase"
+            className={`flex w-full items-center gap-2 p-2 text-start text-xl 
+  font-semibold uppercase ${currentPath == '/admin/biddings'
+  ? ' text-start bg-blue-500 text-white rounded-md'
+  : ''
+}`}
             to="/admin/biddings"
           >
-            <MdAutoGraph className="text-blue-500" /> biddings
+            <MdAutoGraph className={`{currentPath == '/admin/biddings'
+              ? 'text-inherit'
+              : ''
+            } `} /> biddings
           </Link>
           <Link
-            className="flex w-full items-center gap-2 p-2 text-start text-xl 
-  font-semibold uppercase"
+            className={`flex w-full items-center gap-2 p-2 text-start text-xl 
+  font-semibold uppercase ${currentPath == '/admin/payments'
+  ? ' text-start bg-blue-500 text-white rounded-md'
+  : ''
+}`}
             to="/admin/payments"
           >
-            <GrMoney className="text-blue-500" /> Payments
+            <GrMoney className={`{currentPath == '/admin/payments'
+              ? 'text-inherit'
+              : ''
+            } `} /> Payments
           </Link>
           <Link
-            className="flex w-full items-center gap-2 p-2 text-start text-xl 
-  font-semibold uppercase"
+            className={`flex w-full items-center gap-2 p-2 text-start text-xl 
+  font-semibold uppercase ${currentPath == '/admin/bid-history'
+  ? ' text-start bg-blue-500 text-white rounded-md'
+  : ''
+}`}
             to="/admin/bid-history"
           >
-            <FaHistory className="text-blue-500" /> bid-history
+            <FaHistory className={`{currentPath == '/admin/bid-history'
+              ? 'text-inherit'
+              : ''
+            } `} /> bid-history
           </Link>
         </div>
       </div>
