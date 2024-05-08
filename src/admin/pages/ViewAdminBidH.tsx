@@ -7,6 +7,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import axios from 'axios';
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -84,8 +85,10 @@ const ViewAdminBidH = () => {
                         ? bid.first_name + ' ' + bid.last_name
                         : 'No Bidder'}
                     </TableCell>
-                    <TableCell>₱ {bid.amount_bid}</TableCell>
-                    <TableCell>{bid.createdOn}</TableCell>
+                    <TableCell className="font-bold">
+                      ₱ {bid.amount_bid}
+                    </TableCell>
+                    <TableCell>{moment(bid.createdOn).format('LLL')}</TableCell>
                   </TableRow>
                 );
               })}

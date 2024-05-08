@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import moment from 'moment';
 
 type ProductBidHistoryType = {
   product_id: number;
@@ -91,8 +92,12 @@ const BidLogs = () => {
                             bid.username.charAt(bid.username.length - 1)
                           : 'You'}
                       </TableCell>
-                      <TableCell>₱ {bid.amount_bid}</TableCell>
-                      <TableCell>{bid.createdOn}</TableCell>
+                      <TableCell className="font-bold">
+                        ₱ {bid.amount_bid}
+                      </TableCell>
+                      <TableCell>
+                        {moment(bid.createdOn).format('LLL')}
+                      </TableCell>
                     </TableRow>
                   );
                 })}

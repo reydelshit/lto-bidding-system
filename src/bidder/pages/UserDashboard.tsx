@@ -11,6 +11,7 @@ import { IoQrCodeOutline } from 'react-icons/io5';
 import { TbVip } from 'react-icons/tb';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { IoMdClose } from 'react-icons/io';
+import moment from 'moment';
 const Dashboard = () => {
   const [product, setProduct] = useState<ProductType[]>([]);
   const [showProductDetails, setShowProductDetails] = useState(false);
@@ -170,7 +171,7 @@ const Dashboard = () => {
                 Highesh Bid: ₱ {item.amt}
               </h1>
               <h1 className="mb-2 font-semibold text-gray-700">
-                Until : {item.date_until}
+                Until : {moment(item.date_until).format('LLL')}
               </h1>
             </div>
 

@@ -31,6 +31,7 @@ import {
 import { ProductType } from '@/entities/types';
 import AddProductModal from '../components/AddProductModal';
 import { TbVip } from 'react-icons/tb';
+import moment from 'moment';
 
 const Products = () => {
   const [product, setProduct] = useState<ProductType[]>([]);
@@ -141,9 +142,16 @@ const Products = () => {
 
                         <TableCell>
                           <div>
-                            <p>Regular Price: ₱{prod.regular_price}</p>
-                            <p>Starting Price: ₱{prod.starting_price}</p>
-                            <p>Until Date: ₱{prod.date_until}</p>
+                            <p className="font-semibold">
+                              Regular Price: ₱{prod.regular_price}
+                            </p>
+                            <p className="font-semibold">
+                              Starting Price: ₱{prod.starting_price}
+                            </p>
+                            <p className="font-semibold">
+                              Until Date:{' '}
+                              {moment(prod.date_until).format('LLL')}
+                            </p>
                           </div>
                         </TableCell>
                         <TableCell>

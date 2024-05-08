@@ -165,10 +165,10 @@ const MyBids = () => {
   };
 
   return (
-    <div className="relative h-full bg-gray-50">
+    <div className="h-full bg-gray-50">
       <UserNavigation />
 
-      <div className="relative mx-[2rem] h-full w-full bg-gray-50">
+      <div className="mx-[2rem] h-full w-full bg-gray-50">
         <h1 className="my-4 text-[1.5rem] font-semibold">
           MY BIDS <span className="text-gray-500">{'>'} List of bids</span>
         </h1>
@@ -233,7 +233,9 @@ const MyBids = () => {
                       {bid.product_name}
                     </TableCell>
 
-                    <TableCell>{bid.max_bid_for_product}</TableCell>
+                    <TableCell className="font-bold">
+                      ₱ {bid.max_bid_for_product}
+                    </TableCell>
                     <TableCell>
                       {bid.status === 0 && (
                         <span className="block  w-[10rem] rounded-md  bg-violet-500 p-2 text-center font-bold text-white">
@@ -369,9 +371,11 @@ const MyBids = () => {
         )}
 
         {showPayment && (
-          <div className="absolute top-0 flex h-full w-[100%] items-center justify-center overflow-x-hidden bg-white bg-opacity-85">
+          <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-70">
             <div className="h-[42rem] w-[40rem] rounded-md border-2 bg-white p-2">
-              <h1 className="my-4 font-bold">PAY NOW!</h1>
+              <h1 className="my-4 text-center text-2xl font-semibold">
+                PAY NOW!
+              </h1>
               <Tabs defaultValue="gcash" className="w-full">
                 <TabsList className="w-full">
                   <TabsTrigger className="w-[50%]" value="gcash">

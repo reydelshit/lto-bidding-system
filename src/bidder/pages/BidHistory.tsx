@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import UserNavigation from '../UserNavigation';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 type ProductBidHistoryType = {
   product_id: number;
@@ -69,10 +70,14 @@ const BidHistory = () => {
                   </Link>
 
                   <h1 className="mb-2 text-gray-800">
-                    Your Latest Bid : ₱ {item.amount_bid}
+                    Your Latest Bid :{' '}
+                    <span className="inline-block font-bold">
+                      {' '}
+                      ₱ {item.amount_bid}
+                    </span>
                   </h1>
                   <h1 className="mb-2 text-gray-800">
-                    Latest Bid Date : {item.createdOn}
+                    Latest Bid Date : {moment(item.createdOn).format('LLL')}
                   </h1>
                 </div>
               </div>

@@ -155,7 +155,7 @@ const Bidders = () => {
                 return (
                   <TableRow className="border-b-2 text-start" key={index}>
                     <TableCell className="item-center flex gap-2">
-                      <span className="block">
+                      <span className="block font-bold">
                         {' '}
                         {bid.first_name} {bid.last_name}
                       </span>

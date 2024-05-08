@@ -44,11 +44,11 @@ const Admin = () => {
           </Link>
           <Link
             className={`flex w-full items-center gap-2 p-2 text-start text-xl 
-  font-semibold uppercase ${
-    currentPath == '/admin/products'
-      ? ' rounded-md bg-blue-500 text-start text-white'
-      : ''
-  }`}
+                    font-semibold uppercase ${
+                      currentPath == '/admin/products'
+                        ? ' rounded-md bg-blue-500 text-start text-white'
+                        : ''
+                    }`}
             to="/admin/products"
           >
             <MdProductionQuantityLimits
@@ -61,11 +61,11 @@ const Admin = () => {
           </Link>
           <Link
             className={`flex w-full items-center gap-2 p-2 text-start text-xl 
-  font-semibold uppercase ${
-    currentPath == '/admin/bidders'
-      ? ' rounded-md bg-blue-500 text-start text-white'
-      : ''
-  }`}
+              font-semibold uppercase ${
+                currentPath == '/admin/bidders'
+                  ? ' rounded-md bg-blue-500 text-start text-white'
+                  : ''
+              }`}
             to="/admin/bidders"
           >
             <FaUserTie
@@ -78,11 +78,11 @@ const Admin = () => {
           </Link>
           <Link
             className={`flex w-full items-center gap-2 p-2 text-start text-xl 
-  font-semibold uppercase ${
-    currentPath == '/admin/biddings'
-      ? ' rounded-md bg-blue-500 text-start text-white'
-      : ''
-  }`}
+              font-semibold uppercase ${
+                currentPath == '/admin/biddings'
+                  ? ' rounded-md bg-blue-500 text-start text-white'
+                  : ''
+              }`}
             to="/admin/biddings"
           >
             <MdAutoGraph
@@ -95,11 +95,11 @@ const Admin = () => {
           </Link>
           <Link
             className={`flex w-full items-center gap-2 p-2 text-start text-xl 
-  font-semibold uppercase ${
-    currentPath == '/admin/payments'
-      ? ' rounded-md bg-blue-500 text-start text-white'
-      : ''
-  }`}
+              font-semibold uppercase ${
+                currentPath == '/admin/payments'
+                  ? ' rounded-md bg-blue-500 text-start text-white'
+                  : ''
+              }`}
             to="/admin/payments"
           >
             <GrMoney
@@ -112,11 +112,11 @@ const Admin = () => {
           </Link>
           <Link
             className={`flex w-full items-center gap-2 p-2 text-start text-xl 
-  font-semibold uppercase ${
-    currentPath == '/admin/bid-history'
-      ? ' rounded-md bg-blue-500 text-start text-white'
-      : ''
-  }`}
+              font-semibold uppercase ${
+                currentPath == '/admin/bid-history'
+                  ? ' rounded-md bg-blue-500 text-start text-white'
+                  : ''
+              }`}
             to="/admin/bid-history"
           >
             <FaHistory
