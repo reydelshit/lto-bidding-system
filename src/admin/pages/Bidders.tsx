@@ -255,10 +255,10 @@ const Bidders = () => {
                         <p>{review.description}</p>
                       </div>
 
-                      <div>
-                        <h1>{review.product_name}</h1>
+                      <div className="w-[40%]">
+                        <h1 className="font-bold">{review.product_name}</h1>
                         <img
-                          className="h-[10rem] w-[10rem] rounded-lg object-cover"
+                          className="h-[10rem] w-full rounded-lg object-cover"
                           src={review.image_path}
                         />
                       </div>

@@ -96,6 +96,7 @@ const AvatarCompo = () => {
       .then((res) => {
         fetchVipStatus();
         localStorage.setItem('lto_vip', 'true');
+        window.location.reload();
       });
   };
 
