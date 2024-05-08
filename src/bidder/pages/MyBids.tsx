@@ -20,6 +20,7 @@ import Gcash from '@/assets/gcash.png';
 import PayMaya from '@/assets/paymaya.png';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import Filter from '@/admin/components/Filter';
 
 type BidsHistoryType = {
   max_bid_for_product: number;
@@ -45,6 +46,13 @@ const MyBids = () => {
   const [rating, setRating] = useState(0);
   const [selectedRating, setSelectedRating] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const [selectedValue, setSelectedValue] = useState<string>('All');
+
+  const handleValueChange = (e: string) => {
+    setSelectedValue(e);
+    console.log(e);
+  };
 
   const fetchBidsHistory = async () => {
     await axios
@@ -165,11 +173,17 @@ const MyBids = () => {
           MY BIDS <span className="text-gray-500">{'>'} List of bids</span>
         </h1>
 
-        <div className="my-2 flex w-full items-center justify-between">
+        <div className="my-2 flex w-full items-center justify-between pr-[4rem]">
           <Input
             onChange={(e) => setSearchProduct(e.target.value)}
             className="h-[3rem] w-[25rem] bg-white"
             placeholder="search bidders.."
+          />
+
+          <Filter
+            handleValueChange={handleValueChange}
+            title="Filter status"
+            value={['All', 'Not Paid', 'Payment Approved', 'Payment Rejected']}
           />
         </div>
 
@@ -196,11 +210,28 @@ const MyBids = () => {
           </TableHeader>
           <TableBody>
             {bidsHistory
-              .filter((bid) => bid.product_name.includes(searchProduct))
+              .filter((bid) => {
+                const firstNameMatchesSearch = bid.product_name
+                  .toLowerCase()
+                  .includes(searchProduct.toLowerCase());
+
+                return (
+                  firstNameMatchesSearch &&
+                  (selectedValue === 'All' ||
+                    (selectedValue.includes('Paid') &&
+                      bid.payment_status === 0) ||
+                    (selectedValue.includes('Approved') &&
+                      bid.payment_status === 1) ||
+                    (selectedValue.includes('Rejected') &&
+                      bid.payment_status === 2))
+                );
+              })
               .map((bid, index) => {
                 return (
                   <TableRow className="border-b-2 text-start" key={index}>
-                    <TableCell>{bid.product_name}</TableCell>
+                    <TableCell className="font-bold">
+                      {bid.product_name}
+                    </TableCell>
 
                     <TableCell>{bid.max_bid_for_product}</TableCell>
                     <TableCell>

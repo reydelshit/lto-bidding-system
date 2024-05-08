@@ -144,17 +144,6 @@ export default function ViewCalendar() {
   const renderSidebar = () => {
     return (
       <div className="w-[20rem] ">
-        <Card className="mb-2 w-full">
-          <CardHeader>
-            <CardTitle className="text-lg">Instructions</CardTitle>
-          </CardHeader>
-          <CardContent className="text-md">
-            <li>Select dates and you will be prompted to create a new event</li>
-            <li>Drag, drop, and resize events</li>
-            <li>Click an event to delete it</li>
-          </CardContent>
-        </Card>
-
         <div className="rounded-md border-2 p-2 text-sm">
           <span className="block text-base font-semibold">
             All Schedules ({state.currentEvents.length})

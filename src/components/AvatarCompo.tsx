@@ -135,7 +135,7 @@ const AvatarCompo = () => {
               className="p-2 text-3xl "
               onClick={fetchNotifications}
             >
-              <IoNotifications />
+              <IoNotifications className="text-blue-500" />
             </PopoverTrigger>
             <PopoverContent className="min-h-[20rem] p-0">
               {notifications.map((notification, index) => (
