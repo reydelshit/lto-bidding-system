@@ -52,12 +52,12 @@ const AdminBidH = () => {
         </h1>
         <Table className="border-2 bg-white">
           <TableHeader>
-            <TableRow className=" bg-blue-500">
-              <TableHead className="font-bold text-white">Bidder</TableHead>
-              <TableHead className="w-[20rem] font-bold text-white">
+            <TableRow>
+              <TableHead className="font-bold text-blue-500">Bidder</TableHead>
+              <TableHead className="w-[20rem] font-bold text-blue-500">
                 No. of Bids
               </TableHead>
-              <TableHead className="w-[10rem] font-bold text-white">
+              <TableHead className="w-[10rem] font-bold text-blue-500">
                 View Bidding History
               </TableHead>
             </TableRow>

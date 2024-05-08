@@ -118,13 +118,17 @@ const Bidders = () => {
 
         <Table className="rounded-md bg-white">
           <TableHeader>
-            <TableRow className="bg-blue-500">
-              <TableHead className="font-bold text-white">Fullname</TableHead>
-              <TableHead className="font-bold text-white">Username</TableHead>
-              <TableHead className="w-[20rem] font-bold text-white">
+            <TableRow>
+              <TableHead className="font-bold text-blue-500">
+                Fullname
+              </TableHead>
+              <TableHead className="font-bold text-blue-500">
+                Username
+              </TableHead>
+              <TableHead className="w-[20rem] font-bold text-blue-500">
                 Status
               </TableHead>
-              <TableHead className="w-[20rem] font-bold text-white">
+              <TableHead className="w-[20rem] font-bold text-blue-500">
                 Actions
               </TableHead>
             </TableRow>

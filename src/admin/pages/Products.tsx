@@ -94,16 +94,16 @@ const Products = () => {
             <Table>
               <TableCaption>A list of product added.</TableCaption>
               <TableHeader>
-                <TableRow className="bg-blue-500">
-                  <TableHead className="font-bold text-white"></TableHead>
-                  <TableHead className="font-bold text-white">
+                <TableRow>
+                  <TableHead className="font-bold text-blue-500"></TableHead>
+                  <TableHead className="font-bold text-blue-500">
                     Product Details
                   </TableHead>
-                  <TableHead className="font-bold text-white">
+                  <TableHead className="font-bold text-blue-500">
                     Bidding Details
                   </TableHead>
 
-                  <TableHead className="font-bold text-white ">
+                  <TableHead className="font-bold text-blue-500 ">
                     Actions
                   </TableHead>
                 </TableRow>

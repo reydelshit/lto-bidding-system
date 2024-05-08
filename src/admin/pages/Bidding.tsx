@@ -161,19 +161,19 @@ const Biddings = () => {
         "
         >
           <TableCaption>A list of product added.</TableCaption>
-          <TableHeader className="bg-blue-500 ">
+          <TableHeader>
             <TableRow>
-              <TableHead className="font-bold text-white">Image</TableHead>
-              <TableHead className="font-bold text-white">
+              <TableHead className="font-bold text-blue-500">Image</TableHead>
+              <TableHead className="font-bold text-blue-500">
                 Product Details
               </TableHead>
-              <TableHead className="font-bold text-white">
+              <TableHead className="font-bold text-blue-500">
                 Bidding Details
               </TableHead>
-              <TableHead className="w-[8rem] font-bold text-white">
+              <TableHead className="w-[8rem] font-bold text-blue-500">
                 Status
               </TableHead>
-              <TableHead className=" w-[5rem]  font-bold text-white">
+              <TableHead className=" w-[5rem] font-bold  text-blue-500">
                 Action
               </TableHead>
             </TableRow>

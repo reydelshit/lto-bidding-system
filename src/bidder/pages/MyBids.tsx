@@ -175,21 +175,21 @@ const MyBids = () => {
 
         <Table className="border-2 bg-white">
           <TableHeader>
-            <TableRow className=" bg-blue-500">
-              <TableHead className="font-bold text-white">
+            <TableRow>
+              <TableHead className="font-bold text-blue-500 ">
                 Product Name
               </TableHead>
-              <TableHead className="font-bold text-white">
+              <TableHead className="font-bold text-blue-500 ">
                 Max Bid Amount
               </TableHead>
-              <TableHead className="w-[20rem] font-bold text-white">
+              <TableHead className="w-[20rem] font-bold text-blue-500 ">
                 Status
               </TableHead>
-              <TableHead className="font-bold text-white">
+              <TableHead className="font-bold text-blue-500 ">
                 Payment Status
               </TableHead>
 
-              <TableHead className="w-[20rem] font-bold text-white">
+              <TableHead className="w-[20rem] font-bold text-blue-500 ">
                 Action
               </TableHead>
             </TableRow>
@@ -205,23 +205,23 @@ const MyBids = () => {
                     <TableCell>{bid.max_bid_for_product}</TableCell>
                     <TableCell>
                       {bid.status === 0 && (
-                        <span className="block  w-[10rem] rounded-md  bg-violet-500 p-1 p-2 text-center font-bold text-white">
+                        <span className="block  w-[10rem] rounded-md  bg-violet-500 p-2 text-center font-bold text-white">
                           Ongoing Bidding
                         </span>
                       )}
                       {bid.status === 1 && (
-                        <span className="block w-[10rem]  rounded-md bg-green-500  p-1 p-2 text-center font-bold text-white">
+                        <span className="block w-[10rem]  rounded-md bg-green-500  p-2 text-center font-bold text-white">
                           Winner
                         </span>
                       )}
                       {bid.status === 2 && (
-                        <span className="block  w-[10rem] rounded-md bg-red-500  p-1 p-2 text-center font-bold text-white">
+                        <span className="block  w-[10rem] rounded-md bg-red-500  p-2 text-center font-bold text-white">
                           Lose
                         </span>
                       )}
                     </TableCell>
 
-                    <TableCell>
+                    <TableCell className="font-bold">
                       {bid.status === 1 &&
                         (bid.payment_status === 0 ? (
                           <span className="text-yellow-500">Not paid</span>

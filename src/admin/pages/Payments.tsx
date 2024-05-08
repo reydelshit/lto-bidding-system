@@ -96,21 +96,21 @@ const Payments = () => {
         </div>
 
         <Table>
-          <TableHeader className=" bg-blue-500">
+          <TableHeader>
             <TableRow>
-              <TableHead className="font-bold text-white">
+              <TableHead className="font-bold text-blue-500">
                 Product Name
               </TableHead>
-              <TableHead className="font-bold text-white">
+              <TableHead className="font-bold text-blue-500">
                 Winner Name
               </TableHead>
-              <TableHead className="font-bold text-white">
+              <TableHead className="font-bold text-blue-500">
                 Proof Details
               </TableHead>
-              <TableHead className="w-[15rem] font-bold text-white">
+              <TableHead className="w-[15rem] font-bold text-blue-500">
                 Status
               </TableHead>
-              <TableHead className=" w-[20rem] text-center font-bold text-white">
+              <TableHead className=" w-[20rem] text-center font-bold text-blue-500">
                 Action
               </TableHead>
             </TableRow>
