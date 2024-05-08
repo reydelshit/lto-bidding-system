@@ -212,35 +212,44 @@ export default function ViewCalendar() {
         </div>
       )} */}
 
-      <div className="mt-[2rem] flex h-full  w-full gap-4">
-        {renderSidebar()}
-        <div className="h-[90%] w-[80%]">
-          {calendar.length > 0 && (
-            <FullCalendar
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-              headerToolbar={{
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay',
-              }}
-              eventBackgroundColor="blue"
-              eventBorderColor="blue"
-              initialView="dayGridMonth"
-              editable={true}
-              selectable={true}
-              selectMirror={true}
-              dayMaxEvents={true}
-              initialEvents={calendar} // alternatively, use the `events` setting to fetch from a feed
-              // select={selectDate}
-              eventContent={renderEventContent} // custom render function
-              // eventClick={handleEventClick}
-              // eventsSet={handleAppointments} // called after events are initialized/added/changed/removed
-              // you can update a remote database when these fire:
-              // eventAdd={() => handleAppointmentsDatabaase}
-              // eventChange={handleChangeAppointment}
-              // eventRemove={function(){}}
-            />
-          )}
+      <div className="relative mx-[2rem]">
+        <h1 className="my-4 text-[1.5rem] font-semibold">
+          CALENDAR{' '}
+          <span className="text-gray-500">
+            {'>'} Visual representation calendar
+          </span>
+        </h1>
+
+        <div className="mt-[2rem] flex h-full  w-full gap-4">
+          {renderSidebar()}
+          <div className="h-[90%] w-[80%]">
+            {calendar.length > 0 && (
+              <FullCalendar
+                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                headerToolbar={{
+                  left: 'prev,next today',
+                  center: 'title',
+                  right: 'dayGridMonth,timeGridWeek,timeGridDay',
+                }}
+                eventBackgroundColor="blue"
+                eventBorderColor="blue"
+                initialView="dayGridMonth"
+                editable={true}
+                selectable={true}
+                selectMirror={true}
+                dayMaxEvents={true}
+                initialEvents={calendar} // alternatively, use the `events` setting to fetch from a feed
+                // select={selectDate}
+                eventContent={renderEventContent} // custom render function
+                // eventClick={handleEventClick}
+                // eventsSet={handleAppointments} // called after events are initialized/added/changed/removed
+                // you can update a remote database when these fire:
+                // eventAdd={() => handleAppointmentsDatabaase}
+                // eventChange={handleChangeAppointment}
+                // eventRemove={function(){}}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>
