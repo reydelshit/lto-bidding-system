@@ -320,7 +320,9 @@ const MyBids = () => {
         {showFeedbackForm && (
           <div className="fixed left-0 top-0 z-10 flex h-full w-full flex-col items-center justify-center  bg-black bg-opacity-70">
             <div className="w-[35rem] rounded-lg border-2 bg-white p-4">
-              <h1 className="mb-[5rem] text-xl font-semibold">Feedback Form</h1>
+              <h1 className="mb-[5rem] text-xl font-semibold uppercase">
+                Feedback Form
+              </h1>
               <div className="text-center">
                 <span>How would you rate our product?</span>
                 <div className="mb-[2rem] flex w-full justify-center">
@@ -373,8 +375,8 @@ const MyBids = () => {
         {showPayment && (
           <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-70">
             <div className="h-[42rem] w-[40rem] rounded-md border-2 bg-white p-2">
-              <h1 className="my-4 text-center text-2xl font-semibold">
-                PAY NOW!
+              <h1 className="my-4 text-start text-2xl font-semibold uppercase">
+                PAYment modal
               </h1>
               <Tabs defaultValue="gcash" className="w-full">
                 <TabsList className="w-full">

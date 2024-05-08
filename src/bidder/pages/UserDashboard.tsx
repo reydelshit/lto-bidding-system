@@ -216,10 +216,11 @@ const Dashboard = () => {
               className="absolute right-4 top-4 mb-4 flex cursor-pointer gap-2 text-3xl"
               onClick={() => setShowQRDecider(false)}
             />
+
             <h1 className="my-4 text-2xl font-semibold">SCAN QR CODE</h1>
             <QRCode
               size={156}
-              style={{ height: 'auto', maxWidth: '20%', width: '20%' }}
+              style={{ height: 'auto', maxWidth: '30%', width: '30%' }}
               value={`http://localhost:5173/view/${qrCodeID}`}
               viewBox={`0 0 256 256`}
             />
@@ -281,6 +282,10 @@ const Dashboard = () => {
               className="absolute right-4 top-4 mb-4 flex cursor-pointer gap-2 text-3xl"
               onClick={() => setShowProductDetails(false)}
             />
+
+            <h1 className="absolute left-6 top-6 text-start text-2xl font-semibold uppercase">
+              product details
+            </h1>
             <div className="flex justify-around">
               <img
                 className="mb-4  h-[20rem] w-[20rem] rounded-lg object-cover"

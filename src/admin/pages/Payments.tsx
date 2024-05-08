@@ -196,6 +196,10 @@ const Payments = () => {
                 className="absolute right-4 top-4 mb-4 flex cursor-pointer gap-2 text-3xl"
                 onClick={() => setShowImage(false)}
               />
+
+              <h1 className="absolute left-6 top-6 text-start text-2xl font-semibold uppercase">
+                proof image
+              </h1>
               <img
                 className="h-[80%] w-[80%] object-contain"
                 src={proofImage}

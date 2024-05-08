@@ -210,11 +210,15 @@ const Bidders = () => {
 
         {showReviews && (
           <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-70">
-            <div className="relative flex min-h-fit w-[60rem] items-center justify-center gap-10 rounded-2xl bg-white p-2">
+            <div className="relative flex min-h-fit w-[60rem] flex-col items-center justify-center gap-10 rounded-2xl bg-white p-2">
               <IoMdClose
                 className="absolute right-6 top-6 flex cursor-pointer gap-2 text-2xl"
                 onClick={() => setShowReviews(false)}
               />
+
+              <h1 className="absolute left-6 top-6 text-start text-2xl font-semibold">
+                REVIEWS
+              </h1>
 
               <div className="flex h-fit min-h-[25rem] w-full flex-col items-center justify-center rounded-lg">
                 {reviews.length > 0 ? (
@@ -281,6 +285,11 @@ const Bidders = () => {
                 className="absolute right-6 top-6 flex cursor-pointer gap-2 text-2xl"
                 onClick={() => setShowBiddingProfileDecider(false)}
               />
+
+              <h1 className="absolute left-6 top-6 text-start text-2xl font-semibold uppercase">
+                Details
+              </h1>
+
               <div className=" flex justify-around">
                 <img
                   className="mb-4  h-[20rem] w-[20rem] rounded-lg object-cover"

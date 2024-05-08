@@ -135,6 +135,10 @@ export default function UpdateProducts({}: {}) {
             onClick={() => navigate('/admin/products')}
           />
 
+          <h1 className="absolute left-4 top-4 text-start text-2xl font-semibold uppercase">
+            update product
+          </h1>
+
           <div className="mb-2 mt-[2rem] flex flex-col">
             <img
               className="mb-4  h-[25rem] w-[40rem] rounded-lg object-cover"
@@ -252,7 +256,7 @@ export default function UpdateProducts({}: {}) {
               />
             </div>
 
-            <div className="flex gap-4">
+            <div className="flex justify-end gap-4">
               <Button className="w-[40%] self-center " type="submit">
                 Save and Update
               </Button>

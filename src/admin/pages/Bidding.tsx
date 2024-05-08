@@ -317,6 +317,10 @@ const Biddings = () => {
                 onClick={() => setShowBiddingProfileWinnerDecider(false)}
               />
 
+              <h1 className="absolute left-6 top-6 text-start text-2xl font-semibold uppercase">
+                winner details
+              </h1>
+
               <div className="flex justify-around">
                 <img
                   className="mb-4  h-[20rem] w-[20rem] rounded-lg object-cover"
@@ -402,7 +406,9 @@ const Biddings = () => {
                 className="absolute right-6 top-6 z-50 flex cursor-pointer gap-2 text-2xl"
                 onClick={() => setShowLeaderBoards(false)}
               />
-
+              <h1 className="absolute left-6 top-6 text-start text-2xl font-semibold uppercase">
+                leaderbords
+              </h1>
               <Table className="mt-[5rem] border-2">
                 <TableHeader>
                   <TableRow>

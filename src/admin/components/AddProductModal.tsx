@@ -102,6 +102,9 @@ export default function AddProductModal({
             className="absolute right-4 top-4 mb-4 flex cursor-pointer gap-2 text-3xl"
             onClick={() => setShowAddProduct(false)}
           />
+          <h1 className="absolute left-6 top-4 text-start text-2xl font-semibold uppercase">
+            add product
+          </h1>
 
           <div className="mb-2 mt-[2rem] flex flex-col">
             <img
