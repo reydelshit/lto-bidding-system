@@ -10,6 +10,7 @@ import VIP from '@/assets/crown.png';
 import { IoQrCodeOutline } from 'react-icons/io5';
 import { TbVip } from 'react-icons/tb';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { IoMdClose } from 'react-icons/io';
 const Dashboard = () => {
   const [product, setProduct] = useState<ProductType[]>([]);
   const [showProductDetails, setShowProductDetails] = useState(false);
@@ -208,14 +209,13 @@ const Dashboard = () => {
       </div>
 
       {showQRDecider && (
-        <div className="absolute bottom-0 top-0 flex h-screen w-dvw items-center justify-center  bg-white bg-opacity-85">
-          <div className="flex h-[80%] w-[80%] flex-col items-center justify-center">
-            <Button
-              className="mb-4 flex w-[8rem] items-center gap-2 bg-red-500"
+        <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-70">
+          <div className="relative flex h-[40%] w-[40%] flex-col items-center justify-center rounded-lg border-2 bg-white">
+            <IoMdClose
+              className="absolute right-4 top-4 mb-4 flex cursor-pointer gap-2 text-3xl"
               onClick={() => setShowQRDecider(false)}
-            >
-              <AiOutlineCloseCircle className="text-2xl" /> Close
-            </Button>
+            />
+            <h1 className="my-4 text-2xl font-semibold">SCAN QR CODE</h1>
             <QRCode
               size={156}
               style={{ height: 'auto', maxWidth: '20%', width: '20%' }}
@@ -227,8 +227,8 @@ const Dashboard = () => {
       )}
 
       {showPlaceBid && (
-        <div className="absolute right-0 top-0 flex h-full w-full justify-center bg-white bg-opacity-80">
-          <div className="relative mt-[5rem] flex h-[15rem] w-[30rem] flex-col items-start justify-center gap-10 rounded-sm border-2 bg-white p-4 text-start">
+        <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-70">
+          <div className="relative flex h-[15rem] w-[30rem] flex-col items-start justify-center gap-10 rounded-lg  border-2 bg-white p-4 text-start">
             <div className="mb-[-1rem] flex w-full justify-between text-[2rem] ">
               <h1 className="text-xl font-semibold">Enter your bidding</h1>
 
@@ -274,14 +274,12 @@ const Dashboard = () => {
       )}
 
       {showProductDetails && (
-        <div className="absolute right-0 top-0 flex h-full w-full justify-center bg-white bg-opacity-80">
-          <div className="relative mt-[5rem] flex h-[30rem] w-[60rem] items-center justify-center gap-10 rounded-sm border-2 bg-white p-2">
-            <Button
-              className="absolute right-2 top-2 bg-red-500"
+        <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-70">
+          <div className="relative  flex h-[30rem] w-[60rem] items-center justify-center gap-10 rounded-lg border-2 bg-white p-2">
+            <IoMdClose
+              className="absolute right-4 top-4 mb-4 flex cursor-pointer gap-2 text-3xl"
               onClick={() => setShowProductDetails(false)}
-            >
-              <AiOutlineCloseCircle className="text-2xl" /> Close
-            </Button>
+            />
             <div className="flex justify-around">
               <img
                 className="mb-4  h-[20rem] w-[20rem] rounded-lg object-cover"

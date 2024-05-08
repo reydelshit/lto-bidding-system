@@ -96,7 +96,7 @@ const Bidders = () => {
   };
 
   return (
-    <div className="relative mt-[1rem] h-screen w-full rounded-lg bg-gray-50 p-2">
+    <div className="mt-[1rem] h-screen w-full rounded-lg bg-gray-50 p-2">
       <div className="mx-[2rem] h-full bg-gray-50 ">
         <h1 className="my-4 text-[1.5rem] font-semibold">
           BIDDERS <span className="text-gray-500">{'>'} List of Bidders</span>
@@ -118,13 +118,13 @@ const Bidders = () => {
 
         <Table className="rounded-md bg-white">
           <TableHeader>
-            <TableRow>
-              <TableHead className="font-bold text-black">Fullname</TableHead>
-              <TableHead className="font-bold text-black">Username</TableHead>
-              <TableHead className="w-[20rem] font-bold text-black">
+            <TableRow className="bg-blue-500">
+              <TableHead className="font-bold text-white">Fullname</TableHead>
+              <TableHead className="font-bold text-white">Username</TableHead>
+              <TableHead className="w-[20rem] font-bold text-white">
                 Status
               </TableHead>
-              <TableHead className="w-[20rem] font-bold text-black">
+              <TableHead className="w-[20rem] font-bold text-white">
                 Actions
               </TableHead>
             </TableRow>
@@ -205,14 +205,14 @@ const Bidders = () => {
         </Table>
 
         {showReviews && (
-          <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-white bg-opacity-50">
-            <div className="relative mt-[-15rem] flex min-h-fit w-[60rem] items-center justify-center gap-10 rounded-2xl bg-white p-2">
+          <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-70">
+            <div className="relative flex min-h-fit w-[60rem] items-center justify-center gap-10 rounded-2xl bg-white p-2">
               <IoMdClose
                 className="absolute right-6 top-6 flex cursor-pointer gap-2 text-2xl"
                 onClick={() => setShowReviews(false)}
               />
 
-              <div className="flex h-fit min-h-[25rem] w-full flex-col items-center justify-center rounded-lg border-2">
+              <div className="flex h-fit min-h-[25rem] w-full flex-col items-center justify-center rounded-lg">
                 {reviews.length > 0 ? (
                   reviews.map((review, index) => (
                     <div
@@ -271,8 +271,8 @@ const Bidders = () => {
         )}
 
         {showBiddingProfileDecider && (
-          <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-white bg-opacity-80">
-            <div className="pt-[4 rem] relative mt-[-15rem] flex h-fit w-[60rem] items-center justify-around gap-10 rounded-md border-2  bg-white  p-16">
+          <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-70">
+            <div className="pt-[4 rem] relative flex h-fit w-[60rem] items-center justify-around gap-10 rounded-md border-2  bg-white  p-16">
               <IoMdClose
                 className="absolute right-6 top-6 flex cursor-pointer gap-2 text-2xl"
                 onClick={() => setShowBiddingProfileDecider(false)}

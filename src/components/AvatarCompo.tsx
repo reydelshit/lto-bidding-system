@@ -131,7 +131,7 @@ const AvatarCompo = () => {
         {profile.account_type !== 'admin' && (
           <Popover>
             <PopoverTrigger
-              className="p-2 text-3xl text-blue-500"
+              className="p-2 text-3xl "
               onClick={fetchNotifications}
             >
               <IoNotifications />
@@ -158,26 +158,46 @@ const AvatarCompo = () => {
               </span>
             </div>
           </PopoverTrigger>
-          <PopoverContent className="flex flex-col gap-2">
-            {profile.account_type === 'admin' ? (
-              <Button>
-                <Link to="/admin/calendar">CALENDAR</Link>
-              </Button>
-            ) : (
-              <Button>
-                <Link to="/view-calendar">VIEW CALENDAR</Link>
-              </Button>
-            )}
+          <PopoverContent className="mr-[3.5rem] flex min-h-[10rem] flex-col items-center  justify-between gap-2 text-center font-semibold">
+            <div className="flex w-full flex-col gap-3">
+              {profile.account_type === 'admin' ? (
+                <Link
+                  to="/admin/calendar"
+                  className="cursor-pointer border-b-2 pb-2 hover:text-blue-500"
+                >
+                  CALENDAR
+                </Link>
+              ) : (
+                <Link
+                  to="/view-calendar"
+                  className="cursor-pointer border-b-2 pb-2 hover:text-blue-500"
+                >
+                  VIEW CALENDAR
+                </Link>
+              )}
 
-            {profile.account_type === 'admin' ? (
-              ''
-            ) : vipStatus.length > 0 ? (
-              <Button onClick={handleUnSubscribeVip}>UNSUBSCRIBE VIP</Button>
-            ) : (
-              <Button onClick={handleSubscribeVip}>SUBSCRIBE VIP</Button>
-            )}
+              {profile.account_type === 'admin' ? (
+                ''
+              ) : vipStatus.length > 0 ? (
+                <a
+                  className="cursor-pointer border-b-2 pb-2 hover:text-blue-500"
+                  onClick={handleUnSubscribeVip}
+                >
+                  UNSUBSCRIBE VIP
+                </a>
+              ) : (
+                <a
+                  className="cursor-pointer border-b-2 pb-2 hover:text-blue-500"
+                  onClick={handleSubscribeVip}
+                >
+                  SUBSCRIBE VIP
+                </a>
+              )}
+            </div>
 
-            <Button onClick={handleLogout}>Logout</Button>
+            <Button className="w-[50%]" onClick={handleLogout}>
+              Logout
+            </Button>
           </PopoverContent>
         </Popover>
       </div>

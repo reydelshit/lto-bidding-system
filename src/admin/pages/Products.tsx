@@ -64,8 +64,8 @@ const Products = () => {
   }, []);
 
   return (
-    <div className="relative mt-[2rem]">
-      <div className="mx-[2rem]">
+    <div className=" mt-[2rem]">
+      <div className=" mx-[2rem]">
         <h1 className="my-4 text-[1.5rem] font-semibold">
           DASHBOARD{' '}
           <span className="text-gray-500">{'>'} List of Products</span>
@@ -94,16 +94,16 @@ const Products = () => {
             <Table>
               <TableCaption>A list of product added.</TableCaption>
               <TableHeader>
-                <TableRow>
-                  <TableHead className="font-bold text-black"></TableHead>
-                  <TableHead className="font-bold text-black">
+                <TableRow className="bg-blue-500">
+                  <TableHead className="font-bold text-white"></TableHead>
+                  <TableHead className="font-bold text-white">
                     Product Details
                   </TableHead>
-                  <TableHead className="font-bold text-black">
+                  <TableHead className="font-bold text-white">
                     Bidding Details
                   </TableHead>
 
-                  <TableHead className="font-bold text-black ">
+                  <TableHead className="font-bold text-white ">
                     Actions
                   </TableHead>
                 </TableRow>
@@ -126,7 +126,7 @@ const Products = () => {
                           {parseInt(prod.is_vip) === 1 && (
                             <TbVip
                               className="
-                       text-6xl text-yellow-500"
+                       text-4xl text-yellow-500"
                             />
                           )}
                         </TableCell>

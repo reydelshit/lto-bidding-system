@@ -12,6 +12,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import axios from 'axios';
 import { useState } from 'react';
+import { IoMdClose } from 'react-icons/io';
 
 // import { URL } from 'url';
 
@@ -94,9 +95,14 @@ export default function AddProductModal({
   };
 
   return (
-    <div className="absolute top-0 flex h-fit w-full flex-col items-center justify-center bg-gray-50 p-4 text-center">
+    <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-70">
       <div className="w-[80%]">
-        <div className="mt-[5rem] flex w-full justify-between gap-[4rem] border-2 bg-white px-4 py-6">
+        <div className="relative mt-[5rem] flex w-full justify-between gap-[4rem] border-2 bg-white px-4 py-6">
+          <IoMdClose
+            className="absolute right-4 top-4 mb-4 flex cursor-pointer gap-2 text-3xl"
+            onClick={() => setShowAddProduct(false)}
+          />
+
           <div className="mb-2 mt-[2rem] flex flex-col">
             <img
               className="mb-4  h-[25rem] w-[40rem] rounded-lg object-cover"
@@ -235,16 +241,9 @@ export default function AddProductModal({
               />
             </div>
 
-            <div className="flex gap-4">
+            <div className="flex justify-end gap-4">
               <Button className="w-[40%] self-center" type="submit">
                 Add product
-              </Button>
-
-              <Button
-                onClick={() => setShowAddProduct(false)}
-                className="w-[40%] self-center"
-              >
-                Close
               </Button>
             </div>
           </form>

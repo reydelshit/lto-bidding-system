@@ -17,6 +17,7 @@ import {
   AiOutlineCloseCircle,
 } from 'react-icons/ai';
 import Filter from '../components/Filter';
+import { IoMdClose } from 'react-icons/io';
 
 type PaymentsType = {
   product_id: number;
@@ -74,7 +75,7 @@ const Payments = () => {
   };
 
   return (
-    <div className="relative mx-[2rem] h-screen bg-gray-50">
+    <div className="mx-[2rem] h-screen bg-gray-50">
       <div className="h-ful w-full bg-gray-50">
         <h1 className="my-4 text-[1.5rem] font-semibold">
           PAYMENTS <span className="text-gray-500">{'>'} List of Payments</span>
@@ -94,22 +95,22 @@ const Payments = () => {
           />
         </div>
 
-        <Table className=" bg-white">
-          <TableHeader>
+        <Table>
+          <TableHeader className=" bg-blue-500">
             <TableRow>
-              <TableHead className="font-bold text-black">
+              <TableHead className="font-bold text-white">
                 Product Name
               </TableHead>
-              <TableHead className="font-bold text-black">
+              <TableHead className="font-bold text-white">
                 Winner Name
               </TableHead>
-              <TableHead className="font-bold text-black">
+              <TableHead className="font-bold text-white">
                 Proof Details
               </TableHead>
-              <TableHead className="w-[15rem] font-bold text-black">
+              <TableHead className="w-[15rem] font-bold text-white">
                 Status
               </TableHead>
-              <TableHead className=" w-[20rem] text-center font-bold text-black">
+              <TableHead className=" w-[20rem] text-center font-bold text-white">
                 Action
               </TableHead>
             </TableRow>
@@ -189,15 +190,12 @@ const Payments = () => {
         </Table>
 
         {showImage && (
-          <div className="absolute bottom-0 top-[-10rem] flex h-screen w-dvw items-center justify-center bg-white bg-opacity-85">
-            <div className="flex h-[80%] w-[80%] flex-col items-center justify-center">
-              <Button
-                className="my-2 flex items-center gap-2 bg-red-500"
+          <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-70">
+            <div className="relative flex h-[80%] w-[80%] flex-col items-center justify-center bg-white">
+              <IoMdClose
+                className="absolute right-4 top-4 mb-4 flex cursor-pointer gap-2 text-3xl"
                 onClick={() => setShowImage(false)}
-              >
-                {' '}
-                <AiOutlineCloseCircle className=" text-2xl" /> Close
-              </Button>
+              />
               <img
                 className="h-[80%] w-[80%] object-contain"
                 src={proofImage}

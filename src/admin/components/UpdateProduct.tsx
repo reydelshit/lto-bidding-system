@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import moment from 'moment';
+import { IoMdClose } from 'react-icons/io';
 
 type ChangeEvent =
   | React.ChangeEvent<HTMLInputElement>
@@ -126,9 +127,14 @@ export default function UpdateProducts({}: {}) {
   };
 
   return (
-    <div className="flex h-fit w-full flex-col items-center justify-center p-4 text-center">
+    <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-70">
       <div className="h-fit w-[80%] ">
-        <div className="mt-[5rem] flex w-full justify-between gap-[4rem] rounded-md border-2 bg-white px-4 py-6">
+        <div className="relative mt-[5rem] flex w-full justify-between gap-[4rem] rounded-md border-2 bg-white px-4 py-6">
+          <IoMdClose
+            className="absolute right-4 top-4 mb-4 flex cursor-pointer gap-2 text-3xl"
+            onClick={() => navigate('/admin/products')}
+          />
+
           <div className="mb-2 mt-[2rem] flex flex-col">
             <img
               className="mb-4  h-[25rem] w-[40rem] rounded-lg object-cover"

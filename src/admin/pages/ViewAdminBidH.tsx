@@ -62,13 +62,13 @@ const ViewAdminBidH = () => {
       <div className="flex w-full items-center justify-center">
         <div className="w-[50%] rounded-md border-2 bg-white">
           <Table>
-            <TableHeader>
+            <TableHeader className=" bg-blue-500">
               <TableRow>
-                <TableHead className="font-bold text-black">Bidder</TableHead>
-                <TableHead className="w-[20rem] font-bold text-black">
+                <TableHead className="font-bold text-white">Bidder</TableHead>
+                <TableHead className="w-[20rem] font-bold text-white">
                   Bid Amount
                 </TableHead>
-                <TableHead className="font-bold text-black">Bid Time</TableHead>
+                <TableHead className="font-bold text-white">Bid Time</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

@@ -68,12 +68,12 @@ const BidLogs = () => {
           <div className="w-[50%] border-2 bg-white">
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead className="font-bold text-black">Bidder</TableHead>
-                  <TableHead className="w-[20rem] font-bold text-black">
+                <TableRow className=" bg-blue-500">
+                  <TableHead className="font-bold text-white">Bidder</TableHead>
+                  <TableHead className="w-[20rem] font-bold text-white">
                     Bid Amount
                   </TableHead>
-                  <TableHead className="font-bold text-black">
+                  <TableHead className="font-bold text-white">
                     Bid Time
                   </TableHead>
                 </TableRow>

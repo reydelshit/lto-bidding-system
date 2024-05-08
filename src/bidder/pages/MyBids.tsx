@@ -175,21 +175,21 @@ const MyBids = () => {
 
         <Table className="border-2 bg-white">
           <TableHeader>
-            <TableRow>
-              <TableHead className="font-bold text-black">
+            <TableRow className=" bg-blue-500">
+              <TableHead className="font-bold text-white">
                 Product Name
               </TableHead>
-              <TableHead className="font-bold text-black">
+              <TableHead className="font-bold text-white">
                 Max Bid Amount
               </TableHead>
-              <TableHead className="w-[20rem] font-bold text-black">
+              <TableHead className="w-[20rem] font-bold text-white">
                 Status
               </TableHead>
-              <TableHead className="font-bold text-black">
+              <TableHead className="font-bold text-white">
                 Payment Status
               </TableHead>
 
-              <TableHead className="w-[20rem] font-bold text-black">
+              <TableHead className="w-[20rem] font-bold text-white">
                 Action
               </TableHead>
             </TableRow>
@@ -285,7 +285,7 @@ const MyBids = () => {
         </Table>
 
         {showFeedbackForm && (
-          <div className="fixed left-0 top-0 z-10 flex h-full w-full flex-col items-center justify-center bg-white bg-opacity-70">
+          <div className="fixed left-0 top-0 z-10 flex h-full w-full flex-col items-center justify-center  bg-black bg-opacity-70">
             <div className="w-[35rem] rounded-lg border-2 bg-white p-4">
               <h1 className="mb-[5rem] text-xl font-semibold">Feedback Form</h1>
               <div className="text-center">
@@ -299,9 +299,9 @@ const MyBids = () => {
                         key={number}
                         className={`${
                           isSelected
-                            ? 'bg-green-500 text-white'
+                            ? 'bg-blue-500 text-white'
                             : 'bg-white text-black'
-                        } ' my-2 mr-2 hover:bg-green-500 hover:text-white`}
+                        } ' my-2 mr-2 hover:bg-blue-500 hover:text-white`}
                       >
                         {number + 1} ⭐
                       </Button>
@@ -327,7 +327,7 @@ const MyBids = () => {
                 </Button>
 
                 <Button
-                  className="bg-green-500"
+                  className="bg-blue-500"
                   onClick={handleFeedbackSubmition}
                 >
                   Submit

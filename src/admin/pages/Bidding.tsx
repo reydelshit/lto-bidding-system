@@ -136,8 +136,8 @@ const Biddings = () => {
   };
 
   return (
-    <div className="relative mx-[2rem] mt-[1rem] h-screen w-full rounded-lg bg-gray-50 p-2">
-      <div className="relative h-full w-[95%] bg-gray-50">
+    <div className=" mx-[2rem] mt-[1rem] h-screen w-full rounded-lg bg-gray-50 p-2">
+      <div className=" h-full w-[95%] bg-gray-50">
         <h1 className="my-4 text-[1.5rem] font-semibold">
           BIDDINGS <span className="text-gray-500">{'>'} List of Biddings</span>
         </h1>
@@ -310,10 +310,10 @@ const Biddings = () => {
         </Table>
 
         {showBiddingProfileWinnerDecider && (
-          <div className="absolute right-0 top-0 flex h-full w-full justify-center bg-white bg-opacity-80">
+          <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-70">
             <div className="relative mt-[5rem] flex h-[30rem] w-[60rem] items-center justify-center gap-10 rounded-md border-2 bg-white p-2 pt-[2rem]">
               <IoMdClose
-                className="absolute right-6 top-6 flex cursor-pointer gap-2 text-2xl"
+                className="absolute right-6 top-6 z-50 flex cursor-pointer gap-2 text-2xl"
                 onClick={() => setShowBiddingProfileWinnerDecider(false)}
               />
 
@@ -327,7 +327,7 @@ const Biddings = () => {
                   }
                 />
               </div>
-              <div className="w-[80%]">
+              <div className="w-[60%]">
                 <div className="flex gap-4">
                   <div className="flex w-[100%] flex-col ">
                     <Label className="my-4 block">First Name</Label>
@@ -396,10 +396,10 @@ const Biddings = () => {
         )}
 
         {showLeaderBoards && (
-          <div className="absolute right-0 top-0 flex h-full w-full justify-center bg-white bg-opacity-80">
+          <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-70">
             <div className="relative mt-[5rem] flex h-[30rem] w-[60rem] gap-10 rounded-md border-2 bg-white p-2 ">
               <IoMdClose
-                className="absolute right-6 top-6 flex cursor-pointer gap-2 text-2xl"
+                className="absolute right-6 top-6 z-50 flex cursor-pointer gap-2 text-2xl"
                 onClick={() => setShowLeaderBoards(false)}
               />
 
