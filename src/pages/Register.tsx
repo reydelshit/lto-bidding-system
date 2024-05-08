@@ -73,7 +73,7 @@ export default function Register() {
 
   return (
     <div className="flex h-dvh w-dvw items-center justify-center">
-      <div className="flex w-[40%] flex-col rounded-md border-2  p-4">
+      <div className="flex w-[40%] flex-col rounded-md border-2 p-4 shadow-lg">
         <div>
           <div className="flex gap-4">
             <div className="flex w-[100%] flex-col ">

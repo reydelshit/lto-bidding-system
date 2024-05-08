@@ -93,7 +93,7 @@ export default function Login() {
           </div>
         </div>
       )}
-      <div className="flex h-[30rem] w-[30%] flex-col items-center justify-center rounded-md border-2 bg-white p-4  text-black shadow-md shadow-slate-400">
+      <div className="flex h-[30rem] w-[30%] flex-col items-center justify-center rounded-md border-2 bg-white p-4  text-black shadow-lg shadow-slate-400">
         <h1
           className="text-4xl
         font-bold"
