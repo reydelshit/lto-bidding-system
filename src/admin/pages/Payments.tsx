@@ -16,6 +16,7 @@ import {
   AiFillLike,
   AiOutlineCloseCircle,
 } from 'react-icons/ai';
+import Filter from '../components/Filter';
 
 type PaymentsType = {
   product_id: number;
@@ -34,6 +35,13 @@ const Payments = () => {
   const [payments, setPayments] = useState<PaymentsType[]>([]);
   const [showImage, setShowImage] = useState(false);
   const [proofImage, setProofImage] = useState('');
+
+  const [selectedValue, setSelectedValue] = useState<string>('All');
+
+  const handleValueChange = (e: string) => {
+    setSelectedValue(e);
+    console.log(e);
+  };
 
   const fetchPayment = async () => {
     await axios
@@ -78,6 +86,12 @@ const Payments = () => {
             className="h-[3rem] w-[25rem] bg-white"
             placeholder="search product.."
           />
+
+          <Filter
+            handleValueChange={setSelectedValue}
+            value={['All', 'Pending', 'Approved', 'Rejected']}
+            title="Filter Payment"
+          />
         </div>
 
         <Table className=" bg-white">
@@ -102,7 +116,19 @@ const Payments = () => {
           </TableHeader>
           <TableBody>
             {payments
-              .filter((pay) => pay.product_name.includes(searchProduct))
+              .filter((pay) => {
+                const firstNameMatchesSearch = pay.first_name
+                  .toLowerCase()
+                  .includes(searchProduct.toLowerCase());
+
+                return (
+                  firstNameMatchesSearch &&
+                  (selectedValue === 'All' ||
+                    (selectedValue.includes('Pending') && pay.status === 0) ||
+                    (selectedValue.includes('Approved') && pay.status === 1) ||
+                    (selectedValue.includes('Rejected') && pay.status === 2))
+                );
+              })
               .map((pay, index) => {
                 return (
                   <TableRow className="border-b-2 text-start" key={index}>

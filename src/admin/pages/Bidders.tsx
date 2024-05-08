@@ -14,9 +14,10 @@ import { BiddersType } from '@/entities/types';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { GrFormView } from 'react-icons/gr';
-import { IoMdClose } from "react-icons/io";
+import { IoMdClose } from 'react-icons/io';
 import { MdReviews } from 'react-icons/md';
 import { TbVip } from 'react-icons/tb';
+import Filter from '../components/Filter';
 
 type Reviews = {
   description: string;
@@ -36,6 +37,13 @@ const Bidders = () => {
     useState(false);
   const [showReviews, setShowReviews] = useState(false);
   const [reviews, setReviews] = useState<Reviews[]>([]);
+
+  const [selectedValue, setSelectedValue] = useState<string>('All');
+
+  const handleValueChange = (e: string) => {
+    setSelectedValue(e);
+    console.log(e);
+  };
 
   const fetchBidders = async () => {
     await axios
@@ -100,6 +108,12 @@ const Bidders = () => {
             className=" h-[3rem] w-[25rem] bg-white"
             placeholder="search bidders.."
           />
+
+          <Filter
+            handleValueChange={handleValueChange}
+            title="Filter status"
+            value={['All', 'In Progress', 'Verified', 'Rejected']}
+          />
         </div>
 
         <Table className="rounded-md bg-white">
@@ -117,18 +131,35 @@ const Bidders = () => {
           </TableHeader>
           <TableBody>
             {bidders
-              .filter((bid) => bid.first_name.includes(searchProduct))
+              .filter((bid) => {
+                const firstNameMatchesSearch = bid.first_name
+                  .toLowerCase()
+                  .includes(searchProduct.toLowerCase());
+
+                return (
+                  firstNameMatchesSearch &&
+                  (selectedValue === 'All' ||
+                    (selectedValue.includes('Progress') &&
+                      bid.is_verified === 0) ||
+                    (selectedValue.includes('Verified') &&
+                      bid.is_verified === 1) ||
+                    (selectedValue.includes('Rejected') &&
+                      bid.is_verified === 2))
+                );
+              })
               .map((bid, index) => {
                 return (
                   <TableRow className="border-b-2 text-start" key={index}>
-                    <TableCell className="flex gap-2 item-center">
-                   
-                        <span className='block'> {bid.first_name} {bid.last_name}</span>
+                    <TableCell className="item-center flex gap-2">
+                      <span className="block">
+                        {' '}
+                        {bid.first_name} {bid.last_name}
+                      </span>
                       {bid.vip_id !== null && (
-                      <TbVip
-                      className="
+                        <TbVip
+                          className="
                    text-3xl text-yellow-500"
-                    />
+                        />
                       )}
                     </TableCell>
 
@@ -176,8 +207,10 @@ const Bidders = () => {
         {showReviews && (
           <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-white bg-opacity-50">
             <div className="relative mt-[-15rem] flex min-h-fit w-[60rem] items-center justify-center gap-10 rounded-2xl bg-white p-2">
-            <IoMdClose  className="absolute right-6 top-6 flex gap-2 text-2xl cursor-pointer" onClick={() => setShowReviews(false)}  /> 
-
+              <IoMdClose
+                className="absolute right-6 top-6 flex cursor-pointer gap-2 text-2xl"
+                onClick={() => setShowReviews(false)}
+              />
 
               <div className="flex h-fit min-h-[25rem] w-full flex-col items-center justify-center rounded-lg border-2">
                 {reviews.length > 0 ? (
@@ -240,9 +273,10 @@ const Bidders = () => {
         {showBiddingProfileDecider && (
           <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center bg-white bg-opacity-80">
             <div className="pt-[4 rem] relative mt-[-15rem] flex h-fit w-[60rem] items-center justify-around gap-10 rounded-md border-2  bg-white  p-16">
-          
-
-              <IoMdClose  className="absolute right-6 top-6 flex gap-2 text-2xl cursor-pointer"   onClick={() => setShowBiddingProfileDecider(false)}  /> 
+              <IoMdClose
+                className="absolute right-6 top-6 flex cursor-pointer gap-2 text-2xl"
+                onClick={() => setShowBiddingProfileDecider(false)}
+              />
               <div className=" flex justify-around">
                 <img
                   className="mb-4  h-[20rem] w-[20rem] rounded-lg object-cover"

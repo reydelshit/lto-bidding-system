@@ -17,7 +17,7 @@ import { GrMoney } from 'react-icons/gr';
 import { FaHistory } from 'react-icons/fa';
 
 const Admin = () => {
-  const currentPath = useLocation().pathname
+  const currentPath = useLocation().pathname;
 
   return (
     <div className="bg-gray-50">
@@ -27,81 +27,105 @@ const Admin = () => {
         <div className="flex justify-around gap-4 px-[2rem] py-2 shadow-sm">
           <Link
             className={`flex w-full items-center gap-2 p-2 text-start text-xl 
-              font-semibold uppercase ${currentPath == '/admin/'
-              ? ' text-start bg-blue-500 text-white rounded-md'
-              : ''
-            }`}
+              font-semibold uppercase ${
+                currentPath == '/admin/'
+                  ? ' rounded-md bg-blue-500 text-start text-white'
+                  : ''
+              }`}
             to="/admin/"
           >
-            <MdOutlineDashboard className={`{currentPath == '/admin/'
+            <MdOutlineDashboard
+              className={`{currentPath == '/admin/'
               ? 'text-inherit'
               : ''
-            } `} /> Dashboard
+            } `}
+            />{' '}
+            Dashboard
           </Link>
           <Link
             className={`flex w-full items-center gap-2 p-2 text-start text-xl 
-  font-semibold uppercase ${currentPath == '/admin/products'
-  ? ' text-start bg-blue-500 text-white rounded-md'
-  : ''
-}`}
+  font-semibold uppercase ${
+    currentPath == '/admin/products'
+      ? ' rounded-md bg-blue-500 text-start text-white'
+      : ''
+  }`}
             to="/admin/products"
           >
-            <MdProductionQuantityLimits className={`{currentPath == '/admin/products'
+            <MdProductionQuantityLimits
+              className={`{currentPath == '/admin/products'
               ? 'text-inherit'
               : ''
-            } `} /> Products
+            } `}
+            />{' '}
+            Products
           </Link>
           <Link
             className={`flex w-full items-center gap-2 p-2 text-start text-xl 
-  font-semibold uppercase ${currentPath == '/admin/bidders'
-  ? ' text-start bg-blue-500 text-white rounded-md'
-  : ''
-}`}
+  font-semibold uppercase ${
+    currentPath == '/admin/bidders'
+      ? ' rounded-md bg-blue-500 text-start text-white'
+      : ''
+  }`}
             to="/admin/bidders"
           >
-            <FaUserTie className={`{currentPath == '/admin/bidders'
+            <FaUserTie
+              className={`{currentPath == '/admin/bidders'
               ? 'text-inherit'
               : ''
-            } `} /> Bidders
+            } `}
+            />{' '}
+            Bidders
           </Link>
           <Link
             className={`flex w-full items-center gap-2 p-2 text-start text-xl 
-  font-semibold uppercase ${currentPath == '/admin/biddings'
-  ? ' text-start bg-blue-500 text-white rounded-md'
-  : ''
-}`}
+  font-semibold uppercase ${
+    currentPath == '/admin/biddings'
+      ? ' rounded-md bg-blue-500 text-start text-white'
+      : ''
+  }`}
             to="/admin/biddings"
           >
-            <MdAutoGraph className={`{currentPath == '/admin/biddings'
+            <MdAutoGraph
+              className={`{currentPath == '/admin/biddings'
               ? 'text-inherit'
               : ''
-            } `} /> biddings
+            } `}
+            />{' '}
+            biddings
           </Link>
           <Link
             className={`flex w-full items-center gap-2 p-2 text-start text-xl 
-  font-semibold uppercase ${currentPath == '/admin/payments'
-  ? ' text-start bg-blue-500 text-white rounded-md'
-  : ''
-}`}
+  font-semibold uppercase ${
+    currentPath == '/admin/payments'
+      ? ' rounded-md bg-blue-500 text-start text-white'
+      : ''
+  }`}
             to="/admin/payments"
           >
-            <GrMoney className={`{currentPath == '/admin/payments'
+            <GrMoney
+              className={`{currentPath == '/admin/payments'
               ? 'text-inherit'
               : ''
-            } `} /> Payments
+            } `}
+            />{' '}
+            Payments
           </Link>
           <Link
             className={`flex w-full items-center gap-2 p-2 text-start text-xl 
-  font-semibold uppercase ${currentPath == '/admin/bid-history'
-  ? ' text-start bg-blue-500 text-white rounded-md'
-  : ''
-}`}
+  font-semibold uppercase ${
+    currentPath == '/admin/bid-history'
+      ? ' rounded-md bg-blue-500 text-start text-white'
+      : ''
+  }`}
             to="/admin/bid-history"
           >
-            <FaHistory className={`{currentPath == '/admin/bid-history'
+            <FaHistory
+              className={`{currentPath == '/admin/bid-history'
               ? 'text-inherit'
               : ''
-            } `} /> bid-history
+            } `}
+            />{' '}
+            bid-history
           </Link>
         </div>
       </div>

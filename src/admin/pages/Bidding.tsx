@@ -3,6 +3,7 @@ import DefaultImage from '@/assets/defaultImage.jpg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+
 import {
   Table,
   TableBody,
@@ -20,6 +21,7 @@ import { GrFormView } from 'react-icons/gr';
 import { HiLockClosed } from 'react-icons/hi';
 import { IoMdClose } from 'react-icons/io';
 import { VscGraph } from 'react-icons/vsc';
+import Filter from '../components/Filter';
 
 const Biddings = () => {
   const [biddings, setBiddings] = useState<BiddingsType[]>([]);
@@ -39,10 +41,16 @@ const Biddings = () => {
   const [leaderBoards, setLeaderBoards] = useState<LeaderBoardType[]>([]);
   const [showLeaderBoards, setShowLeaderBoards] = useState<boolean>(false);
   const [productName, setProductName] = useState('');
-
   const [searchProduct, setSearchProduct] = useState('');
   const [showBiddingProfileWinnerDecider, setShowBiddingProfileWinnerDecider] =
     useState(false);
+
+  const [selectedValue, setSelectedValue] = useState<string>('All');
+
+  const handleValueChange = (e: string) => {
+    setSelectedValue(e);
+    console.log(e);
+  };
 
   const fetchProduct = async () => {
     await axios
@@ -140,6 +148,12 @@ const Biddings = () => {
             className="h-[3rem] w-[25rem]"
             placeholder="search product.."
           />
+
+          <Filter
+            handleValueChange={handleValueChange}
+            title="Filter status"
+            value={['All', 'Closed', 'Active']}
+          />
         </div>
 
         <Table
@@ -147,26 +161,41 @@ const Biddings = () => {
         "
         >
           <TableCaption>A list of product added.</TableCaption>
-          <TableHeader>
+          <TableHeader className="bg-blue-500 ">
             <TableRow>
-              <TableHead className="font-bold text-black">Image</TableHead>
-              <TableHead className="font-bold text-black">
+              <TableHead className="font-bold text-white">Image</TableHead>
+              <TableHead className="font-bold text-white">
                 Product Details
               </TableHead>
-              <TableHead className="font-bold text-black">
+              <TableHead className="font-bold text-white">
                 Bidding Details
               </TableHead>
-              <TableHead className="w-[8rem] font-bold text-black">
+              <TableHead className="w-[8rem] font-bold text-white">
                 Status
               </TableHead>
-              <TableHead className=" w-[5rem]  font-bold text-black">
+              <TableHead className=" w-[5rem]  font-bold text-white">
                 Action
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {biddings
-              .filter((bid) => bid.product_name.includes(searchProduct))
+              .filter((bid) => {
+                const productNameMatchesSearch = bid.product_name
+                  .toLowerCase()
+                  .includes(searchProduct.toLowerCase());
+
+                const isOpenBid = bid.date_until > new Date().toISOString();
+                const isClosedBid = !isOpenBid;
+                const isSelectedValueAll = selectedValue === 'All';
+                const isSelectedValueClosed = selectedValue === 'Closed';
+
+                return (
+                  ((productNameMatchesSearch || isSelectedValueAll) &&
+                    (isSelectedValueClosed ? isClosedBid : isOpenBid)) ||
+                  (isSelectedValueAll && productNameMatchesSearch)
+                );
+              })
               .map((bid, index) => {
                 return (
                   <TableRow className="border-b-2 text-start" key={index}>
@@ -197,23 +226,57 @@ const Biddings = () => {
 
                     <TableCell>
                       <div className="flex flex-col">
-                        <span>Regular Price : ₱ {bid.regular_price}</span>
-                        <span>Starting Price : ₱ {bid.starting_price}</span>
-                        <span> Total Bid : {bid.cnt}</span>
-                        <span>Highest Bid : ₱ {bid.amt}</span>
-                        <span> Highest Bidder : {bid.fname}</span>
-                        <span>Until : {bid.date_until}</span>
+                        <span>
+                          Regular Price : ₱{' '}
+                          <span className="inline-block font-bold">
+                            {bid.regular_price}
+                          </span>
+                        </span>
+                        <span>
+                          Starting Price : ₱{' '}
+                          <span className="inline-block font-bold">
+                            {bid.starting_price}
+                          </span>{' '}
+                        </span>
+                        <span>
+                          {' '}
+                          Total Bid :{' '}
+                          <span className="inline-block font-bold">
+                            {bid.cnt}
+                          </span>{' '}
+                        </span>
+                        <span>
+                          Highest Bid : ₱{' '}
+                          <span className="inline-block font-bold">
+                            {bid.amt}
+                          </span>{' '}
+                        </span>
+                        <span>
+                          {' '}
+                          Highest Bidder :{' '}
+                          <span className="inline-block font-bold">
+                            {bid.fname}
+                          </span>{' '}
+                        </span>
+                        <span>
+                          Until :{' '}
+                          <span className="inline-block font-bold">
+                            {bid.date_until}
+                          </span>{' '}
+                        </span>
                       </div>
                     </TableCell>
 
                     <TableCell className="w-[5rem]">
                       {bid.date_until > new Date().toISOString() ? (
-                        <span className=" flex h-[2.5rem] w-full items-center  justify-center gap-2 rounded-md bg-green-500 p-2 text-center text-white">
-                          <FaCheckCircle className="text-3xl" /> Active
+                        <span className=" flex h-[2.5rem] w-full items-center  justify-center gap-2 rounded-md border-b-4 border-green-500  p-2 text-center">
+                          <FaCheckCircle className="text-3xl text-green-500" />{' '}
+                          Active
                         </span>
                       ) : (
-                        <span className=" flex h-[2.5rem] w-full items-center justify-center gap-2 rounded-md bg-red-500 p-2 text-center text-white">
-                          <HiLockClosed className="text-3xl" /> Closed
+                        <span className=" flex h-[2.5rem] w-full items-center justify-center gap-2 rounded-md border-b-4 border-red-500 p-2 text-center">
+                          <HiLockClosed className="text-3xl text-red-500" />{' '}
+                          Closed
                         </span>
                       )}
                     </TableCell>
@@ -249,8 +312,10 @@ const Biddings = () => {
         {showBiddingProfileWinnerDecider && (
           <div className="absolute right-0 top-0 flex h-full w-full justify-center bg-white bg-opacity-80">
             <div className="relative mt-[5rem] flex h-[30rem] w-[60rem] items-center justify-center gap-10 rounded-md border-2 bg-white p-2 pt-[2rem]">
-             
-              <IoMdClose  className="absolute right-6 top-6 flex gap-2 text-2xl cursor-pointer"   onClick={() => setShowBiddingProfileWinnerDecider(false)}  /> 
+              <IoMdClose
+                className="absolute right-6 top-6 flex cursor-pointer gap-2 text-2xl"
+                onClick={() => setShowBiddingProfileWinnerDecider(false)}
+              />
 
               <div className="flex justify-around">
                 <img
@@ -333,9 +398,10 @@ const Biddings = () => {
         {showLeaderBoards && (
           <div className="absolute right-0 top-0 flex h-full w-full justify-center bg-white bg-opacity-80">
             <div className="relative mt-[5rem] flex h-[30rem] w-[60rem] gap-10 rounded-md border-2 bg-white p-2 ">
-            <IoMdClose  className="absolute right-6 top-6 flex gap-2 text-2xl cursor-pointer"   onClick={() => setShowLeaderBoards(false)}  /> 
-        
-
+              <IoMdClose
+                className="absolute right-6 top-6 flex cursor-pointer gap-2 text-2xl"
+                onClick={() => setShowLeaderBoards(false)}
+              />
 
               <Table className="mt-[5rem] border-2">
                 <TableHeader>
